@@ -1,9 +1,11 @@
 {
   "pages": [
-    "pages/index/index",
     "pages/login/login",
     "pages/logs/logs",
-    "pages/home/home"
+    "pages/purchase/purchase",
+    "pages/sale/sale",
+    "pages/storeIn/storeIn",
+    "pages/storeOut/storeOut"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -21,16 +23,34 @@
     "box-shadow": "0 0 6px 0",
     "list": [
       {
-        "pagePath": "pages/index/index",
-        "iconPath": "images/nav/home-off.png",
-        "selectedIconPath": "images/nav/home-on.png",
-        "text": "首页"
-      },
-      {
         "pagePath": "pages/login/login",
         "iconPath": "images/nav/my-off.png",
         "selectedIconPath": "images/nav/my-on.png",
-        "text": "login"
+        "text": "登入"
+      },
+      {
+        "pagePath": "pages/sale/sale",
+        "iconPath": "images/nav/sale-off.png",
+        "selectedIconPath": "images/nav/sale-on.png",
+        "text": "销售单"
+      },
+      {
+        "pagePath": "pages/purchase/purchase",
+        "iconPath": "images/nav/purchase-off.png",
+        "selectedIconPath": "images/nav/purchase-on.png",
+        "text": "采购单"
+      },
+      {
+        "pagePath": "pages/storeOut/storeOut",
+        "iconPath": "images/nav/storeout-off.png",
+        "selectedIconPath": "images/nav/storeout-on.png",
+        "text": "出库单"
+      },
+      {
+        "pagePath": "pages/storeIn/storeIn",
+        "iconPath": "images/nav/storein-off.png",
+        "selectedIconPath": "images/nav/storein-on.png",
+        "text": "入库单"
       }
     ]
   }

@@ -1,6 +1,5 @@
 const APP_ID = 'wx7feabb69bfb3d907';//输入小程序appid  
 const APP_SECRET = '40c3f8609b20c4ef5dc00192d130478e';//输入小程序app_secret 
-var CODE = ''
 var OPEN_ID = ''//储存获取到openid  
 var SESSION_KEY = ''//储存获取到session_key
 Page({
@@ -8,7 +7,7 @@ Page({
     userName: '',
     password: '',
   },
-  onLoad:function(){
+  onReady:function(){
     this.getOpenId();
   },
   // 获取输入账号 
@@ -48,9 +47,11 @@ Page({
             title: '登录成功',
             icon: 'success',
             duration: 2000
-          })
+          });
+          //设置sessionkey
+          wx.setStorageSync('key', SESSION_KEY);
           wx.navigateTo({
-            url: '../page/home/home'
+            url: '../../pages/home/home'
           })
         }
         else {
@@ -78,13 +79,37 @@ Page({
           method: 'GET',
           success: function (res) {
             OPEN_ID = res.data.openid;//获取到的openid  
-            SESSION_KEY = res.data.session_key;//获取到session_key  
-            console.log(res.data)
+            SESSION_KEY = res.data.session_key;//获取到session_key 
+            wx.request({
+              url: 'http://localhost:62115/api/WXLogin/WXAutoLogin',
+              data: {
+                openId: OPEN_ID,
+                sessionKey: SESSION_KEY,
+              },
+              method: 'POST',
+              success: function (res) {
+                console.log(res)
+                if (res.data.success == true) {
+                  wx.showToast({
+                    title: '登录成功',
+                    icon: 'success',
+                    duration: 2000
+                  });
+                  //设置sessionkey
+                  wx.setStorageSync('key', SESSION_KEY);
+                }
+                else {
+                  wx.showModal({
+                    title: '登入失败',
+                    content: res.data.message
+                  })
+                }
+              }
+            }) 
           }
         })
       }
     })
-   
   },
 })
 

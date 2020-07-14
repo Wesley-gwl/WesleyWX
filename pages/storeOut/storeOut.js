@@ -1,4 +1,4 @@
-// pages/home.js
+// pages/storeOut/storeOut.js
 Page({
 
   /**

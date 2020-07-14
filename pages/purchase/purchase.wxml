@@ -1,0 +1,16 @@
+<view class="objectView">
+  <view class="btnShow" catchtap="show">show列表</view>
+</view>
+
+<view class="cehuaDa" wx:if="{{isShowSideslip}}">
+  <view class="sideslipMenuItemlist">
+    <block wx:for="{{sideslipMenuArr}}">
+      <view class="sideslipMenuItem" id="{{index}}" catchtap="itemClick">
+        {{item}}
+      </view>
+    </block>
+  </view>
+  <view class="sideslipMenu" catchtap="offSideslipMen">
+  </view>
+</view>
+

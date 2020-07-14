@@ -25,4 +25,3 @@
  </view> 
  </view> 
 </view>
-<image class="logo" src="{{userInfo.avatarUrl}}"></image>
