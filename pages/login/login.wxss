@@ -80,7 +80,7 @@ page{
 .head {
   display:flex;
   width: 100%;
-  background-color: #15c261;
+  background-color: #1f85e4;
   align-items: center;
 }
 
@@ -112,7 +112,6 @@ page{
 .list-wrapper {
   width: 100%;
 }
-
 /* 横着的分割View样式 */
 /*分割线样式*/
 .div-line{

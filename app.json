@@ -43,14 +43,14 @@
       },
       {
         "pagePath": "pages/storeOut/storeOut",
-        "iconPath": "images/nav/storeout-off.png",
-        "selectedIconPath": "images/nav/storeout-on.png",
+        "iconPath": "images/nav/stock-off.png",
+        "selectedIconPath": "images/nav/stock-on.png",
         "text": "出库单"
       },
       {
         "pagePath": "pages/storeIn/storeIn",
-        "iconPath": "images/nav/storein-off.png",
-        "selectedIconPath": "images/nav/storein-on.png",
+        "iconPath": "images/nav/report-off.png",
+        "selectedIconPath": "images/nav/report-on.png",
         "text": "入库单"
       }
     ]
