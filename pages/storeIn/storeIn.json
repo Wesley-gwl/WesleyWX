@@ -1,13 +1,7 @@
 {
-
   "backgroundColor": "#F7F7F7",
-
   "navigationBarBackgroundColor": "#fff",
-
   "navigationBarTitleText": "入库单",
-
   "navigationBarTextStyle": "black",
-
   "disableScroll":true
-  
 }

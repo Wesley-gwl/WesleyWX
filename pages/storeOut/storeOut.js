@@ -1,66 +1,32 @@
-// pages/storeOut/storeOut.js
+const leftList = require("leftList.js");
+var that = '';
+var query;
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
-
+    leftList: [],
+    idx: 0,
+    scrollTop: 0,
+    toView:'position0'
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad: function (options) {
-
+    that = this;
+    this.setData({ leftList: leftList.leftList })
+    query = wx.createSelectorQuery();
+    wx.createSelectorQuery().selectAll('.position').boundingClientRect(function (rects) {
+      that.setData({ positions:rects })
+    }).exec();
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
+  switchClassfun(e){
+    var e = e.currentTarget.dataset.index;
+    this.setData({ idx: e, toView: 'position' + e })
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+  bindscrollfunc(e){
+    var arr = [];
+    for(var item of this.data.positions){
+      if (item.top <= e.detail.scrollTop + 2){
+        arr.push(item)
+      }
+    }
+    this.setData({ idx:arr[arr.length-1].dataset.index })
   }
 })

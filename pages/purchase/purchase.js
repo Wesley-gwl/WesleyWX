@@ -1,36 +1,41 @@
-// pages/purchase.js
 Page({
-  data:{
-    isShowSideslip: false,
-    sideslipMenuArr: ['嘿嘿', '哈哈', '啊啊啊', '通通通', '啪啪啪', '嘿嘿嘿', '哒哒哒']
+  data: {
+      isAdd: false
   },
-  show: function() {
-    this.setData({
-      isShowSideslip: true
-    })
+  handleAdd () {
+      this.setData({
+          isAdd: !this.data.isAdd
+      })
   },
-  offSideslipMen: function(){
-    this.setData({
-      isShowSideslip: false
-    })
-  }
-  ,
-  itemClick: function(e) {
-    var tapId = e.currentTarget.id;
-    var index = this;
-    for (var i = 0; i < index.data.sideslipMenuArr.length;i++){
-      if (tapId == i){
-        wx.showToast({
-          title: index.data.sideslipMenuArr[i],
-          icon: 'none',
-          image: '',
-          duration: 1000,
-          mask: true,
-          success: function(res) {},
-          fail: function(res) {},
-          complete: function(res) {},
-        })
-      }
+  onShow: function () {
+    var key = wx.getStorageSync("key");
+    console.log(key);
+    if(!key){
+      wx.switchTab({
+        url:'/pages/login/login'
+      })
+      wx.showModal({
+        title: '提示',
+        content: '请先登入',
+        duration: 2000
+      })
     }
+    var header;
+    header = {
+      'content-type': 'application/x-www-form-urlencoded',
+      'sessionKey':key//读取cookie
+    };
+    // wx.request({
+    //   url: realURL,
+    //   method: method,
+    //   header: header,//传在请求的header里
+    //   data: datas,
+    //   success(res) {
+    //   //请求成功的处理
+    //   }
+    // )}
+  },
+  onLoad:function(){
+    
   }
-})
+});

@@ -1,16 +1,60 @@
-<view class="objectView">
-  <view class="btnShow" catchtap="show">show列表</view>
-</view>
-
-<view class="cehuaDa" wx:if="{{isShowSideslip}}">
-  <view class="sideslipMenuItemlist">
-    <block wx:for="{{sideslipMenuArr}}">
-      <view class="sideslipMenuItem" id="{{index}}" catchtap="itemClick">
-        {{item}}
-      </view>
-    </block>
-  </view>
-  <view class="sideslipMenu" catchtap="offSideslipMen">
-  </view>
-</view>
-
+<i-grid>
+  <i-row>
+    <navigator url="../purchaseAddOrEdit/purchaseAddOrEdit">
+    <i-grid-item>
+        <i-grid-icon>
+            <i-icon size="30" type="activity" />
+            <i-grid-label>新增采购单</i-grid-label>
+        </i-grid-icon>
+    </i-grid-item>
+    </navigator>
+    <i-grid-item>
+        <i-grid-icon>
+            <i-icon size="30" type="addressbook" />
+            <i-grid-label>订单查询</i-grid-label>
+        </i-grid-icon>
+    </i-grid-item>
+  </i-row>
+  <i-row>
+      <i-grid-item>
+          <i-grid-icon>
+              <i-icon size="30" type="collection" />
+              <i-grid-label><a>采购对账单</a></i-grid-label>
+          </i-grid-icon>
+      </i-grid-item>
+      <i-grid-item>
+          <i-grid-icon>
+              <i-icon size="30" type="computer" />
+              <i-grid-label>应付款单</i-grid-label>
+          </i-grid-icon>
+      </i-grid-item>
+  </i-row>
+  <i-row>
+      <i-grid-item>
+          <i-grid-icon>
+              <i-icon size="30" type="flag" />
+              <i-grid-label>付款单</i-grid-label>
+          </i-grid-icon>
+      </i-grid-item>
+      <i-grid-item>
+          <i-grid-icon>
+              <i-icon size="30" type="interactive" />
+              <i-grid-label>核销</i-grid-label>
+          </i-grid-icon>
+      </i-grid-item>
+  </i-row>
+  <i-row>
+    <i-grid-item>
+        <i-grid-icon>
+            <i-icon size="30" type="flag" />
+            <i-grid-label>月报表</i-grid-label>
+        </i-grid-icon>
+    </i-grid-item>
+    <i-grid-item>
+        <i-grid-icon>
+            <i-icon size="30" type="interactive" />
+            <i-grid-label>图像报表</i-grid-label>
+        </i-grid-icon>
+    </i-grid-item>
+</i-row>
+</i-grid>

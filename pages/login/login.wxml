@@ -1,4 +1,5 @@
-<view class="container"> 
+ <!--登入页面-->
+<view class="container" hidden="{{loginHidden}}"> 
  <view class="login-icon"> 
  <image class="login-img" src="../../images/loginLog.jpg"></image> 
  </view> 
@@ -24,4 +25,34 @@
   <button class="loginBtn" type="primary" size="{{primarySize}}" loading="{{loading}}" plain="{{plain}}" disabled="{{disabled}}" bindtap="login">登录</button> 
  </view> 
  </view> 
+</view>
+ <!--登入后-->
+<view  hidden="{{indexHidden}}">
+  <view class='head head-height'>
+    <block wx:if="{{!hasUserInfo && canIUse}}">
+      <view class="userinfo">
+        <image class="userinfo-avatar" src="../../images/icon-me.png" mode="cover"></image>
+        <text class="userinfo-nickname">微信授权</text>
+      </view>
+      <button class="login-button head-height" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+    </block>
+    <block wx:else>
+      <view class="userinfo">
+        <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+        <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+      </view>
+    </block>
+  </view>
+  <view class="list-wrapper">
+    <block wx:for="{{menuitems}}" wx:key="item">
+      <button bindtap="{{item.bindtap}}"  class="list-item" hover-class="list-item_active">
+        <view class='item'>
+          <image class='item-image' src="{{item.icon}}"></image>
+          <text class="item-text">{{item.text}}</text>
+          <text class='item-array'>></text>
+        </view>
+        <view class="div-line"></view>
+      </button>
+    </block>
+  </view>
 </view>

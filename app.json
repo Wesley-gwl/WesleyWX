@@ -5,7 +5,8 @@
     "pages/purchase/purchase",
     "pages/sale/sale",
     "pages/storeIn/storeIn",
-    "pages/storeOut/storeOut"
+    "pages/storeOut/storeOut",
+    "pages/purchaseAddOrEdit/purchaseAddOrEdit"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -26,7 +27,7 @@
         "pagePath": "pages/login/login",
         "iconPath": "images/nav/my-off.png",
         "selectedIconPath": "images/nav/my-on.png",
-        "text": "登入"
+        "text": "我的"
       },
       {
         "pagePath": "pages/sale/sale",

@@ -33,7 +33,7 @@
 		"packNpmRelationList": []
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.0.4",
+	"libVersion": "2.11.3",
 	"appid": "wx7feabb69bfb3d907",
 	"projectname": "WesleyWX",
 	"debugOptions": {

@@ -1,2 +1,22 @@
-<!--pages/storeOut/storeOut.wxml-->
-<text>pages/storeOut/storeOut.wxml</text>
+<view class='big-box'>
+  <!--左侧栏-->
+  <view class="left-menu">
+    <block wx:for="{{leftList}}" wx:key="">
+      <view class='{{index == idx ? "avtive":"Default-Class"}}' bindtap="switchClassfun" data-index="{{item.index}}">{{item.title}}</view>
+    </block>
+  </view>
+  <!--右侧栏-->
+  <view class="nav_right" style='width:73%;'>
+    <!--如果有数据，才遍历项-->
+    <!-- <view wx:if="{{cateItems[curIndex].ishaveChild}}">
+      <block wx:for="{{cateItems[curIndex].children}}" wx:key="">
+        <view class="nav_right_items">
+          <navigator url="">
+            <image src="{{item.image}}"></image>
+            <text>{{item.name}}</text>
+          </navigator>
+        </view>
+      </block>
+    </view> -->
+  </view>
+</view>
