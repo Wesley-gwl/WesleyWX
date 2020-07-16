@@ -1,31 +1,47 @@
-Component({
-    externalClasses: ['i-class'],
-
-    relations: {
-        '../collapse-item/index': {
-            type: 'child'
-        }
+import { VantComponent } from '../common/component';
+VantComponent({
+  relation: {
+    name: 'collapse-item',
+    type: 'descendant',
+    current: 'collapse',
+  },
+  props: {
+    value: {
+      type: null,
+      observer: 'updateExpanded',
     },
-    properties: {
-        name: String,
-        accordion: Boolean
+    accordion: {
+      type: Boolean,
+      observer: 'updateExpanded',
     },
-    methods: {
-        clickfn(e) {
-            const params = e.detail;
-            const allList = this.getRelationNodes('../collapse-item/index');
-            allList.forEach((item) => {
-                if (params.name === item.data.name) {
-                    item.setData({
-                        showContent: 'i-collapse-item-show-content'
-                    });
-                } else {
-                    item.setData({
-                        showContent: ''
-                    });
-                }
-            });
-        },
-    }
+    border: {
+      type: Boolean,
+      value: true,
+    },
+  },
+  methods: {
+    updateExpanded() {
+      this.children.forEach((child) => {
+        child.updateExpanded();
+      });
+    },
+    switch(name, expanded) {
+      const { accordion, value } = this.data;
+      const changeItem = name;
+      if (!accordion) {
+        name = expanded
+          ? (value || []).concat(name)
+          : (value || []).filter((activeName) => activeName !== name);
+      } else {
+        name = expanded ? name : '';
+      }
+      if (expanded) {
+        this.$emit('open', changeItem);
+      } else {
+        this.$emit('close', changeItem);
+      }
+      this.$emit('change', name);
+      this.$emit('input', name);
+    },
+  },
 });
-

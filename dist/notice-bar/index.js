@@ -1,112 +1,130 @@
-const VALID_MODE = ['closeable'];
-const FONT_COLOR = '#f60';
-const BG_COLOR = '#fff7cc';
-
-Component({
-    externalClasses: ['i-class'],
-
-    properties: {
-        closable: {
-            type: Boolean,
-            value: false
-        },
-        icon: {
-            type: String,
-            value: ''
-        },
-        loop: {
-            type: Boolean,
-            value: false
-        },
-        // 背景颜色
-        backgroundcolor: {
-            type: String,
-            value: '#fefcec'
-        },
-        // 字体及图标颜色
-        color: {
-            type: String,
-            value: '#f76a24'
-        },
-        // 滚动速度
-        speed: {
-            type: Number,
-            value: 1000
+import { VantComponent } from '../common/component';
+const FONT_COLOR = '#ed6a0c';
+const BG_COLOR = '#fffbe8';
+VantComponent({
+  props: {
+    text: {
+      type: String,
+      value: '',
+      observer() {
+        wx.nextTick(() => {
+          this.init();
+        });
+      },
+    },
+    mode: {
+      type: String,
+      value: '',
+    },
+    url: {
+      type: String,
+      value: '',
+    },
+    openType: {
+      type: String,
+      value: 'navigate',
+    },
+    delay: {
+      type: Number,
+      value: 1,
+    },
+    speed: {
+      type: Number,
+      value: 50,
+      observer() {
+        wx.nextTick(() => {
+          this.init();
+        });
+      },
+    },
+    scrollable: {
+      type: Boolean,
+      value: true,
+    },
+    leftIcon: {
+      type: String,
+      value: '',
+    },
+    color: {
+      type: String,
+      value: FONT_COLOR,
+    },
+    backgroundColor: {
+      type: String,
+      value: BG_COLOR,
+    },
+    wrapable: Boolean,
+  },
+  data: {
+    show: true,
+  },
+  created() {
+    this.resetAnimation = wx.createAnimation({
+      duration: 0,
+      timingFunction: 'linear',
+    });
+  },
+  destroyed() {
+    this.timer && clearTimeout(this.timer);
+  },
+  methods: {
+    init() {
+      Promise.all([
+        this.getRect('.van-notice-bar__content'),
+        this.getRect('.van-notice-bar__wrap'),
+      ]).then((rects) => {
+        const [contentRect, wrapRect] = rects;
+        if (
+          contentRect == null ||
+          wrapRect == null ||
+          !contentRect.width ||
+          !wrapRect.width
+        ) {
+          return;
         }
-    },
-
-    data: {
-        show: true,
-        wrapWidth: 0,
-        width: 0,
-        duration: 0,
-        animation: null,
-        timer: null,
-    },
-    detached() {
-        this.destroyTimer();
-    },
-    ready() {
-        if (this.data.loop) {
-            this.initAnimation();
+        const { speed, scrollable, delay } = this.data;
+        if (scrollable && wrapRect.width < contentRect.width) {
+          const duration = (contentRect.width / speed) * 1000;
+          this.wrapWidth = wrapRect.width;
+          this.contentWidth = contentRect.width;
+          this.duration = duration;
+          this.animation = wx.createAnimation({
+            duration,
+            timingFunction: 'linear',
+            delay,
+          });
+          this.scroll();
         }
+      });
     },
-
-    methods: {
-        initAnimation() {
-            wx.createSelectorQuery().in(this).select('.i-noticebar-content-wrap').boundingClientRect((wrapRect) => {
-                wx.createSelectorQuery().in(this).select('.i-noticebar-content').boundingClientRect((rect) => {
-                    const duration = rect.width / 40 * this.data.speed;
-                    const animation = wx.createAnimation({
-                        duration: duration,
-                        timingFunction: "linear",
-                    });
-                    this.setData({
-                        wrapWidth: wrapRect.width,
-                        width: rect.width,
-                        duration: duration,
-                        animation: animation
-                    }, () => {
-                        this.startAnimation();
-                    });
-                }).exec();
-
-            }).exec();
-        },
-        startAnimation() {
-            //reset
-            if (this.data.animation.option.transition.duration !== 0) {
-                this.data.animation.option.transition.duration = 0;
-                const resetAnimation = this.data.animation.translateX(this.data.wrapWidth).step();
-                this.setData({
-                    animationData: resetAnimation.export()
-                });
-            }
-            this.data.animation.option.transition.duration = this.data.duration;
-            const animationData = this.data.animation.translateX(-this.data.width).step();
-            setTimeout(() => {
-                this.setData({
-                    animationData: animationData.export()
-                });
-            }, 100);
-            const timer = setTimeout(() => {
-                this.startAnimation();
-            }, this.data.duration);
-            this.setData({
-                timer,
-            });
-        },
-        destroyTimer() {
-            if (this.data.timer) {
-                clearTimeout(this.data.timer);
-            }
-        },
-        handleClose() {
-            this.destroyTimer();
-            this.setData({
-                show: false,
-                timer: null
-            });
-        }
-    }
+    scroll() {
+      this.timer && clearTimeout(this.timer);
+      this.timer = null;
+      this.setData({
+        animationData: this.resetAnimation
+          .translateX(this.wrapWidth)
+          .step()
+          .export(),
+      });
+      setTimeout(() => {
+        this.setData({
+          animationData: this.animation
+            .translateX(-this.contentWidth)
+            .step()
+            .export(),
+        });
+      }, 20);
+      this.timer = setTimeout(() => {
+        this.scroll();
+      }, this.duration);
+    },
+    onClickIcon() {
+      this.timer && clearTimeout(this.timer);
+      this.timer = null;
+      this.setData({ show: false });
+    },
+    onClick(event) {
+      this.$emit('click', event);
+    },
+  },
 });

@@ -1,3 +1,5 @@
+<van-toast id="van-toast" />
+<van-notify id="van-notify" />
  <!--登入页面-->
 <view class="container" hidden="{{loginHidden}}"> 
  <view class="login-icon"> 

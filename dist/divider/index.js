@@ -1,25 +1,33 @@
-Component({
-    externalClasses: ['i-class'],
-    properties: {
-        content: {
-            type: String,
-            value: ''
-        },
-        height : {
-            type: Number,
-            value: 48
-        },
-        color : {
-            type : String,
-            value : '#80848f'
-        },
-        lineColor : {
-            type : String,
-            value : '#e9eaec'
-        },
-        size : {
-            type: String,
-            value: 12
-        }
-    }
+import { VantComponent } from '../common/component';
+VantComponent({
+  props: {
+    dashed: {
+      type: Boolean,
+      value: false,
+    },
+    hairline: {
+      type: Boolean,
+      value: false,
+    },
+    contentPosition: {
+      type: String,
+      value: '',
+    },
+    fontSize: {
+      type: Number,
+      value: '',
+    },
+    borderColor: {
+      type: String,
+      value: '',
+    },
+    textColor: {
+      type: String,
+      value: '',
+    },
+    customStyle: {
+      type: String,
+      value: '',
+    },
+  },
 });

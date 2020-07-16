@@ -1,8 +1,6 @@
 {
-  "navigationBarTitleText": "Input 输入框",
+  "navigationBarTitleText": "新增编辑采购单",
   "usingComponents": {
-    "i-input": "../../dist/input/index",
-    "i-button": "../../dist/button/index",
-    "i-panel": "../../dist/panel/index"
+    "van-button": "../../dist/button/index"
   }
 }

@@ -1,56 +1,48 @@
-const prefixCls = 'i-radio';
-
-Component({
-    externalClasses: ['i-class'],
-    relations: {
-        '../radio-group/index': {
-            type: 'parent'
-        }
+import { VantComponent } from '../common/component';
+VantComponent({
+  field: true,
+  relation: {
+    name: 'radio-group',
+    type: 'ancestor',
+    current: 'radio',
+  },
+  classes: ['icon-class', 'label-class'],
+  props: {
+    name: null,
+    value: null,
+    disabled: Boolean,
+    useIconSlot: Boolean,
+    checkedColor: String,
+    labelPosition: {
+      type: String,
+      value: 'right',
     },
-    properties: {
-        value: {
-            type: String,
-            value: ''
-        },
-        checked: {
-            type: Boolean,
-            value: false
-        },
-        disabled: {
-            type: Boolean,
-            value: false
-        },
-        color: {
-            type: String,
-            value: '#2d8cf0'
-        },
-        position: {
-            type: String,
-            value: 'left', //left right
-            observer: 'setPosition'
-        }
+    labelDisabled: Boolean,
+    shape: {
+      type: String,
+      value: 'round',
     },
-    data: {
-        checked: true,
-        positionCls: `${prefixCls}-radio-left`,
+    iconSize: {
+      type: null,
+      value: 20,
     },
-    attached() {
-        this.setPosition();
+  },
+  methods: {
+    emitChange(value) {
+      const instance = this.parent || this;
+      instance.$emit('input', value);
+      instance.$emit('change', value);
     },
-    methods: {
-        changeCurrent(current) {
-            this.setData({ checked: current });
-        },
-        radioChange() {
-            if (this.data.disabled) return;
-            const item = { current: !this.data.checked, value: this.data.value };
-            const parent = this.getRelationNodes('../radio-group/index')[0];
-            parent ? parent.emitEvent(item) : this.triggerEvent('change', item);
-        },
-        setPosition() {
-            this.setData({
-                positionCls: this.data.position.indexOf('left') !== -1 ? `${prefixCls}-radio-left` : `${prefixCls}-radio-right`,
-            });
-        }
-    }
+    onChange() {
+      if (!this.data.disabled) {
+        this.emitChange(this.data.name);
+      }
+    },
+    onClickLabel() {
+      const { disabled, labelDisabled, name } = this.data;
+      if (!disabled && !labelDisabled) {
+        this.emitChange(name);
+      }
+    },
+  },
 });

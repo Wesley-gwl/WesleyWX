@@ -1,6 +1,5 @@
-// pages/purchaseAddOrEdit/purchaseAddOrEdit.js
-Page({
 
+Page({
   /**
    * 页面的初始数据
    */
@@ -12,9 +11,11 @@ Page({
     value5: '',
     value6: '',
     value7: '',
-   
   },
-
+  getPerDate: function (e) {
+    console.log(e.detail)
+    //处理拿到的数值
+  },
   /**
    * 生命周期函数--监听页面加载
    */

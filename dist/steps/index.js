@@ -1,50 +1,33 @@
-Component({
-    externalClasses: ['i-class'],
-    properties : {
-        current : {
-            type : Number,
-            value : -1,
-            observer : '_updateDataChange'
-        },
-        status : {
-            type : String,
-            //wait、process、finish、error
-            value : ''
-        },
-        direction : {
-            type : String,
-            //value has horizontal or vertical 
-            value : 'horizontal'
-        } 
+import { VantComponent } from '../common/component';
+import { GREEN, GRAY_DARK } from '../common/color';
+VantComponent({
+  classes: ['desc-class'],
+  props: {
+    icon: String,
+    steps: Array,
+    active: Number,
+    direction: {
+      type: String,
+      value: 'horizontal',
     },
-    relations : {
-        '../step/index' : {
-            type : 'child',
-            linked(){
-                this._updateDataChange();
-            },
-            linkChanged () {
-                this._updateDataChange();
-            },
-            unlinked () {
-                this._updateDataChange();
-            }
-        }
+    activeColor: {
+      type: String,
+      value: GREEN,
     },
-    methods: {
-        _updateDataChange() {
-            let steps = this.getRelationNodes('../step/index');
-            const len = steps.length;
-            if (len > 0) {
-                steps.forEach((step, index) => {
-                    step.updateDataChange({
-                        len : len,
-                        index : index,
-                        current : this.data.current,
-                        direction : this.data.direction
-                    });
-                });
-            }
-        }
-    }
-})
+    inactiveColor: {
+      type: String,
+      value: GRAY_DARK,
+    },
+    activeIcon: {
+      type: String,
+      value: 'checked',
+    },
+    inactiveIcon: String,
+  },
+  methods: {
+    onClick(event) {
+      const { index } = event.currentTarget.dataset;
+      this.$emit('click-step', index);
+    },
+  },
+});

@@ -1,12 +1,12 @@
 {
   "pages": [
     "pages/login/login",
+    "pages/purchaseAddOrEdit/purchaseAddOrEdit",
     "pages/logs/logs",
     "pages/purchase/purchase",
     "pages/sale/sale",
     "pages/storeIn/storeIn",
-    "pages/storeOut/storeOut",
-    "pages/purchaseAddOrEdit/purchaseAddOrEdit"
+    "pages/storeOut/storeOut"
   ],
   "window": {
     "backgroundTextStyle": "light",

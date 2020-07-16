@@ -1,50 +1,65 @@
-Component({
-    externalClasses: ['i-class'],
-
-    relations: {
-        '../grid-item/index': {
-            type: 'child',
-            linked () {
-                this.setGridItemWidth();
-            },
-            linkChanged () {
-                this.setGridItemWidth();
-            },
-            unlinked () {
-                this.setGridItemWidth();
-            }
-        }
+import { VantComponent } from '../common/component';
+import { addUnit } from '../common/utils';
+VantComponent({
+  relation: {
+    name: 'grid-item',
+    type: 'descendant',
+    current: 'grid',
+  },
+  props: {
+    square: {
+      type: Boolean,
+      observer: 'updateChildren',
     },
-
-    methods: {
-        setGridItemWidth () {
-            const nodes = this.getRelationNodes('../grid-item/index');
-
-            // const len = nodes.length;
-            // if (len < 3) {
-            //     nodes.forEach(item => {
-            //         item.setData({
-            //             'width': '33.33%'
-            //         });
-            //     });
-            // } else {
-            //     const width = 100 / nodes.length;
-            //     nodes.forEach(item => {
-            //         item.setData({
-            //             'width': width + '%'
-            //         });
-            //     });
-            // }
-            const width = 100 / nodes.length;
-            nodes.forEach(item => {
-                item.setData({
-                    'width': width + '%'
-                });
-            });
-        }
+    gutter: {
+      type: [Number, String],
+      value: 0,
+      observer: 'updateChildren',
     },
-
-    ready () {
-        this.setGridItemWidth();
+    clickable: {
+      type: Boolean,
+      observer: 'updateChildren',
+    },
+    columnNum: {
+      type: Number,
+      value: 4,
+      observer: 'updateChildren',
+    },
+    center: {
+      type: Boolean,
+      value: true,
+      observer: 'updateChildren',
+    },
+    border: {
+      type: Boolean,
+      value: true,
+      observer: 'updateChildren',
+    },
+    direction: {
+      type: String,
+      observer: 'updateChildren',
+    },
+    iconSize: {
+      type: String,
+      observer: 'updateChildren',
+    },
+  },
+  data: {
+    viewStyle: '',
+  },
+  created() {
+    const { gutter } = this.data;
+    if (gutter) {
+      this.setData({
+        viewStyle: `padding-left: ${addUnit(gutter)}`,
+      });
     }
+  },
+  methods: {
+    updateChildren() {
+      this.children.forEach((child) => {
+        child.updateStyle();
+      });
+    },
+  },
 });

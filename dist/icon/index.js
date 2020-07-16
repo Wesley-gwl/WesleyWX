@@ -1,22 +1,27 @@
-Component({
-    externalClasses: ['i-class'],
-
-    properties: {
-        type: {
-            type: String,
-            value: ''
-        },
-        custom: {
-            type: String,
-            value: ''
-        },
-        size: {
-            type: Number,
-            value: 14
-        },
-        color: {
-            type: String,
-            value: ''
-        }
-    }
+import { VantComponent } from '../common/component';
+VantComponent({
+  props: {
+    dot: Boolean,
+    info: null,
+    size: null,
+    color: String,
+    customStyle: String,
+    classPrefix: {
+      type: String,
+      value: 'van-icon',
+    },
+    name: {
+      type: String,
+      observer(val) {
+        this.setData({
+          isImageName: val.indexOf('/') !== -1,
+        });
+      },
+    },
+  },
+  methods: {
+    onClick() {
+      this.$emit('click');
+    },
+  },
 });

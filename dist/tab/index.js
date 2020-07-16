@@ -1,50 +1,59 @@
-Component({
-    externalClasses: ['i-class'],
-
-    relations: {
-        '../tabs/index': {
-            type: 'parent'
-        }
+import { VantComponent } from '../common/component';
+VantComponent({
+  relation: {
+    name: 'tabs',
+    type: 'ancestor',
+    current: 'tab',
+  },
+  props: {
+    dot: {
+      type: Boolean,
+      observer: 'update',
     },
-
-    properties: {
-        key: {
-            type: String,
-            value: ''
-        },
-        title: {
-            type: String,
-            value: ''
-        },
-        dot: {
-            type: Boolean,
-            value: false
-        },
-        count: {
-            type: Number,
-            value: 0
-        }
+    info: {
+      type: null,
+      observer: 'update',
     },
-
-    data: {
-        current: false,
-        currentColor: '',
-        scroll: false
+    title: {
+      type: String,
+      observer: 'update',
     },
-
-    methods: {
-        changeCurrent (current) {
-            this.setData({ current });
-        },
-        changeCurrentColor (currentColor) {
-            this.setData({ currentColor });
-        },
-        changeScroll (scroll) {
-            this.setData({ scroll });
-        },
-        handleClickItem () {
-            const parent = this.getRelationNodes('../tabs/index')[0];
-            parent.emitEvent(this.data.key);
-        }
-    }
+    disabled: {
+      type: Boolean,
+      observer: 'update',
+    },
+    titleStyle: {
+      type: String,
+      observer: 'update',
+    },
+    name: {
+      type: [Number, String],
+      value: '',
+    },
+  },
+  data: {
+    active: false,
+  },
+  methods: {
+    getComputedName() {
+      if (this.data.name !== '') {
+        return this.data.name;
+      }
+      return this.index;
+    },
+    updateRender(active, parent) {
+      const { data: parentData } = parent;
+      this.inited = this.inited || active;
+      this.setData({
+        active,
+        shouldRender: this.inited || !parentData.lazyRender,
+        shouldShow: active || parentData.animated,
+      });
+    },
+    update() {
+      if (this.parent) {
+        this.parent.updateTabs();
+      }
+    },
+  },
 });

@@ -1,69 +1,87 @@
-Component({
-    externalClasses: ['i-class'],
-    properties : {
-        count : {
-            type : Number,
-            value : 5
-        },
-        value : {
-            type : Number,
-            value : 0
-        },
-        disabled : {
-            type : Boolean,
-            value : false
-        },
-        size : {
-            type : Number,
-            value : 20
-        },
-        name : {
-            type : String,
-            value : ''
+import { VantComponent } from '../common/component';
+import { canIUseModel } from '../common/version';
+VantComponent({
+  field: true,
+  classes: ['icon-class'],
+  props: {
+    value: {
+      type: Number,
+      observer(value) {
+        if (value !== this.data.innerValue) {
+          this.setData({ innerValue: value });
         }
+      },
     },
-    data : {
-        touchesStart : {
-            pageX : 0
+    readonly: Boolean,
+    disabled: Boolean,
+    allowHalf: Boolean,
+    size: null,
+    icon: {
+      type: String,
+      value: 'star',
+    },
+    voidIcon: {
+      type: String,
+      value: 'star-o',
+    },
+    color: {
+      type: String,
+      value: '#ffd21e',
+    },
+    voidColor: {
+      type: String,
+      value: '#c7c7c7',
+    },
+    disabledColor: {
+      type: String,
+      value: '#bdbdbd',
+    },
+    count: {
+      type: Number,
+      value: 5,
+      observer(value) {
+        this.setData({ innerCountArray: Array.from({ length: value }) });
+      },
+    },
+    gutter: null,
+    touchable: {
+      type: Boolean,
+      value: true,
+    },
+  },
+  data: {
+    innerValue: 0,
+    innerCountArray: Array.from({ length: 5 }),
+  },
+  methods: {
+    onSelect(event) {
+      const { data } = this;
+      const { score } = event.currentTarget.dataset;
+      if (!data.disabled && !data.readonly) {
+        this.setData({ innerValue: score + 1 });
+        if (canIUseModel()) {
+          this.setData({ value: score + 1 });
         }
+        wx.nextTick(() => {
+          this.$emit('input', score + 1);
+          this.$emit('change', score + 1);
+        });
+      }
     },
-    methods : {
-        handleClick(e){
-            const data = this.data;
-            if( data.disabled ){
-                return;
-            }
-            const index = e.currentTarget.dataset.index;
-            this.triggerEvent('change',{
-                index : index + 1
-            })
-        },
-        handleTouchMove(e){
-            const data = this.data;
-            if( data.disabled ){
-                return;
-            }
-            if( !e.changedTouches[0] ){
-                return;
-            }
-            const movePageX =  e.changedTouches[0].pageX;
-            const space = movePageX - data.touchesStart.pageX;
-
-            if( space <= 0 ){
-                return;
-            }
-            let setIndex = Math.ceil( space/data.size );
-            setIndex = setIndex  > data.count ? data.count : setIndex ;
-            this.triggerEvent('change',{
-                index : setIndex 
-            })
+    onTouchMove(event) {
+      const { touchable } = this.data;
+      if (!touchable) return;
+      const { clientX } = event.touches[0];
+      this.getRect('.van-rate__icon', true).then((list) => {
+        const target = list
+          .sort((item) => item.right - item.left)
+          .find((item) => clientX >= item.left && clientX <= item.right);
+        if (target != null) {
+          this.onSelect(
+            Object.assign(Object.assign({}, event), { currentTarget: target })
+          );
         }
+      });
     },
-    ready(){
-       const className = '.i-rate';
-        var query = wx.createSelectorQuery().in(this)
-        query.select( className ).boundingClientRect((res)=>{
-            this.data.touchesStart.pageX = res.left || 0;
-        }).exec()
-    }
+  },
 });

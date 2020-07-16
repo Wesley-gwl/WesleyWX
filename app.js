@@ -28,7 +28,7 @@ App({
     })
     
   },
-  globalData: {//全局数据
+  globalData: {//微信信息 头像 名称
     userInfo: null,
   }
 })

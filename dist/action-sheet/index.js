@@ -1,47 +1,62 @@
-Component({
-    externalClasses: ['i-class', 'i-class-mask', 'i-class-header'],
-
-    options: {
-        multipleSlots: true
+import { VantComponent } from '../common/component';
+import { button } from '../mixins/button';
+import { openType } from '../mixins/open-type';
+VantComponent({
+  mixins: [button, openType],
+  props: {
+    show: Boolean,
+    title: String,
+    cancelText: String,
+    description: String,
+    round: {
+      type: Boolean,
+      value: true,
     },
-
-    properties: {
-        visible: {
-            type: Boolean,
-            value: false
-        },
-        maskClosable: {
-            type: Boolean,
-            value: true
-        },
-        showCancel: {
-            type: Boolean,
-            value: false
-        },
-        cancelText: {
-            type: String,
-            value: '取消'
-        },
-        actions: {
-            type: Array,
-            value: []
-        }
+    zIndex: {
+      type: Number,
+      value: 100,
     },
-
-    methods: {
-        handleClickMask () {
-            if (!this.data.maskClosable) return;
-            this.handleClickCancel();
-        },
-
-        handleClickItem ({ currentTarget = {} }) {
-            const dataset = currentTarget.dataset || {};
-            const { index } = dataset;
-            this.triggerEvent('click', { index });
-        },
-
-        handleClickCancel () {
-            this.triggerEvent('cancel');
+    actions: {
+      type: Array,
+      value: [],
+    },
+    overlay: {
+      type: Boolean,
+      value: true,
+    },
+    closeOnClickOverlay: {
+      type: Boolean,
+      value: true,
+    },
+    closeOnClickAction: {
+      type: Boolean,
+      value: true,
+    },
+    safeAreaInsetBottom: {
+      type: Boolean,
+      value: true,
+    },
+  },
+  methods: {
+    onSelect(event) {
+      const { index } = event.currentTarget.dataset;
+      const item = this.data.actions[index];
+      if (item && !item.disabled && !item.loading) {
+        this.$emit('select', item);
+        if (this.data.closeOnClickAction) {
+          this.onClose();
         }
-    }
+      }
+    },
+    onCancel() {
+      this.$emit('cancel');
+    },
+    onClose() {
+      this.$emit('close');
+    },
+    onClickOverlay() {
+      this.$emit('click-overlay');
+      this.onClose();
+    },
+  },
 });

@@ -1,8 +1,11 @@
+import Toast from '../../dist/toast/toast';
+import Notify from '../../dist/notify/notify';
 const app = getApp();
 const APP_ID = 'wx7feabb69bfb3d907';//输入小程序appid  
 const APP_SECRET = '40c3f8609b20c4ef5dc00192d130478e';//输入小程序app_secret 
 var OPEN_ID = ''//储存获取到openid  
 var SESSION_KEY = ''//储存获取到session_key
+
 Page({
   //数据
   data: {
@@ -62,11 +65,8 @@ Page({
   login: function () {
     var that = this;
     if (that.data.userName.length == 0 || that.data.password.length == 0) {
-      wx.showToast({
-        title: '用户名和密码不能为空',
-        icon: 'loading',
-        duration: 2000
-      })
+      Toast.success('用户名和密码不能为空');
+      return;
     } 
     wx.request({
       url: that.data.config.login_url,
@@ -79,11 +79,7 @@ Page({
       method: 'POST',
       success: function (res) {
         if (res.data.success == true) {
-          wx.showToast({
-            title: '登录成功',
-            icon: 'success',
-            duration: 2000
-          });
+          Notify({ type: 'success', message: '通知内容' });
           //设置sessionkey
           wx.setStorageSync('key', SESSION_KEY);
            that.setData({
@@ -92,10 +88,7 @@ Page({
             })
         }
         else {
-          wx.showModal({
-            title: '登入失败',
-            content: res.data.message
-          })
+          Toast.fail(res.data.message);
         }
       }
     })
@@ -127,11 +120,7 @@ Page({
               method: 'POST',
               success: function (res) {
                 if (res.data.success == true) {
-                  wx.showToast({
-                    title: '登录成功',
-                    icon: 'success',
-                    duration: 2000
-                  });
+                  Notify({ type: 'success', message: '登入成功' });
                   //设置sessionkey
                   wx.setStorageSync('key', SESSION_KEY);
                   that.setData({
