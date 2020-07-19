@@ -1,12 +1,7 @@
 
 Page({
   data: {
-      isAdd: false
-  },
-  handleAdd () {
-      this.setData({
-          isAdd: !this.data.isAdd
-      })
+    
   },
   onShow: function () {
     var key = wx.getStorageSync("key");

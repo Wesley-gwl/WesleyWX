@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "商品",
+  "usingComponents": {
+    "i-card": "../../viewui/card/index",
+    "i-input-number": "../../viewui/input-number/index"
+  }
+}

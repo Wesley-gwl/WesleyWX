@@ -1,1 +1,9 @@
-adfasf
+<van-grid square column-num="3" border="ture" gutter="2"> 
+  <van-grid-item icon="../../images/menu/purchase-add.png" text="新增采购单" url="../purchaseAddOrEdit/purchaseAddOrEdit" />
+  <van-grid-item icon="../../images/menu/purchase-search.png" text="查询订单" url="../purchaseAddOrEdit/purchaseAddOrEdit" />
+  <van-grid-item icon="../../images/menu/purchase-check.png" text="采购对账单" url="../purchaseAddOrEdit/purchaseAddOrEdit" />
+  <van-grid-item icon="../../images/menu/purchase-canpayment.png" text="应收款单" url="../purchaseAddOrEdit/purchaseAddOrEdit" />
+  <van-grid-item icon="../../images/menu/purchase-payment.png" text="收款单" url="../purchaseAddOrEdit/purchaseAddOrEdit" />
+  <van-grid-item icon="../../images/menu/hx-check.png" text="核销" url="../purchaseAddOrEdit/purchaseAddOrEdit" />
+  <van-grid-item icon="../../images/menu/line-report.png" text="报表" url="../purchaseAddOrEdit/purchaseAddOrEdit" />
+</van-grid>

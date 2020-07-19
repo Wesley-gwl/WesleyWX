@@ -1,18 +1,20 @@
 {
   "pages": [
     "pages/login/login",
+    "pages/product/product",
     "pages/purchaseAddOrEdit/purchaseAddOrEdit",
     "pages/logs/logs",
     "pages/purchase/purchase",
     "pages/sale/sale",
     "pages/storeIn/storeIn",
-    "pages/storeOut/storeOut"
+    "pages/storeOut/storeOut",
+    "test/test"
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#fff",
+    "navigationBarBackgroundColor": "#6495ED",
     "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle": "black"
+    "navigationBarTextStyle": "white"
   },
   "style": "v2",
   "sitemapLocation": "sitemap.json",

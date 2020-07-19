@@ -1,0 +1,29 @@
+<view class='big-box'>
+  <!--左侧栏-->
+  <scroll-view class="left-menu"  scroll-y='true'>
+    <block wx:for="{{leftList}}" wx:key="">
+      <view class='{{index == idx ? "avtive":"Default-Class"}}' bindtap="switchClassfun" data-index="{{item.index}}">{{item.title}}</view>
+    </block>
+  </scroll-view>
+  <!--右侧栏-->
+  <scroll-view class="nav_right" style='width:73%;' scroll-y='true'>
+    <view  wx:for="{{productlist}}" wx:key="{{item.id}}">
+      <i-card full title="{{item.name}}"  extra="{{item.code}}-{{item.spec}}"  i-class="card-demo">
+        <view slot="content">
+          价格：
+          <view style="float:right">
+            <i-input-number  value="{{item.price}}" data-index="{{item.index}}" min="0" max="1000" step="0.001" bindchange="handleChangePrice" />
+        </view>
+        </view>
+        <view slot="footer" >
+          数量：
+          <view style="float:right" >
+                <i-input-number value="{{item.number}}" data-index="{{item.index}}" min="0" max="1000000000" bindchange="handleChangeNumber"  />
+            </view>
+        </view>
+      </i-card>
+     
+    </view>
+  </scroll-view>
+</view>
+

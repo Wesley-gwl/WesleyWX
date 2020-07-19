@@ -1,26 +1,66 @@
-
+var util = require('../../utils/util.js');
 Page({
+  
   /**
    * 页面的初始数据
    */
   data: {
-    value1: '',
-    value2: '',
-    value3: '',
-    value4: '输入框已禁用',
-    value5: '',
-    value6: '',
-    value7: '',
+    orderDate: '',
+    deliveryDate: '',
+    showTypeSelect: false,
+    actions: [
+      {
+        type:'0',
+        name: '采购单',
+      },
+      {
+        type:'1',
+        name: '调拨采购单',
+      },
+      {
+        type:'2',
+        name: '采购退货单',
+      },
+    ],
+    formatter(type, value) {
+      if (type === 'year') {
+        return `${value}年`;
+      } else if (type === 'month') {
+        return `${value}月`;
+      }
+      return value;
+    },
   },
-  getPerDate: function (e) {
-    console.log(e.detail)
-    //处理拿到的数值
+  DateChange(event) {
+    console.log(event.detail);
+    this.setData({
+      orderDate: event.detail.value,
+    });
+  },
+  DateChange2(event) {
+    console.log(event.detail);
+    this.setData({
+      deliveryDate: event.detail.value,
+    });
+  },
+  onInput(event) {
+    this.setData({
+      deliveryDate: event.detail,
+    });
+  },
+  //提交
+  onSubmit:function(){
+
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    var time = util.formatDate(new Date());
+    this.setData({
+      orderDate: time,
+      deliveryDate: time,
+    });
   },
 
   /**
