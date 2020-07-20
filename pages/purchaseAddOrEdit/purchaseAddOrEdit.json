@@ -8,6 +8,9 @@
     "van-row": "../../dist/row/index",
     "van-action-sheet": "../../dist/action-sheet/index",
     "van-submit-bar": "../../dist/submit-bar/index",
-    "van-datetime-picker": "../../dist/datetime-picker/index"
+    "van-datetime-picker": "../../dist/datetime-picker/index",
+    "i-card": "../../viewui/card/index",
+    "i-input-number": "../../viewui/input-number/index",
+    "i-divider": "../../viewui/divider/index"
   }
 }

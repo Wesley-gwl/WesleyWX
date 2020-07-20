@@ -7,6 +7,8 @@ Page({
   data: {
     orderDate: '',
     deliveryDate: '',
+    type: 0,
+    productList:[],
     showTypeSelect: false,
     actions: [
       {
@@ -21,6 +23,10 @@ Page({
         type:'2',
         name: '采购退货单',
       },
+      {
+        type:'2',
+        name: '采购退货单',
+      },
     ],
     formatter(type, value) {
       if (type === 'year') {
@@ -30,6 +36,16 @@ Page({
       }
       return value;
     },
+  },
+  onSelect(event){
+    this.setData({ showTypeSelect: true });
+    console.log(event.detail); 
+    if(event.detail.type!=null){
+      this.setData({ typeName: event.detail.name ,type:event.detail.type});
+    }
+  },
+  onClose() {
+    this.setData({ showTypeSelect: false });
   },
   DateChange(event) {
     console.log(event.detail);
@@ -48,6 +64,7 @@ Page({
       deliveryDate: event.detail,
     });
   },
+  
   //提交
   onSubmit:function(){
 
@@ -56,6 +73,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log(this.data.productList);
     var time = util.formatDate(new Date());
     this.setData({
       orderDate: time,

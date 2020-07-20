@@ -8,148 +8,67 @@ Page({
    */
   data: {
     config:{},//url路径
-   
     //左侧分类
-    leftList: [
-      {
-        title: '销售单',
-        index:'0',
-        id:'100'
-      },
-      {
-        title: '调货销售单',
-        index:'1',
-        id:'101'
-      },
-      {
-        title: '零售单',
-        index:'2',
-        id:'102'
-      },
-      {
-        title: '销售退货单',
-        index:'3',
-        id:'103'
-      }
-
-    ],
-    idx: 0,
-    scrollTop: 0,
-    toView:'position0',
+    productTypeList: [],
     //商品列表
-    productlist:[{
-      index:"0",
-      id:"1",
-      name:"轻座开关1",
-      code:"123",
-      spec:"456",
-      number:"0",
-      price:"3"
-    },
-    {
-      index:"1",
-      id:"13333333",
-      name:"轻座开关2",
-      code:"234",
-      spec:"456",
-      number:"0",
-      price:"3"
-    },
-    {
-      index:"2",
-      id:"13333333",
-      name:"轻座开关2",
-      code:"234",
-      spec:"456",
-      number:"0",
-      price:"3"
-    },
-    {
-      index:"3",
-      id:"13333333",
-      name:"轻座开关2",
-      code:"234",
-      spec:"456",
-      number:"0",
-      price:"3"
-    },
-    {
-      index:"4",
-      id:"13333333",
-      name:"轻座开关2",
-      code:"234",
-      spec:"456",
-      number:"0",
-      price:"3"
-    },
-    {
-      index:"5",
-      id:"13333333",
-      name:"轻座开关2",
-      code:"234",
-      spec:"456",
-      number:"0",
-      price:"3"
-    },
-    {
-      index:"6",
-      id:"13333333",
-      name:"轻座开关2",
-      code:"234",
-      spec:"456",
-      number:"0",
-      price:"3"
-    },
-    {
-      index:"7",
-      id:"13333333",
-      name:"轻座开关2",
-      code:"234",
-      spec:"456",
-      number:"0",
-      price:"3"
-    },
-    {
-      index:"8",
-      id:"13333333",
-      name:"轻座开关2",
-      code:"234",
-      spec:"456",
-      number:"0",
-      price:"3"
-    }
-  ]
+    productList:[],
+    searchText:""
   },
   //修改数量
-  handleChangeNumber (e ) {
+  handleChangeNumber (e) {
     var index = e.target.dataset.index;
-    var mText = 'productlist['+ index +'].number';
+    var mText = 'productList['+ index +'].number';
     this.setData({
       [mText]: e.detail.value
     })
   },
   //修改金额
-  handleChangePrice (e ) {
+  handleChangePrice (e) {
     var index = e.target.dataset.index;
-    var mText = 'productlist['+ index +'].price';
+    var mText = 'productList['+ index +'].purchasePrice';
     this.setData({
       [mText]: e.detail.value
     })
   },
-  //分类
-  switchClassfun(e){
-    var e = e.currentTarget.dataset.index;
-    this.setData({ idx: e, toView: 'position' + e })
-  },
-  //分类绑定
-  bindscrollfunc(e){
-    var arr = [];
-    for(var item of this.data.positions){
-      if (item.top <= e.detail.scrollTop + 2){
-        arr.push(item)
+  //分类d点击
+  getProductList(re){
+    var that = this;
+    var e = re.currentTarget.dataset.index;
+    wx.request({
+      url: config.productList_url,
+      method: 'post',
+      header: header,//传在请求的header里
+      data:{
+        ProductTypeId:e
+      },
+      success(res) {
+        if(res.data.success){
+          that.setData({
+            productList:res.data.data
+          });
+        }
       }
-    }
-    this.setData({ idx:arr[arr.length-1].dataset.index })
+    })
+
+  },
+  onSearch:function(e){//回车触发
+    console.log(e.detail);
+    var that = this;
+    wx.request({
+      url: config.productList_url,
+      method: 'post',
+      header: header,//传在请求的header里
+      data:{
+        Filter:e.detail
+      },
+      success(res) {
+        if(res.data.success){
+          that.setData({
+            productList:res.data.data
+          });
+        }
+      }
+    })
   },
   /**
    * 生命周期函数--监听页面加载
@@ -157,12 +76,29 @@ Page({
   onLoad: function (options) {
     var that = this;
     that.data.config = wx.getStorageSync('config');
-    var query = wx.createSelectorQuery();
     wx.createSelectorQuery().selectAll('.position').boundingClientRect(function (rects) {
       that.setData({ positions:rects })
     }).exec();
   },
-
+  onSubmit:function(){
+    var that = this;
+    var list = that.data.productList;
+    if(list.length>0)
+      var result =[];
+      list.forEach(p => {
+        if(p.number>0){
+          result.push(p);
+        }
+        var pages = getCurrentPages();
+        var prevPage = pages[pages.length - 2]; //上一个页面
+        prevPage.setData({
+          productList: result
+        })
+      });
+      wx.navigateBack({//返回上一页
+        delta: 1
+      })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -176,7 +112,6 @@ Page({
   onShow: function () {
     var that =this;
     var key = wx.getStorageSync("key");
-    console.log(key);
     if(!key){
       wx.switchTab({
         url:'/pages/login/login'
@@ -191,15 +126,20 @@ Page({
       'content-type': 'application/x-www-form-urlencoded',
       'sessionKey':key//读取cookie
     };
-    that.loadProductType();
+    that.GetProductType();
   },
-  loadProductType:function(){
+  GetProductType:function(){
+    var that = this;
     wx.request({
       url: config.productType_url,
       method: 'get',
       header: header,//传在请求的header里
       success(res) {
-        console.log(res);
+        if(res.data.success){
+          that.setData({
+            productTypeList:res.data.data
+          });
+        }
       //请求成功的处理
       }
     })

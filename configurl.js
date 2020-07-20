@@ -5,6 +5,7 @@ var config={
    loginAuto_url:host+"api/WXLogin/WXAutoLogin",
    login_url:host+"api/WXLogin/WXLogin",
    //商品相关
-   productType_url:host+"api/ProductTypeWX/GetTree"
+   productType_url:host+"api/ProductTypeWX/GetList",
+   productList_url:host+"api/ProductWX/GetProductList"
 }
 module.exports=config;

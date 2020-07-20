@@ -21,15 +21,7 @@ Page({
       'content-type': 'application/x-www-form-urlencoded',
       'sessionKey':key//读取cookie
     };
-    // wx.request({
-    //   url: realURL,
-    //   method: method,
-    //   header: header,//传在请求的header里
-    //   data: datas,
-    //   success(res) {
-    //   //请求成功的处理
-    //   }
-    // )}
+   
   },
   onLoad:function(){
     
