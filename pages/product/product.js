@@ -112,6 +112,7 @@ Page({
   onShow: function () {
     var that =this;
     var key = wx.getStorageSync("key");
+    console.log(key);
     if(!key){
       wx.switchTab({
         url:'/pages/login/login'

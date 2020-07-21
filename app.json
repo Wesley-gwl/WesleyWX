@@ -1,8 +1,8 @@
 {
   "pages": [
     "pages/purchaseAddOrEdit/purchaseAddOrEdit",
-    "pages/product/product",
     "pages/login/login",
+    "pages/product/product",
     "pages/logs/logs",
     "pages/purchase/purchase",
     "pages/sale/sale",
