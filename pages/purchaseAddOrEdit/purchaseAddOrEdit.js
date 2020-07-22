@@ -1,30 +1,33 @@
 var util = require('../../utils/util.js');
+const config = require("../../configurl");
+var header;
 Page({
   
   /**
    * 页面的初始数据
    */
   data: {
-    type: 0,
+    type: 3,
+    typeName:"采购单",
     totalPrice:0.000,
     customer:{},
     productList:[],
     showTypeSelect: false,
     actions: [
       {
-        type:'0',
+        type:'3',
         name: '采购单',
       },
       {
-        type:'1',
+        type:'4',
         name: '调拨采购单',
       },
       {
-        type:'2',
+        type:'6',
         name: '采购退货单',
       },
       {
-        type:'2',
+        type:'6',
         name: '采购退货单',
       },
     ],
@@ -45,6 +48,7 @@ Page({
   },
   //修改数量
   handleChangeNumber (e) {
+    console.log(e);
     var index = e.target.dataset.index;
     var mText = 'productList['+ index +'].number';
     this.setData({
@@ -54,6 +58,7 @@ Page({
   },
   //修改金额
   handleChangePrice (e) {
+    console.log(e);
     var index = e.target.dataset.index;
     var mText = 'productList['+ index +'].purchasePrice';
     this.setData({
@@ -64,7 +69,6 @@ Page({
   calculateTotalPrice:function(){
     var that = this;
     var list = that.data.productList;
-    console.log(list);
     if( list.length>0){
       var total=Number(0.000);
       list.forEach(e => {
@@ -105,9 +109,12 @@ Page({
     var id = event.currentTarget.dataset.id;
     var list =that.data.productList;
     var re = [];
+    var index = 0;
     list.forEach(e => {
       if(e.id!= id){
+        e.index =index;
         re.push(e);
+        index++;
       }
     });
     that.setData({ productList: re });
@@ -115,7 +122,6 @@ Page({
   },
   //提交
   onSubmit:function(){
-
       var that = this;
       var data =that.data;
       if(data.productList.length<1){
@@ -124,6 +130,7 @@ Page({
           content: '请先增加商品',
           duration: 2000
         })
+        return ;
       }
       if(data.customer == {}){
         wx.showModal({
@@ -131,36 +138,57 @@ Page({
           content: '请先选择供应商',
           duration: 2000
         })
+        return ;
       }
       var input = {};
-      var apply ={};
-      apply.code = data.code;
-      apply.type = data.type;
-      apply.customerId= data.customer.id;
-      apply.customerName =data.customer.name;
-      apply.conpanyName = data.customer.conpanyName;
-      apply.phoneNumber =data.customer.phoneNumber;
-      apply.orderDate = data.orderDate;
-      apply.deliveryDate = data.deliveryDate;
-      apply.totalPrice = data.totalPrice/100;
-      apply.lastPrice = data.totalPrice;
-      apply.freightCode = data.freightCode;
-      apply.memo = data.memo;
-      input.apply= apply;
-      var applyItemList = [];
+      var Apply ={};
+      Apply.Code = data.code;
+      Apply.Type = data.type;
+      Apply.CustomerId= data.customer.id;
+      Apply.CustomerName =data.customer.name;
+      Apply.CompanyName = data.customer.companyName;
+      Apply.PhoneNumber =data.customer.phoneNumber;
+      Apply.OrderDate = data.orderDate;
+      Apply.DeliveryDate = data.deliveryDate;
+      Apply.TotalPrice = data.totalPrice/100;
+      Apply.LastPrice = data.totalPrice;
+      Apply.FreightCode = data.freightCode==null?"":data.freightCode;
+      Apply.Memo = data.memo==null?"":data.memo;
+      input.Apply=Apply;
+      var ApplyItemList = [];
       data.productList.forEach(e => {
         var item = {};
-        item.productId = e.id;
-        item.productName = e.name;
-        item.code = e.code;
-        item.spec = e.spec;
-        item.unit = e.unit;
-        item.number = e.number;
-        item.price = e.price;
-        item.totalPrice = e.number*e.price
-        applyItemList.push(item);
+        item.ProductId = e.id;
+        item.ProductName = e.name;
+        item.Code = e.code;
+        item.Spec = e.spec;
+        item.Unit = e.unit;
+        item.Number = e.number;
+        item.Price = e.purchasePrice;
+        item.TotalPrice = e.number*Number(e.purchasePrice)
+        ApplyItemList.push(item);
       });
-      input.applyItemList=applyItemList;
+      input.ApplyItemList=ApplyItemList ;
+      console.log(input);
+      wx.request({
+        url: config.saveApply_url,
+        method: 'post',
+        dataType: "json",
+        header: header,//传在请求的header里
+        data:JSON.stringify(input),
+        success(res) {
+          if(res.data.success){
+            wx.showModal({
+              title: '成功',
+              content: '添加成功',
+              duration: 2000
+            })
+            wx.navigateBack({//返回上一页
+              delta: 1
+            })
+          }
+        }
+      })
   },
   /**
    * 生命周期函数--监听页面加载
@@ -183,7 +211,23 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    console.log(this.data.customer);
+    var key = wx.getStorageSync("key");
+    console.log(key);
+    if(!key){
+      wx.switchTab({
+        url:'/pages/login/login'
+      })
+      wx.showModal({
+        title: '提示',
+        content: '请先登入',
+        duration: 2000
+      })
+    }
+    header = {
+      //'content-type': 'application/x-www-form-urlencoded;charset=utf-8',
+  
+      'sessionKey':key//读取cookie
+    };
     this.calculateTotalPrice();
   },
 

@@ -91,12 +91,16 @@ Page({
       var result = [];
       var pages = getCurrentPages();
       var prevPage = pages[pages.length - 2]; //上一个页面
-      if(prevPage.data.productList.length>0){
+      var index =0;
+      if(prevPage.data.productList.length > 0){
         result = prevPage.data.productList;
+        index = prevPage.data.productList.length;
       }
       list.forEach(p => {
         if(p.number > 0){
+          p.index = index;
           result.push(p);
+          index++;
         }
       });
       prevPage.setData({

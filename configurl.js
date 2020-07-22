@@ -12,5 +12,7 @@ var config={
    supplierList_url:host+"api/CustomerWX/GetCustomerListByType",
    customerType_url:host+"api/CustomerTypeWX/GetTypeListOfSale",
    customerList_url:host+"api/CustomerWX/GetCustomerListByType",
+   //订单相关
+   saveApply_url:host+"api/ApplyWX/SaveApply",
 }
 module.exports=config;

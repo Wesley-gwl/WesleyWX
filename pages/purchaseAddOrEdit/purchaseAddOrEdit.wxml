@@ -86,7 +86,7 @@
   </van-cell-group>
   <scroll-view  scroll-y='true' > 
     <view  wx:for="{{productList}}"  class="bg-blue padding radius light">
-      <van-swipe-cell right-width="{{ 65 }}"  bind:click="onCloseProduct" data-id="{{item.id}}">
+      <van-swipe-cell right-width="{{ 65 }}"   data-id="{{item.id}}">
         <van-cell-group>
           <i-card full title="{{item.name}}"  extra="{{item.code}}-{{item.spec}}"  i-class="card-demo">
             <view slot="content">
@@ -103,7 +103,7 @@
             </view>
           </i-card>
         </van-cell-group>
-        <view slot="right" class="van-swipe-cell__right">删除</view>
+        <view slot="right" class="van-swipe-cell__right" data-id="{{item.id}}" bindtap="onCloseProduct">删除</view>
       </van-swipe-cell>
     </view>
   </scroll-view>
