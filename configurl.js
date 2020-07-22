@@ -6,6 +6,11 @@ var config={
    login_url:host+"api/WXLogin/WXLogin",
    //商品相关
    productType_url:host+"api/ProductTypeWX/GetList",
-   productList_url:host+"api/ProductWX/GetProductList"
+   productList_url:host+"api/ProductWX/GetProductList",
+   //供应商客户相关
+   supplierType_url:host+"api/CustomerTypeWX/GetTypeListOfPurchare",
+   supplierList_url:host+"api/CustomerWX/GetCustomerListByType",
+   customerType_url:host+"api/CustomerTypeWX/GetTypeListOfSale",
+   customerList_url:host+"api/CustomerWX/GetCustomerListByType",
 }
 module.exports=config;

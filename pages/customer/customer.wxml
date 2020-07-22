@@ -1,0 +1,29 @@
+<view>
+  <van-search
+  value="{{ searchText }}"
+  input-align="center"
+  show-action
+  placeholder="供应商公司联系人"
+  bind:search="onSearch"  
+  />
+</view>
+<view class='big-box'>
+  <!--左侧栏-->
+  <scroll-view class="left-menu"  scroll-y='true'>
+    <block wx:for="{{customerTypeList}}" wx:key="id">
+      <view class='{{index == idx ? "avtive":"Default-Class"}}' bindtap="getCustomerList" data-id="{{item.id}}" data-index="{{item.index}}">{{item.name}}</view>
+    </block>
+  </scroll-view>
+  <!--右侧栏-->
+  <scroll-view class="nav_right" style='width:73%;' scroll-y='true'>
+    <view  wx:for="{{customerList}}" >
+      
+    </view>
+  </scroll-view>
+</view>
+<view>
+  <van-submit-bar
+  button-text="确定"
+  bind:submit="onSubmit"
+/>
+</view>

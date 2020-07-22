@@ -11,7 +11,7 @@
   <!--左侧栏-->
   <scroll-view class="left-menu"  scroll-y='true'>
     <block wx:for="{{productTypeList}}" wx:key="id">
-      <view class="Default-Class" bindtap="getProductList" data-index="{{item.id}}">{{item.name}}</view>
+      <view class='{{index == idx ? "avtive":"Default-Class"}}' bindtap="getProductList" data-id="{{item.id}}" data-index="{{item.index}}">{{item.name}}</view>
     </block>
   </scroll-view>
   <!--右侧栏-->

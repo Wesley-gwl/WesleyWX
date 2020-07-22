@@ -1,6 +1,4 @@
 const config = require("../../configurl");
-
-// pages/product/product.js
 var header;
 Page({
   /**
@@ -12,7 +10,7 @@ Page({
     productTypeList: [],
     //商品列表
     productList:[],
-    searchText:""
+    idx:1000,
   },
   //修改数量
   handleChangeNumber (e) {
@@ -33,7 +31,9 @@ Page({
   //分类d点击
   getProductList(re){
     var that = this;
-    var e = re.currentTarget.dataset.index;
+    var index = re.currentTarget.dataset.index;
+    that.setData({ idx: index })
+    var e = re.currentTarget.dataset.id;
     wx.request({
       url: config.productList_url,
       method: 'post',
@@ -52,14 +52,18 @@ Page({
 
   },
   onSearch:function(e){//回车触发
-    console.log(e.detail);
+    var searchtext = "";
+    if(e!=null){
+      searchtext= e.detail;
+    }
+   
     var that = this;
     wx.request({
       url: config.productList_url,
       method: 'post',
       header: header,//传在请求的header里
       data:{
-        Filter:e.detail
+        Filter:searchtext
       },
       success(res) {
         if(res.data.success){
@@ -84,17 +88,20 @@ Page({
     var that = this;
     var list = that.data.productList;
     if(list.length>0)
-      var result =[];
+      var result = [];
+      var pages = getCurrentPages();
+      var prevPage = pages[pages.length - 2]; //上一个页面
+      if(prevPage.data.productList.length>0){
+        result = prevPage.data.productList;
+      }
       list.forEach(p => {
-        if(p.number>0){
+        if(p.number > 0){
           result.push(p);
         }
-        var pages = getCurrentPages();
-        var prevPage = pages[pages.length - 2]; //上一个页面
-        prevPage.setData({
-          productList: result
-        })
       });
+      prevPage.setData({
+        productList: result
+      })
       wx.navigateBack({//返回上一页
         delta: 1
       })
@@ -128,6 +135,7 @@ Page({
       'sessionKey':key//读取cookie
     };
     that.GetProductType();
+    that.onSearch();
   },
   GetProductType:function(){
     var that = this;

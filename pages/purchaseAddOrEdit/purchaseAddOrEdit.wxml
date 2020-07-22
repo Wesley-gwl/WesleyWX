@@ -5,7 +5,9 @@
       is-link
       title="选择供应商"
       link-type="navigateTo"
-      url=""
+      url="../supplier/supplier"
+      value ="{{customer.companyName}}{{customer.name}}"
+      input-align="right"
       />
     </van-cell-group>
   </van-row>
@@ -13,9 +15,8 @@
     <van-cell-group>
       <van-field
       label="订单号"
-      value="{{ idNo }}"
+      value="{{ code }}"
       placeholder="默认自动生成"
-      border="{{ true }}"
       input-align="right"
       />
     </van-cell-group>
@@ -24,7 +25,6 @@
     <van-cell
     is-link
     title="单据类型"
-    link-type=""
     bind:click="onSelect"
     value ="{{typeName}}"
     input-align="right"
@@ -43,7 +43,6 @@
       <van-field
       label="送货单号"
       value="{{ freightCode }}"
-      border="{{ true }}"
       input-align="right"
       />
     </van-cell-group>
@@ -53,7 +52,6 @@
       <van-field
       label="备注"
       value="{{ memo }}"
-      border="{{ true }}"
       input-align="right"
       />
     </van-cell-group>
@@ -86,29 +84,35 @@
     url="../product/product"
   />
   </van-cell-group>
-  <scroll-view  scroll-y='true'> 
-    <view  wx:for="{{productList}}" >
-      <i-card full title="{{item.name}}"  extra="{{item.code}}-{{item.spec}}"  i-class="card-demo">
-        <view slot="content">
-          价格：
-          <view style="float:right">
-            <i-input-number  value="{{item.purchasePrice}}" data-index="{{item.index}}" min="0" max="1000" step="0.001" bindchange="handleChangePrice" />
-          </view>
-        </view>
-        <view slot="footer" >
-          数量：
-          <view style="float:right" >
-                <i-input-number value="{{item.number}}" data-index="{{item.index}}" min="0" max="1000000000" bindchange="handleChangeNumber"  />
+  <scroll-view  scroll-y='true' > 
+    <view  wx:for="{{productList}}"  class="bg-blue padding radius light">
+      <van-swipe-cell right-width="{{ 65 }}"  bind:click="onCloseProduct" data-id="{{item.id}}">
+        <van-cell-group>
+          <i-card full title="{{item.name}}"  extra="{{item.code}}-{{item.spec}}"  i-class="card-demo">
+            <view slot="content">
+              价格：
+              <view style="float:right">
+                <i-input-number  value="{{item.purchasePrice}}" data-index="{{item.index}}" min="0" max="1000" step="0.001" bindchange="handleChangePrice" />
+              </view>
             </view>
-        </view>
-      </i-card>
+            <view slot="footer" >
+              数量：
+              <view style="float:right" >
+                    <i-input-number value="{{item.number}}" data-index="{{item.index}}" min="0" max="1000000000" bindchange="handleChangeNumber"  />
+                </view>
+            </view>
+          </i-card>
+        </van-cell-group>
+        <view slot="right" class="van-swipe-cell__right">删除</view>
+      </van-swipe-cell>
     </view>
   </scroll-view>
   <i-divider ></i-divider>
   <i-divider ></i-divider>
   <van-submit-bar
-  price="{{ 3050 }}"
+  price="{{totalPrice}}"
   button-text="提交订单"
   bind:submit="onSubmit"
+  decimal-length="3"
   />
 </view>

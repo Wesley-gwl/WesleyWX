@@ -7,8 +7,10 @@
     "pages/purchase/purchase",
     "pages/sale/sale",
     "pages/storeIn/storeIn",
+    "pages/test/test",
     "pages/storeOut/storeOut",
-    "test/test"
+    "pages/customer/customer",
+    "pages/supplier/supplier"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "客户",
+  "usingComponents": {
+    "i-card": "../../viewui/card/index",
+    "i-input-number": "../../viewui/input-number/index",
+    "van-search": "../../dist/search/index",
+    "van-submit-bar": "../../dist/submit-bar/index"
+  }
+}
