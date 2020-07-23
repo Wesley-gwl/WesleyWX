@@ -1,11 +1,14 @@
 var util = require('../../utils/util.js');
 const config = require("../../configurl");
+import Dialog from '../../dist/dialog/dialog';
+import Notify from '../../dist/notify/notify';
 var header;
+var that;
 Page({
   data: {
     current:1,//分页页数
     total:0,//总页数
-    rows:10,//一页的行数
+    rows:5,//一页的行数
     eTime:'',
     sTime:'',
     show:false,
@@ -62,6 +65,7 @@ Page({
   //多条件查询
   onSearchMore(){
     this.setData({ show: false });
+    this.getPurchaseList();
   },
   //修改search控件值
   onChangeSearch(e){
@@ -89,8 +93,8 @@ Page({
   //关闭更多条件筛选
   onCloseMore() {
     this.setData({ show: false });
+    this.getPurchaseList();
   },
-
   //选择类型
   onSelectType(event){
     this.setData({ showTypeSelect: true });
@@ -125,6 +129,66 @@ Page({
             current: this.data.current - 1
         });
     }
+    this.getPurchaseList();
+  },
+  onApply:function(event){
+    const { position, instance } = event.detail;
+    switch (position) {
+      case 'left':
+        that.onDeleteApply(event);
+        break;
+      case 'cell':
+        break;
+      case 'right':
+        that.onLookApplyInfo(event);
+        break;
+    }
+    instance.close();
+  },
+  //删除
+  onDeleteApply:function(event){
+    console.log(event);
+    var id = event.currentTarget.dataset.id;
+    var apply = {};
+    that.data.applyList.forEach(e => {
+      if(e.id == id){
+        apply = e;
+      }
+    });
+    if(apply.status !=0){
+      Notify({ type: 'warning', message: '此状态无法删除' ,duration: 2000});
+      return;
+    }
+    Dialog.confirm({
+      title: '提示',
+      message: '是否要删除这条数据'
+    }).then(() => {
+      that.DeleteApply(id);
+      Dialog.close();
+    }).catch(() => {
+      Dialog.close();
+    });;
+  },
+  DeleteApply:function(id){
+    wx.request({
+      url: config.deleteApply_url,
+      method: 'get',
+      header: header,//传在请求的header里
+      data:{id:id},
+      success(res) {
+        if(res.data.success){
+          Notify({ type: 'success', message: '删除成功' ,duration: 2000});
+          that.getPurchaseList();
+        }
+      }
+    })
+  },
+  //查看编辑详情
+  onLookApplyInfo:function(event){
+    var id = event.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: '/pages/purchaseAddOrEdit/purchaseAddOrEdit?id=' + id,
+    })
   },
   /**
    * 生命周期函数--监听页面加载
@@ -163,7 +227,6 @@ Page({
   },
   //获取信息
   getPurchaseList:function(){
-    var that = this;
     var data = that.data;
     var input ={};
     input.Filter = data.searchText;
@@ -173,6 +236,9 @@ Page({
     input.FromTime = data.sTime;
     input.ToTime =data.eTime;
     input.Status = data.status;
+    if(data.customer!={}){
+      input.customerId = data.customer.id;
+    }
     wx.request({
       url: config.getApplyList_url,
       method: 'post',
@@ -181,10 +247,16 @@ Page({
       data:JSON.stringify(input),
       success(res) {
         if(res.data.success){
-          var total = parseInt(res.data.data.total/res.data.data.rows);
-          if(res.data.data.total%res.data.data.rows!=0){
+          var total = parseInt(res.data.data.total/data.rows);
+          if(res.data.data.total%data.rows!=0){
             total++;
           }
+          res.data.data.rows.forEach((item) => {
+            item.orderDate = item.orderDate.substring(0, 10); //要截取时间的字符串
+            if(item.deliveryDate!=null){
+              item.deliveryDate = item.deliveryDate.substring(0, 10); //要截取时间的字符串
+            }
+          })
           that.setData({
             applyList : res.data.data.rows,
             total:total
@@ -197,7 +269,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    that=this;
   },
 
   /**

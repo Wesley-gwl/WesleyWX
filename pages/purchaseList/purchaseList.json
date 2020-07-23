@@ -12,6 +12,8 @@
     "van-popup": "../../dist/popup/index",
     "van-submit-bar": "../../dist/submit-bar/index",
     "van-swipe-cell": "../../dist/swipe-cell/index",
-    "i-page": "../../viewui/page/index"
+    "i-page": "../../viewui/page/index",
+    "van-dialog": "../../dist/dialog/index",
+    "van-notify": "../../dist/notify/index"
   }
 }

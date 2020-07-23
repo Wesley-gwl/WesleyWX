@@ -98,9 +98,19 @@ Page({
       }
       list.forEach(p => {
         if(p.number > 0){
-          p.index = index;
-          result.push(p);
-          index++;
+          var isExist = false;
+          for (let i = 0; i < prevPage.data.productList.length; i++) {
+            const element = prevPage.data.productList[i];
+            if(element.id==p.id){
+              isExist=true;
+              break;
+            }
+          }
+          if(!isExist){
+            p.index = index;
+            result.push(p);
+            index++;
+          }
         }
       });
       prevPage.setData({

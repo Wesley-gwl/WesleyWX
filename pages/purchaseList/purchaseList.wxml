@@ -1,3 +1,4 @@
+<van-notify id="van-notify" />
 <!-- 更多条件 -->
 <van-popup show="{{ show }}" round bind:close="onCloseMore"  position="top" custom-style="height: 360px;">
   <van-row>
@@ -82,7 +83,7 @@
       <button class="cu-btn bg-brown round shadow" bindtap="clearMore" style="width:120px">重置</button>
     </van-col>
     <van-col span="8">
-      <button class="cu-btn bg-blue round shadow" bindtap="onSearchMore" style="width:120px">确定</button>
+      <button class="cu-btn bg-blue round shadow" bindtap="onSearchMore" style="width:120px">查询</button>
     </van-col>
   </van-row>
 </van-popup>
@@ -102,34 +103,62 @@
 <!-- 分页 -->
 <scroll-view>
   <view wx:for="{{applyList}}"  class="radius light ">
-    <van-swipe-cell right-width="{{ 65 }}"   data-id="{{item.id}}">
+    <van-swipe-cell right-width="{{ 65 }}" left-width="{{ 65}}" async-close  bind:close="onApply" data-id="{{item.id}}">
       <van-cell-group>
         <view class="cu-card article ">
           <view class="cu-item shadow">
             <view class="title">
-              <view class="text-cut">{{item.code}}</view>
+              <view class="text-cut">
+               <view style="width:50%;float:left">
+                {{item.code}}
+               </view>
+               <view style="width:50%; float:right; text-align: right;">
+                {{item.companyName}}
+               </view>
+              </view>
             </view>
             <view class="content">
               <view class="desc">
                 <view class="text-content">
-                  {{item.customerName}}
+                   <view style="width:50%;float:left">
+                    单据日期:{{item.orderDate}}
+                   </view>
+                   <view style="width:50%; float:right; text-align: right;">
+                    {{item.customerName}} {{item.phoneNumber==null?"":item.phoneNumber}}
+                   </view>
+                   <view style="width:50%;float:left">
+                    收货日期:{{item.deliveryDate}}
+                   </view>
+                   <view style="width:50%;float:right;text-align: right;">
+                    {{item.freightCode==""?"":'送货单号:'+item.freightCode}}
+                   </view>
+                   <view style="width:100%;float:left">
+                    {{item.memo==""?"":'备注:'+item.memo}}
+                   </view>
                 </view>
                 <view>
                   <view class="cu-tag bg-red light  round">{{item.typeName}}</view>
                   <view class="cu-tag bg-green light  round">{{item.statusName}}</view>
+                  <view  class="text-cut" style="float:right">
+                    总价:{{item.lastPrice}}￥
+                   </view>
                 </view>
               </view>
             </view>
           </view>
         </view>
       </van-cell-group>
-      <view slot="right" class="van-swipe-cell__right" data-id="{{item.id}}" bindtap="onCloseProduct">删除</view>
+      <view slot="left" class="van-swipe-cell__left" data-id="{{item.id}}"> 删除</view>
+      <view slot="right" class="van-swipe-cell__right" data-id="{{item.id}}">编辑查看</view>
     </van-swipe-cell>
   </view>
 </scroll-view>
+<!-- 页脚分页 -->
 <view style="position:fixed; bottom:0;width: 100%;">
   <i-page current="{{ current }}" total="{{total}}" bind:change="onPaged">
     <view slot="prev">上一页</view>
     <view slot="next">下一页</view>
 </i-page>
 </view>
+<!-- 弹出框 -->
+<van-dialog id="van-dialog" />

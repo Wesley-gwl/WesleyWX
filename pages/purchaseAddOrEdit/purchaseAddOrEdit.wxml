@@ -6,9 +6,10 @@
       is-link
       title="选择供应商"
       link-type="navigateTo"
-      url="../supplier/supplier"
+      url="{{supplierUrl}}"
       value ="{{customer.companyName}}{{customer.name}}"
       input-align="right"
+      required
       />
     </van-cell-group>
   </van-row>
@@ -82,7 +83,8 @@
     is-link
     title="添加商品"
     link-type="navigateTo"
-    url="../product/product"
+    url="{{productUrl}}"
+    required
   />
   </van-cell-group>
   <scroll-view  scroll-y='true' > 
@@ -112,12 +114,11 @@
   <i-divider ></i-divider>
   <van-submit-bar
   price="{{totalPrice}}"
-  button-text="提交订单"
+  button-text="{{submitText}}"
   bind:submit="onSubmit"
   decimal-length="3"
   />
   <view class='cu-load load-modal' wx:if="{{loadModal}}">
-    <!-- <view class='cuIcon-emojifill text-orange'></view> -->
     <image src='/images/logo.png' class='png' mode='aspectFit'></image>
     <view class='gray-text'>加载中...</view>
   </view>
