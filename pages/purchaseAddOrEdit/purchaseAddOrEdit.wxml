@@ -1,3 +1,4 @@
+<van-notify id="van-notify" />
 <view class="page">
   <van-row>
     <van-cell-group>
@@ -59,7 +60,7 @@
   <van-row>
     <view class="cu-form-group">
       <view class="title">制单日期</view>
-      <picker mode="date" value="{{orderDate}}" start="2019-09-01" end="2025-09-01" bindchange="DateChange">
+      <picker mode="date" value="{{orderDate}}" start="2019-09-01" end="2125-09-01" bindchange="DateChange">
         <view class="picker">
           {{orderDate}}
         </view>
@@ -69,7 +70,7 @@
   <van-row>
     <view class="cu-form-group">
       <view class="title">收货日期</view>
-      <picker mode="date" value="{{deliveryDate}}" start="2019-09-01" end="2025-09-01" bindchange="DateChange2">
+      <picker mode="date" value="{{deliveryDate}}" start="2019-09-01" end="2125-09-01" bindchange="DateChange2">
         <view class="picker">
           {{deliveryDate}}
         </view>
@@ -92,13 +93,13 @@
             <view slot="content">
               价格：
               <view style="float:right">
-                <i-input-number  value="{{item.purchasePrice}}" data-index="{{item.index}}" min="0" max="1000" step="0.001" bindchange="handleChangePrice" />
-              </view>
+                <van-stepper value="{{ item.purchasePrice }}" step="0.001" decimal-length="{{ 3 }}" data-index="{{item.index}}" min="0.001" max="999999" input-width="80px" button-size="22px" bind:change="handleChangePrice"/>
+            </view>
             </view>
             <view slot="footer" >
               数量：
               <view style="float:right" >
-                    <i-input-number value="{{item.number}}" data-index="{{item.index}}" min="0" max="1000000000" bindchange="handleChangeNumber"  />
+                <van-stepper value="{{ item.number }}" step="1"   min="0" max="9999999999"  data-index="{{item.index}}" input-width="80px" button-size="22px" bind:change="handleChangeNumber" />
                 </view>
             </view>
           </i-card>
@@ -115,4 +116,9 @@
   bind:submit="onSubmit"
   decimal-length="3"
   />
+  <view class='cu-load load-modal' wx:if="{{loadModal}}">
+    <!-- <view class='cuIcon-emojifill text-orange'></view> -->
+    <image src='/images/logo.png' class='png' mode='aspectFit'></image>
+    <view class='gray-text'>加载中...</view>
+  </view>
 </view>

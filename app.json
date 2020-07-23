@@ -1,7 +1,8 @@
 {
   "pages": [
-    "pages/purchaseAddOrEdit/purchaseAddOrEdit",
+    "pages/purchaseList/purchaseList",
     "pages/login/login",
+    "pages/purchaseAddOrEdit/purchaseAddOrEdit",
     "pages/product/product",
     "pages/logs/logs",
     "pages/purchase/purchase",
@@ -18,7 +19,6 @@
     "navigationBarTitleText": "WeChat",
     "navigationBarTextStyle": "white"
   },
-  "style": "v2",
   "sitemapLocation": "sitemap.json",
   "tabBar": {
     "color": "#6e6d6b",

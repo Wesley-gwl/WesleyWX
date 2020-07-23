@@ -1,6 +1,6 @@
 <view>
   <van-search
-  value="{{ searchText }}"
+  value=""
   input-align="center"
   show-action
   placeholder="商品名称编号规格"
@@ -21,13 +21,13 @@
         <view slot="content">
           价格：
           <view style="float:right">
-            <i-input-number  value="{{item.purchasePrice}}" data-index="{{item.index}}" min="0" max="1000" step="0.001" bindchange="handleChangePrice" />
+            <van-stepper value="{{ item.purchasePrice }}" step="0.001" decimal-length="{{ 3 }}" data-index="{{item.index}}" min="0.001" max="999999" input-width="80px" button-size="22px" bind:change="handleChangePrice"/>
         </view>
         </view>
         <view slot="footer" >
           数量：
           <view style="float:right" >
-                <i-input-number value="{{item.number}}" data-index="{{item.index}}" min="0" max="1000000000" bindchange="handleChangeNumber"  />
+            <van-stepper value="{{ item.number }}" step="1"   min="0" max="9999999999"  data-index="{{item.index}}" input-width="80px" button-size="22px" bind:change="handleChangeNumber" />
             </view>
         </view>
       </i-card>

@@ -1,8 +1,8 @@
 var util = require('../../utils/util.js');
 const config = require("../../configurl");
+import Notify from '../../dist/notify/notify';
 var header;
 Page({
-  
   /**
    * 页面的初始数据
    */
@@ -12,6 +12,7 @@ Page({
     totalPrice:0.000,
     customer:{},
     productList:[],
+    loadModal:false,
     showTypeSelect: false,
     actions: [
       {
@@ -52,7 +53,7 @@ Page({
     var index = e.target.dataset.index;
     var mText = 'productList['+ index +'].number';
     this.setData({
-      [mText]: e.detail.value
+      [mText]: e.detail
     })
     this.calculateTotalPrice();
   },
@@ -62,10 +63,11 @@ Page({
     var index = e.target.dataset.index;
     var mText = 'productList['+ index +'].purchasePrice';
     this.setData({
-      [mText]: e.detail.value
+      [mText]: e.detail
     })
     this.calculateTotalPrice();
   },
+  //计算总价
   calculateTotalPrice:function(){
     var that = this;
     var list = that.data.productList;
@@ -84,22 +86,20 @@ Page({
       })
     }
   },
+  //关闭类型选择
   onClose() {
     this.setData({ showTypeSelect: false });
   },
+  //修改单据日期
   DateChange(event) {
     this.setData({
       orderDate: event.detail.value,
     });
   },
+  //修改交货日期
   DateChange2(event) {
     this.setData({
       deliveryDate: event.detail.value,
-    });
-  },
-  onInput(event) {
-    this.setData({
-      deliveryDate: event.detail,
     });
   },
   //删除商品
@@ -125,21 +125,16 @@ Page({
       var that = this;
       var data =that.data;
       if(data.productList.length<1){
-        wx.showModal({
-          title: '提示',
-          content: '请先增加商品',
-          duration: 2000
-        })
+        Notify({ type: 'warning', message: '请先增加商品',duration: 2000 });
         return ;
       }
       if(data.customer == {}){
-        wx.showModal({
-          title: '提示',
-          content: '请先选择供应商',
-          duration: 2000
-        })
+        Notify({ type: 'warning', message: '请先选择供应商' ,duration: 2000});
         return ;
       }
+      that.setData({
+        loadModal: true
+      })
       var input = {};
       var Apply ={};
       Apply.Code = data.code;
@@ -178,14 +173,30 @@ Page({
         data:JSON.stringify(input),
         success(res) {
           if(res.data.success){
-            wx.showModal({
-              title: '成功',
-              content: '添加成功',
-              duration: 2000
+            that.setData({
+              loadModal: false
             })
-            wx.navigateBack({//返回上一页
-              delta: 1
+            wx.showToast({
+              title: '添加成功',//提示文字
+              duration:2000,//显示时长
+              mask:true,//是否显示透明蒙层，防止触摸穿透，默认：false  
+              icon:'success', //图标，支持"success"、"loading"  
+              success:function(){ 
+                setTimeout(function(){ 
+                  wx.navigateBack({//返回上一页
+                  delta: 1
+                 })
+                },2000);
+              },//接口调用成功
+              fail: function () { },  //接口调用失败的回调函数  
+              complete: function () { } //接口调用结束的回调函数  
+           })
+          }
+          else{
+            that.setData({
+              loadModal: false
             })
+            Notify({ type: 'warning', message: res.data.message ,duration: 2000});
           }
         }
       })

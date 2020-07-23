@@ -14,5 +14,6 @@ var config={
    customerList_url:host+"api/CustomerWX/GetCustomerListByType",
    //订单相关
    saveApply_url:host+"api/ApplyWX/SaveApply",
+   getApplyList_url:host+"api/ApplyWX/GetApplyListByPage",
 }
 module.exports=config;

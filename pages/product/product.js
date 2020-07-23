@@ -17,7 +17,7 @@ Page({
     var index = e.target.dataset.index;
     var mText = 'productList['+ index +'].number';
     this.setData({
-      [mText]: e.detail.value
+      [mText]: e.detail
     })
   },
   //修改金额
@@ -25,7 +25,7 @@ Page({
     var index = e.target.dataset.index;
     var mText = 'productList['+ index +'].purchasePrice';
     this.setData({
-      [mText]: e.detail.value
+      [mText]: e.detail
     })
   },
   //分类d点击
@@ -128,9 +128,8 @@ Page({
       wx.switchTab({
         url:'/pages/login/login'
       })
-      wx.showModal({
-        title: '提示',
-        content: '请先登入',
+      wx.showToast({
+        title: '请先登入',
         duration: 2000
       })
     }

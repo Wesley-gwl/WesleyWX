@@ -114,9 +114,8 @@ Page({
         wx.switchTab({
           url:'/pages/login/login'
         })
-        wx.showModal({
-          title: '提示',
-          content: '请先登入',
+        wx.showToast({
+          title: '请先登入',
           duration: 2000
         })
       }
