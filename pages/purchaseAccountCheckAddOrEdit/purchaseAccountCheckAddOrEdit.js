@@ -11,10 +11,10 @@ Page({
     id:"",
     isLook:false,
     isEdit:false,
-    type: 3,
-    typeName:"采购单",
+    type: 1,
+    typeName:"采购对账单",
     status:0,
-    statusName:"申请",
+    statusName:"新建",
     totalPrice:0.000,
     customer:{},
     productList:[],
@@ -22,25 +22,7 @@ Page({
     showTypeSelect: false,
     submitText:"提交",
     supplierUrl:"../supplier/supplier",
-    productUrl:"../product/product",
-    actions: [
-      {
-        type:'3',
-        name: '采购单',
-      },
-      {
-        type:'4',
-        name: '调拨采购单',
-      },
-      {
-        type:'6',
-        name: '采购退货单',
-      },
-      {
-        type:'6',
-        name: '采购退货单',
-      },
-    ],
+    purchaseUrl:"../purchaseNotCheckList/purchaseNotCheckList",
     formatter(type, value) {
       if (type === 'year') {
         return `${value}年`;
@@ -50,41 +32,13 @@ Page({
       return value;
     },
   },
-  onSelect(event){
-    if(that.data.isLook){
-      return;
-    }
-    this.setData({ showTypeSelect: true });
-    if(event.detail.type != null){
-      this.setData({ typeName: event.detail.name ,type:event.detail.type});
-    }
-  },
-  //修改数量
-  handleChangeNumber (e) {
-    if(that.data.isLook){
-      return;
-    }else{
-      var index = e.target.dataset.index;
-      var mText = 'productList['+ index +'].number';
-      this.setData({
-        [mText]: e.detail
-      })
-      this.calculateTotalPrice();
-    }
-  },
-  //修改金额
-  handleChangePrice (e) {
-    if(that.data.isLook){
-      return;
-    }
-    else{
-      var index = e.target.dataset.index;
-      var mText = 'productList['+ index +'].purchasePrice';
-      this.setData({
-        [mText]: e.detail
-      })
-      this.calculateTotalPrice();
-    }
+  //验证输入金额
+  inputTotalPrice:function(e){
+    var reg=new RegExp('^[0-9]+.?[0-9]*$');
+    var rsNum=reg.exec(e.detail);
+    that.setData({
+      totalPrice:rsNum==null?0:rsNum
+    })
   },
   //计算总价
   calculateTotalPrice:function(){
@@ -104,13 +58,6 @@ Page({
       })
     }
   },
-  //关闭类型选择
-  onClose() {
-    if(that.data.isLook){
-      return;
-    }
-    this.setData({ showTypeSelect: false });
-  },
   //修改单据日期
   DateChange(event) {
     if(that.data.isLook){
@@ -120,14 +67,20 @@ Page({
       orderDate: event.detail.value,
     });
   },
-  //修改交货日期
-  DateChange2(event) {
-    if(that.data.isLook){
-      return;
+  //选择单据按钮
+  onSelectApply(){
+    if(that.data.customer.id==null){
+      Notify({ type: 'warning', message: '请先选择供应商',duration: 2000 });
+      return
+    }else{
+      if(that.data.purchaseUrl!=""){
+        var url =that.data.purchaseUrl+"?customerId="+that.data.customer.id;
+        wx.navigateTo({
+          url:url
+        })
+      }
     }
-    this.setData({
-      deliveryDate: event.detail.value,
-    });
+  
   },
   //删除商品
   onCloseProduct(event) {
@@ -157,12 +110,12 @@ Page({
       return;
     }
     var data =that.data;
-    if(data.productList.length<1){
-      Notify({ type: 'warning', message: '请先增加商品',duration: 2000 });
-      return ;
-    }
     if(data.customer == {}){
       Notify({ type: 'warning', message: '请先选择供应商' ,duration: 2000});
+      return ;
+    }
+    if(data.productList.length<1){
+      Notify({ type: 'warning', message: '请先增加单据',duration: 2000 });
       return ;
     }
     that.setData({

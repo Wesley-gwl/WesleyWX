@@ -139,7 +139,7 @@
                 <view>
                   <view class="cu-tag bg-red light  round">{{item.typeName}}</view>
                   <view class="cu-tag bg-green light  round">{{item.statusName}}</view>
-                  <view  class="text-cut" style="float:right">
+                  <view  class="text-cut text-green" style="float:right">
                     总价:{{item.lastPrice}}￥
                    </view>
                 </view>
@@ -152,6 +152,8 @@
       <view slot="right" class="van-swipe-cell__right" data-id="{{item.id}}">编辑查看</view>
     </van-swipe-cell>
   </view>
+  <!-- 分割，防止底部不清晰 -->
+  <i-divider ></i-divider>
 </scroll-view>
 <!-- 页脚分页 -->
 <view style="position:fixed; bottom:0;width: 100%;">

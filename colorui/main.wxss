@@ -2370,7 +2370,7 @@ button.icon.lg {
 .cu-form-group .title {
 	text-align: justify;
 	padding-right: 30rpx;
-	font-size: 30rpx;
+	font-size: 25rpx;
 	position: relative;
 	height: 60rpx;
 	line-height: 60rpx;

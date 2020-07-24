@@ -2,6 +2,7 @@
 var host="http://localhost:62115/";
 var config={
    host,
+   //登入
    loginAuto_url:host+"api/WXLogin/WXAutoLogin",
    login_url:host+"api/WXLogin/WXLogin",
    //商品相关
@@ -17,5 +18,7 @@ var config={
    getApplyInfo_url:host+"api/ApplyWX/GetApplyInfo",
    getApplyList_url:host+"api/ApplyWX/GetApplyListByPage",
    deleteApply_url:host+"api/ApplyWX/DeleteApply",
+   //对账单
+   getAccountNotCheckPurchase_url:host+"api/applyWX/GetApplyOfPurchaseAccountCheck",
 }
 module.exports=config;

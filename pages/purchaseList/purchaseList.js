@@ -236,7 +236,7 @@ Page({
     input.FromTime = data.sTime;
     input.ToTime =data.eTime;
     input.Status = data.status;
-    if(data.customer!={}){
+    if(data.customer.id!=null){
       input.customerId = data.customer.id;
     }
     wx.request({

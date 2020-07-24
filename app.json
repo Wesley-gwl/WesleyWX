@@ -1,7 +1,9 @@
 {
   "pages": [
-    "pages/purchaseList/purchaseList",
+    "pages/purchaseNotCheckList/purchaseNotCheckList",
+    "pages/purchaseAccountCheckAddOrEdit/purchaseAccountCheckAddOrEdit",
     "pages/login/login",
+    "pages/purchaseList/purchaseList",
     "pages/purchaseAddOrEdit/purchaseAddOrEdit",
     "pages/product/product",
     "pages/logs/logs",
@@ -11,7 +13,9 @@
     "pages/test/test",
     "pages/storeOut/storeOut",
     "pages/customer/customer",
-    "pages/supplier/supplier"
+    "pages/supplier/supplier",
+    "pages/purchaseAccountCheckList/purchaseAccountCheckList",
+    "pages/productList/productList"
   ],
   "window": {
     "backgroundTextStyle": "light",

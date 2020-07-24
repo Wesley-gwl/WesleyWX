@@ -39,7 +39,11 @@
     bind:select="onSelect"
     />
   </van-row>
-  
+  <van-row>
+    <van-cell-group>
+      <van-cell title="状态" value="{{statusName}}" />
+    </van-cell-group>
+  </van-row>
   <van-row>
     <van-cell-group>
       <van-field
