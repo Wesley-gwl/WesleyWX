@@ -5,7 +5,7 @@
     <van-search
     value="{{searchText}}"
     input-align="center"
-    placeholder="订单号客户"
+    placeholder="订单号供应商"
     bind:search="onSearch"  
     bind:change="onChangeSearch"
     />
@@ -97,7 +97,7 @@
   bind:search="onSearch"  
   bind:change="onChangeSearch"
   >
-  <view slot="action" bind:tap="onShowMore">多条件</view>
+  <view slot="action" bind:tap="onShowMore">更多</view>
   </van-search>
 </view>
 <!-- 分页 -->

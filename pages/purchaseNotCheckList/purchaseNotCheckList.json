@@ -13,8 +13,6 @@
     "van-submit-bar": "../../dist/submit-bar/index",
     "i-page": "../../viewui/page/index",
     "i-divider": "../../viewui/divider/index",
-    "van-checkbox": "../../dist/checkbox/index",
-    "van-checkbox-group": "../../dist/checkbox-group/index",
-    "van-radio": "../../dist/radio/index"
+    "van-notify": "../../dist/notify/index"
   }
 }

@@ -45,7 +45,7 @@ Page({
         name: '全部',
       },
       {
-        status:'-',
+        status:'2',
         name: '待收款',
       },
       {

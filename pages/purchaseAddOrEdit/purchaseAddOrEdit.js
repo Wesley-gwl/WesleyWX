@@ -16,6 +16,8 @@ Page({
     status:0,
     statusName:"申请",
     totalPrice:0.000,
+    memo:"",
+    freightCode:"",
     customer:{},
     productList:[],
     loadModal:false,
@@ -49,6 +51,12 @@ Page({
       }
       return value;
     },
+  },
+  //输入赋值
+  onFieldChange(e){
+    this.setData({
+      [e.target.dataset.key]:e.detail
+    });
   },
   onSelect(event){
     if(that.data.isLook){
@@ -157,12 +165,12 @@ Page({
       return;
     }
     var data =that.data;
-    if(data.productList.length<1){
-      Notify({ type: 'warning', message: '请先增加商品',duration: 2000 });
+    if(data.customer.id == null){
+      Notify({ type: 'warning', message: '请先选择供应商' ,duration: 2000});
       return ;
     }
-    if(data.customer == {}){
-      Notify({ type: 'warning', message: '请先选择供应商' ,duration: 2000});
+    if(data.productList.length<1){
+      Notify({ type: 'warning', message: '请先增加商品',duration: 2000 });
       return ;
     }
     that.setData({
@@ -217,8 +225,8 @@ Page({
             loadModal: false
           })
           wx.showToast({
-            title: '添加成功',//提示文字
-            duration:2000,//显示时长
+            title: '操作成功',//提示文字
+            duration:1000,//显示时长
             mask:true,//是否显示透明蒙层，防止触摸穿透，默认：false  
             icon:'success', //图标，支持"success"、"loading"  
             success:function(){ 
@@ -226,7 +234,7 @@ Page({
                 wx.navigateBack({//返回上一页
                 delta: 1
                 })
-              },2000);
+              },1500);
             },//接口调用成功
             fail: function () { },  //接口调用失败的回调函数  
             complete: function () { } //接口调用结束的回调函数  
@@ -294,6 +302,7 @@ Page({
       customer.id = apply.customerId;
       customer.name = apply.customerName;
       customer.companyName = apply.companyName;
+      customer.phoneNumber = apply.phoneNumber;
       var productList = [];
       var index = 0;
       output.applyItemList.forEach(e => {

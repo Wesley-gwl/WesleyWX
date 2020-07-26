@@ -1,6 +1,0 @@
-{
-  "usingComponents": {
-    "van-cell-group": "../../dist/cell-group/index",
-    "van-swipe-cell": "../../dist/swipe-cell/index"
-  }
-}

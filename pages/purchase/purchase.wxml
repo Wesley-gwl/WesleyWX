@@ -1,8 +1,8 @@
 <van-grid square column-num="3" border="ture" gutter="2"> 
   <van-grid-item icon="../../images/menu/purchase-search.png" text="查询采购单" url="../purchaseList/purchaseList" />
   <van-grid-item icon="../../images/menu/purchase-add.png" text="新增采购单" url="../purchaseAddOrEdit/purchaseAddOrEdit" />
-  <van-grid-item icon="../../images/menu/purchase-check.png" text="查询采购对账单" url="../purchaseAddOrEdit/purchaseAddOrEdit" />
-  <van-grid-item icon="../../images/menu/purchase-check.png" text="新增采购对账单" url="../purchaseAddOrEdit/purchaseAddOrEdit" />
+  <van-grid-item icon="../../images/menu/purchase-check.png" text="查询采购对账单" url="../purchaseAccountCheckList/purchaseAccountCheckList" />
+  <van-grid-item icon="../../images/menu/purchase-check.png" text="新增采购对账单" url="../purchaseAccountCheckAddOrEdit/purchaseAccountCheckAddOrEdit" />
   <van-grid-item icon="../../images/menu/purchase-canpayment.png" text="应付款单" url="../purchaseAddOrEdit/purchaseAddOrEdit" />
   <van-grid-item icon="../../images/menu/purchase-payment.png" text="付款单" url="../purchaseAddOrEdit/purchaseAddOrEdit" />
   <van-grid-item icon="../../images/menu/hx-check.png" text="付款核销" url="../purchaseAddOrEdit/purchaseAddOrEdit" />

@@ -17,9 +17,11 @@
     <van-cell-group>
       <van-field
       label="订单号"
+      data-key="code"
       value="{{ code }}"
       placeholder="默认自动生成"
       input-align="right"
+      bind:change="onFieldChange"
       />
     </van-cell-group>
   </van-row>
@@ -47,9 +49,11 @@
   <van-row>
     <van-cell-group>
       <van-field
+      data-key="freightCode"
       label="送货单号"
       value="{{ freightCode }}"
       input-align="right"
+      bind:change="onFieldChange"
       />
     </van-cell-group>
   </van-row>
@@ -57,8 +61,10 @@
     <van-cell-group>
       <van-field
       label="备注"
+      data-key="memo"
       value="{{ memo }}"
       input-align="right"
+      bind:change="onFieldChange"
       />
     </van-cell-group>
   </van-row>

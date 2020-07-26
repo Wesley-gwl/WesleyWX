@@ -1,5 +1,6 @@
 <!-- 更多条件 -->
-<van-popup show="{{ show }}" round bind:close="onCloseMore"  position="top" custom-style="height:230px;">
+<van-notify id="van-notify" />
+<van-popup show="{{ show }}" round bind:close="onCloseMore"  position="top" custom-style="height:280px;">
   <van-row>
     <van-search
     value="{{searchText}}"
@@ -29,6 +30,22 @@
       </picker>
     </view>
   </van-row>
+  <van-row>
+    <van-cell
+    is-link
+    title="状态"
+    bind:click="onSelectStatus"
+    value ="{{statusName}}"
+    input-align="right"
+    />
+    <van-action-sheet
+    title="状态"
+    show="{{ showStatusSelect }}"
+    actions="{{ statusList }}"
+    bind:close ="onCloseStatus"
+    bind:select="onSelectStatus"
+    />
+  </van-row>
   <van-row gutter="20" class="padding solids-top margin-top">
     <van-col span="8">
       <button class="cu-btn bg-green round shadow" bindtap="onCloseMore" style="width:120px" >返回</button>
@@ -47,7 +64,7 @@
   value="{{searchText}}"
   input-align="center"
   use-action-slot
-  placeholder="订单号客户"
+  placeholder="订单号供应商"
   bind:search="onSearch"  
   bind:change="onChangeSearch"
   >
@@ -56,55 +73,52 @@
 </view>
 <!-- 分页 -->
 <scroll-view>
-    <view wx:for="{{applyList}}"  class="radius light ">
-      <van-cell-group>
-        <view class="cu-card article ">
-          <view class="cu-item shadow">
-            <view class="title">
-              <view class="text-cut">
-                <view style="width:50%;float:left">
-                {{item.applyCode}}
-                </view>
-                <view class="text-blue" style="width:50%; float:right; text-align: right;">
-                  {{item.totalPrice}}￥
-                </view>
+  <view wx:for="{{applyList}}"  class="radius light ">
+    <van-cell-group>
+      <view class="cu-card article ">
+        <view class="cu-item shadow">
+          <view class="title">
+            <view class="text-cut">
+              <view style="width:50%;float:left">
+              {{item.applyCode}}
+              </view>
+              <view class="text-blue" style="width:50%; float:right; text-align: right;">
+                {{item.totalPrice}}￥
               </view>
             </view>
-            <view class="content">
-              <view class="desc">
-                <view class="text-content">
-                  <view style="width:50%;float:left">
-                  单据日期:{{item.orderDate}}
-                  </view>
-                  <view style="width:50%; float:right; text-align: right;">
-                  {{item.customerName}}({{item.phoneNumber==null?"":item.phoneNumber}})
-                  </view>
-                  <view style="width:100%;float:left">
-                  商品:{{item.productName}}-{{item.productSpec}}({{item.productCode}})
-                  </view>
-                  <view style="width:50%;float:left">
-                    单价:<text class="text-blue">{{item.price}}</text>￥  数量:<text class="text-blue">{{item.number}}</text>{{item.unit}}
-                  </view>
-                  <view style="width:50%;float:right;text-align: right;">
-                    送货单号:{{item.freightCode}}
-                  </view>
+          </view>
+          <view class="content">
+            <view class="desc">
+              <view class="text-content">
+                <view style="width:50%;float:left">
+                单据日期:{{item.orderDate}}
                 </view>
-                <view>
-                  <view class="cu-tag bg-red light  round">{{item.applyTypeName}}</view>
-                  <view  class="text-cut text-green" style="float:right">
-                    <!-- 总价:{{item.totalPrice}}￥ -->
-                    <switch class="switch" bindchange="switchChange" checked="{{item.isCheck}}" data-id="{{item.applyItemId}}" ></switch>
-                    </view>
+                <view style="width:50%; float:right; text-align: right;">
+                {{item.customerName}}({{item.phoneNumber==null?"":item.phoneNumber}})
                 </view>
+                <view style="width:100%;float:left">
+                商品:{{item.productName}}-{{item.productSpec}}({{item.productCode}})
+                </view>
+                <view style="width:50%;float:left">
+                  单价:<text class="text-blue">{{item.price}}</text>￥  数量:<text class="text-blue">{{item.number}}</text>{{item.unit}}
+                </view>
+                <view style="width:50%;float:right;text-align: right;">
+                  送货单号:{{item.freightCode}}
+                </view>
+              </view>
+              <view>
+                <view class="cu-tag bg-red light  round">{{item.applyTypeName}}</view>
+                <view  class="text-cut text-green" style="float:right">
+                  <!-- 总价:{{item.totalPrice}}￥ -->
+                  <switch class="switch" bindchange="switchChange" checked="{{item.isCheck}}" data-id="{{item.applyItemId}}" ></switch>
+                  </view>
               </view>
             </view>
           </view>
         </view>
-        <!-- <view style="width:10%;float:right" >
-          <switch class="switch-sex" bindchange="switchSex"></switch>
-        </view> -->
-      </van-cell-group>
-    </view>
+      </view>
+    </van-cell-group>
+  </view>
   <!-- 分割，防止底部不清晰 -->
   <i-divider ></i-divider>
 </scroll-view>

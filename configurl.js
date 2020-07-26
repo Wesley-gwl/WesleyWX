@@ -5,6 +5,7 @@ var config={
    //登入
    loginAuto_url:host+"api/WXLogin/WXAutoLogin",
    login_url:host+"api/WXLogin/WXLogin",
+   loginVerify_url:host+"api/WXLogin/WXAVerifyLogin",
    //商品相关
    productType_url:host+"api/ProductTypeWX/GetList",
    productList_url:host+"api/ProductWX/GetProductList",
@@ -19,6 +20,10 @@ var config={
    getApplyList_url:host+"api/ApplyWX/GetApplyListByPage",
    deleteApply_url:host+"api/ApplyWX/DeleteApply",
    //对账单
-   getAccountNotCheckPurchase_url:host+"api/applyWX/GetApplyOfPurchaseAccountCheck",
+   getAccountNotCheckPurchase_url:host+"api/ApplyWX/GetApplyOfPurchaseAccountCheck",
+   saveAccountCheck_url:host+"api/AccountCheckWX/SaveAccountCheck",
+   getAccountCheckList_url:host+"api/AccountCheckWX/GetAccountCheckListByPage",
+   getAccountCheckForEdit_url:host+"api/AccountCheckWX/GetAccountCheckForEdit",
+   deleteAccountCheck_url:host+"api/AccountCheckWX/DeleteAccountCheck",
 }
 module.exports=config;

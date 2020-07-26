@@ -11,13 +11,16 @@ Page({
     id:"",
     isLook:false,
     isEdit:false,
+    title:"",
     type: 1,
     typeName:"采购对账单",
     status:0,
     statusName:"新建",
-    totalPrice:0.000,
+    totalAmount:0.000,
+    lastAmount:0.000,
+    memo:"",
     customer:{},
-    productList:[],
+    applyList:[],
     loadModal:false,
     showTypeSelect: false,
     submitText:"提交",
@@ -32,39 +35,46 @@ Page({
       return value;
     },
   },
+   //输入赋值
+   onFieldChange(e){
+    this.setData({
+      [e.target.dataset.key]:e.detail
+    });
+  },
   //验证输入金额
   inputTotalPrice:function(e){
     var reg=new RegExp('^[0-9]+.?[0-9]*$');
-    var rsNum=reg.exec(e.detail);
+    var istrue=reg.test(e.detail);
     that.setData({
-      totalPrice:rsNum==null?0:rsNum
+      totalAmount:istrue?e.detail:0,
     })
   },
   //计算总价
   calculateTotalPrice:function(){
-    var list = that.data.productList;
+    var list = that.data.applyList;
     if( list.length>0){
       var total=Number(0.000);
       list.forEach(e => {
-        total+= (Number(e.purchasePrice)*Number(e.number));
+        total+= e.totalPrice;
       });
-      console.log(total);
       that.setData({
-        totalPrice : total*100
+        lastAmount : total*100,
+        totalAmount:total
       })
     }else{
       that.setData({
-        totalPrice : 0.000  
+        lastAmount : 0.000 ,
+        totalAmount:0.000
       })
     }
   },
   //修改单据日期
-  DateChange(event) {
+  dateChange(event) {
     if(that.data.isLook){
       return;
     }
     this.setData({
-      orderDate: event.detail.value,
+      date: event.detail.value,
     });
   },
   //选择单据按钮
@@ -80,25 +90,21 @@ Page({
         })
       }
     }
-  
   },
-  //删除商品
-  onCloseProduct(event) {
+  //删除单据
+  onCloseApply(event) {
     if(that.data.isLook){
       return;
     }
     var id = event.currentTarget.dataset.id;
-    var list =that.data.productList;
+    var list =that.data.applyList;
     var re = [];
-    var index = 0;
     list.forEach(e => {
-      if(e.id!= id){
-        e.index =index;
+      if(e.applyItemId!= id){
         re.push(e);
-        index++;
       }
     });
-    that.setData({ productList: re });
+    that.setData({ applyList: re });
     that.calculateTotalPrice();
   },
   //提交
@@ -110,11 +116,16 @@ Page({
       return;
     }
     var data =that.data;
-    if(data.customer == {}){
+    console.log(data);
+    if(data.title == ''){
+      Notify({ type: 'warning', message: '请填写标题' ,duration: 2000});
+      return ;
+    }
+    if(data.customer.id == null ){
       Notify({ type: 'warning', message: '请先选择供应商' ,duration: 2000});
       return ;
     }
-    if(data.productList.length<1){
+    if(data.applyList.length<1){
       Notify({ type: 'warning', message: '请先增加单据',duration: 2000 });
       return ;
     }
@@ -122,44 +133,47 @@ Page({
       loadModal: true
     })
     var input = {};
-    var Apply ={};
-    Apply.Id= data.id;
-    Apply.Code = data.code;
-    Apply.Type = data.type;
-    Apply.CustomerId= data.customer.id;
-    Apply.CustomerName =data.customer.name;
-    Apply.CompanyName = data.customer.companyName;
-    Apply.PhoneNumber =data.customer.phoneNumber;
-    Apply.OrderDate = data.orderDate;
-    Apply.DeliveryDate = data.deliveryDate;
-    Apply.TotalPrice = data.totalPrice/100;
-    Apply.LastPrice = data.totalPrice;
-    Apply.Status = data.status;
-    if(data.freightCode == null){
-      Apply.FreightCode = "";
-    }else{
-      Apply.FreightCode = data.freightCode;
-      Apply.Status = 2//待付款
-    }
-    Apply.Memo = data.memo == null?"":data.memo;
-    input.Apply=Apply;
-    var ApplyItemList = [];
-    data.productList.forEach(e => {
+    var AccountCheck ={};
+    AccountCheck.Id= data.id;
+    AccountCheck.Code = data.code;
+    AccountCheck.Title = data.title;
+    AccountCheck.Type = data.type;
+    AccountCheck.CustomerId= data.customer.id;
+    AccountCheck.CustomerName =data.customer.name;
+    AccountCheck.CompanyName = data.customer.companyName;
+    AccountCheck.PhoneNumber =data.customer.phoneNumber;
+    AccountCheck.Date = data.date;
+    AccountCheck.TotalAmount = data.totalAmount;
+    AccountCheck.LastAmount = data.lastAmount/100;
+    AccountCheck.Status = data.status;
+    AccountCheck.Memo = data.memo == null?"":data.memo;
+    input.AccountCheck=AccountCheck;
+    var AccountCheckDetails = [];
+    data.applyList.forEach(e => {
       var item = {};
-      item.ProductId = e.id;
-      item.ProductName = e.name;
-      item.Code = e.code;
-      item.Spec = e.spec;
+      item.applyId = e.applyId;
+      item.applyCode=e.applyCode;
+      item.applyType = e.applyType;
+      item.CustomerName =e.name;
+      item.CompanyName = e.companyName;
+      item.ApplyItemId = e.applyItemId;
+      item.ProductId = e.productId;
+      item.ProductName = e.productName;
+      item.ProductCode = e.productCode;
+      item.ProductSpec = e.productSpec;
       item.Unit = e.unit;
       item.Number = e.number;
-      item.Price = e.purchasePrice;
-      item.TotalPrice = e.number*Number(e.purchasePrice)
-      ApplyItemList.push(item);
+      item.Price = e.price;
+      item.TotalPrice = e.totalPrice;
+      item.OrderDate = e.orderDate;
+      item.DeliveryDate =e.deliveryDate;
+      item.FreightCode = e.freightCode;
+      AccountCheckDetails.push(item);
     });
-    input.ApplyItemList=ApplyItemList ;
+    input.AccountCheckDetails=AccountCheckDetails;
     console.log(input);
     wx.request({
-      url: config.saveApply_url,
+      url: config.saveAccountCheck_url,
       method: 'post',
       dataType: "json",
       header: header,//传在请求的header里
@@ -170,8 +184,8 @@ Page({
             loadModal: false
           })
           wx.showToast({
-            title: '添加成功',//提示文字
-            duration:2000,//显示时长
+            title: '操作成功',//提示文字
+            duration:1000,//显示时长
             mask:true,//是否显示透明蒙层，防止触摸穿透，默认：false  
             icon:'success', //图标，支持"success"、"loading"  
             success:function(){ 
@@ -179,7 +193,7 @@ Page({
                 wx.navigateBack({//返回上一页
                 delta: 1
                 })
-              },2000);
+              },1500);
             },//接口调用成功
             fail: function () { },  //接口调用失败的回调函数  
             complete: function () { } //接口调用结束的回调函数  
@@ -287,10 +301,8 @@ Page({
   onReady: function () {
     if(!(that.data.isEdit||that.data.isLook)){
       var time = util.formatDate(new Date());
-      var time2 = util.formatDateAdd(new Date(),0,3);
       this.setData({
-        orderDate: time,
-        deliveryDate: time2,
+        date: time,
       });
     }
   },
@@ -299,6 +311,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    console.log(that.data.applyList);
     this.setHeader();
     this.calculateTotalPrice();
   },

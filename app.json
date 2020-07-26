@@ -1,20 +1,19 @@
 {
   "pages": [
-    "pages/purchaseNotCheckList/purchaseNotCheckList",
-    "pages/purchaseAccountCheckAddOrEdit/purchaseAccountCheckAddOrEdit",
+    "pages/purchaseAccountCheckList/purchaseAccountCheckList",
     "pages/login/login",
     "pages/purchaseList/purchaseList",
+    "pages/purchaseAccountCheckAddOrEdit/purchaseAccountCheckAddOrEdit",
+    "pages/purchaseNotCheckList/purchaseNotCheckList",
     "pages/purchaseAddOrEdit/purchaseAddOrEdit",
     "pages/product/product",
     "pages/logs/logs",
     "pages/purchase/purchase",
     "pages/sale/sale",
     "pages/storeIn/storeIn",
-    "pages/test/test",
     "pages/storeOut/storeOut",
     "pages/customer/customer",
     "pages/supplier/supplier",
-    "pages/purchaseAccountCheckList/purchaseAccountCheckList",
     "pages/productList/productList"
   ],
   "window": {
