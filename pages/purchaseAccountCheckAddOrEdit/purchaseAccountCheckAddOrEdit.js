@@ -42,11 +42,11 @@ Page({
     });
   },
   //验证输入金额
-  inputTotalPrice:function(e){
+  inputLastPrice:function(e){
     var reg=new RegExp('^[0-9]+.?[0-9]*$');
     var istrue=reg.test(e.detail);
     that.setData({
-      totalAmount:istrue?e.detail:0,
+      lastAmount:istrue?e.detail:0,
     })
   },
   //计算总价
@@ -58,8 +58,8 @@ Page({
         total+= e.totalPrice;
       });
       that.setData({
-        lastAmount : total*100,
-        totalAmount:total
+        lastAmount : total,
+        totalAmount:total*100
       })
     }else{
       that.setData({
@@ -143,14 +143,16 @@ Page({
     AccountCheck.CompanyName = data.customer.companyName;
     AccountCheck.PhoneNumber =data.customer.phoneNumber;
     AccountCheck.Date = data.date;
-    AccountCheck.TotalAmount = data.totalAmount;
-    AccountCheck.LastAmount = data.lastAmount/100;
+    AccountCheck.TotalAmount = data.totalAmount/100;
+    AccountCheck.LastAmount = data.lastAmount;
     AccountCheck.Status = data.status;
     AccountCheck.Memo = data.memo == null?"":data.memo;
     input.AccountCheck=AccountCheck;
     var AccountCheckDetails = [];
     data.applyList.forEach(e => {
       var item = {};
+      item.id =e.id;
+      item.pid = e.pid;
       item.applyId = e.applyId;
       item.applyCode=e.applyCode;
       item.applyType = e.applyType;
@@ -226,7 +228,7 @@ Page({
   },
   getApplyInfo:function(id){
     wx.request({
-      url: config.getApplyInfo_url,
+      url: config.getAccountCheckForEdit_url,
       method: 'get',
       header: header,//传在请求的header里
       data:{id:id},
@@ -243,8 +245,8 @@ Page({
   },
   loadData:function(output){
     if(output!=null){
-      var apply = output.apply;
-      if(apply.status!=0){
+      var accountCheck = output.accountCheck;
+      if(accountCheck.status!=0){
         that.setData({
           submitText:"返回",
           isLook:true,
@@ -258,41 +260,54 @@ Page({
         })
       }
       var customer = {};
-      customer.id = apply.customerId;
-      customer.name = apply.customerName;
-      customer.companyName = apply.companyName;
-      var productList = [];
-      var index = 0;
-      output.applyItemList.forEach(e => {
-        var product = {};
-        product.id = e.productId;
-        product.spec = e.spec;
-        product.code = e.code;
-        product.name = e.productName;
-        product.unit = e.unit;
-        product.number = e.number;
-        product.purchasePrice = e.price;
-        product.totalPrice = e.totalPrice;
-        product.memo = e.memo;
-        product.index = index;
-        productList.push(product);
-        index++;
+      customer.id = accountCheck.customerId;
+      customer.name = accountCheck.customerName;
+      customer.companyName = accountCheck.companyName;
+      customer.phoneNumber = accountCheck.phoneNumber;
+      var list = [];
+      output.accountCheckDetails.forEach(e => {
+        var item = {};
+        item.id= e.id;
+        item.pid=e.pid;
+        item.productId = e.productId;
+        item.productSpec = e.productSpec;
+        item.productCode = e.productCode;
+        item.productName = e.productName;
+        item.unit = e.unit;
+        item.customerName = e.customerName;
+        item.customerId = e.customerId;
+        item.phoneNumber = e.phoneNumber;
+        item.number = e.number;
+        item.price = e.price;
+        item.totalPrice = e.totalPrice;
+        item.memo = e.memo;
+        item.applyCode = e.applyCode;
+        item.applyId= e.applyId;
+        item.applyItemId = e.applyItemId;
+        item.applyType = e.applyType;
+        item.freightCode = e.freightCode;
+        item.orderDate = e.orderDate.substring(0,10);
+        item.deliveryDate = e.deliveryDate.substring(0,10); 
+        item.applyTypeName = e.applyTypeName;
+        item.isCheck = true;
+        list.push(item);
       });
       that.setData({
-        id:apply.id,
+        id:accountCheck.id,
         customer:customer,
-        code:apply.code,
-        type:apply.type,
-        typeName:apply.typeName,
-        freightCode:apply.freightCode,
-        memo:apply.memo,
-        orderDate:apply.orderDate.substring(0,10),
-        deliveryDate:apply.deliveryDate.substring(0,10),
-        productList :productList,
-        stutas:apply.status,
-        statusName : apply.statusName
+        code:accountCheck.code,
+        type:accountCheck.type,
+        typeName:accountCheck.typeName,
+        memo:accountCheck.memo,
+        date:accountCheck.date.substring(0,10),
+        applyList :list,
+        stutas:accountCheck.status,
+        statusName : accountCheck.statusName,
+        title :accountCheck.title,
+        lastAmount :accountCheck.lastAmount,
+        totalAmount : accountCheck.totalAmount*100
       })
-      that.calculateTotalPrice();
+      //that.calculateTotalPrice();
     }
   },
   /**
@@ -311,8 +326,10 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    console.log(that.data.applyList);
     this.setHeader();
+    if(that.data.isLook){
+      return;
+    }
     this.calculateTotalPrice();
   },
   setHeader:function(){
@@ -329,7 +346,6 @@ Page({
         })
       }
       header = {
-        //'content-type': 'application/x-www-form-urlencoded;charset=utf-8',
         'sessionKey':key//读取cookie
       };
     }

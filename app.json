@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/purchaseAccountCheckList/purchaseAccountCheckList",
     "pages/login/login",
+    "pages/purchaseAccountCheckList/purchaseAccountCheckList",
     "pages/purchaseList/purchaseList",
     "pages/purchaseAccountCheckAddOrEdit/purchaseAccountCheckAddOrEdit",
     "pages/purchaseNotCheckList/purchaseNotCheckList",

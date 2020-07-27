@@ -126,10 +126,11 @@ Page({
   },
   DeleteApply:function(id){
     wx.request({
-      url: config.deleteApply_url,
-      method: 'get',
+      url: config.deleteAccountCheck_url,
+      method: 'post',
+      dataType:"json",
       header: header,//传在请求的header里
-      data:{id:id},
+      data:JSON.stringify({id:id}),
       success(res) {
         if(res.data.success){
           Notify({ type: 'success', message: '删除成功' ,duration: 2000});

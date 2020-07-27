@@ -63,13 +63,13 @@
   <van-row>
     <van-cell-group>
       <van-field
-      value="{{ totalAmount }}"
+      value="{{ lastAmount }}"
       type="number"
       required
       label="最终金额"
       placeholder="请输入金额"
       input-align="right"
-      bind:input ="inputTotalPrice"
+      bind:input ="inputLastPrice"
       />
     </van-cell-group>
   </van-row>
@@ -80,7 +80,7 @@
       value="{{ memo }}"
       input-align="right"
       data-key ="memo"
-      bind:change="memo"
+      bind:change="onFieldChange"
       />
     </van-cell-group>
   </van-row>
@@ -144,7 +144,7 @@
   <i-divider ></i-divider>
   <van-submit-bar
   button-text="确定"
-  price= "{{lastAmount}}"
+  price= "{{totalAmount}}"
   bind:submit="onSubmit"
   decimal-length="3"
   />

@@ -80,7 +80,7 @@
                 {{item.code}}
                </view>
                <view style="width:50%; float:right; text-align: right;">
-                {{item.companyName}}
+                {{item.title}}
                </view>
               </view>
             </view>
@@ -88,16 +88,16 @@
               <view class="desc">
                 <view class="text-content">
                    <view style="width:50%;float:left">
-                    单据日期:{{item.orderDate}}
+                    公司:{{item.companyName}}
                    </view>
                    <view style="width:50%; float:right; text-align: right;">
                     {{item.customerName}} {{item.phoneNumber==null?"":item.phoneNumber}}
                    </view>
                    <view style="width:50%;float:left">
-                    收货日期:{{item.deliveryDate}}
+                    制单日期:{{item.date}}
                    </view>
                    <view style="width:50%;float:right;text-align: right;">
-                    {{item.freightCode==""?"":'送货单号:'+item.freightCode}}
+                    对账金额:{{item.totalAmount}}￥
                    </view>
                    <view style="width:100%;float:left">
                     {{item.memo==""?"":'备注:'+item.memo}}
@@ -107,7 +107,7 @@
                   <view class="cu-tag bg-red light  round">{{item.typeName}}</view>
                   <view class="cu-tag bg-green light  round">{{item.statusName}}</view>
                   <view  class="text-cut text-green" style="float:right">
-                    总价:{{item.lastPrice}}￥
+                    总价:{{item.lastAmount}}￥
                    </view>
                 </view>
               </view>
