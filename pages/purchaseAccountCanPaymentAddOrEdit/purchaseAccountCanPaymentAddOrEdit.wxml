@@ -4,10 +4,10 @@
     <van-cell-group>
       <van-cell
       is-link
-      title="选择供应商"
+      title="选择采购对账单"
       link-type="navigateTo"
-      url="{{supplierUrl}}"
-      value ="{{customer.companyName}}{{customer.name}}"
+      url="{{checkUrl}}"
+      value ="{{apply.accountCheckCode}}"
       input-align="right"
       required
       />
@@ -17,20 +17,27 @@
     <van-cell-group>
       <van-field
       label="标题"
-      value="{{title}}"
-      placeholder="标题"
+      value="{{apply.accountCheckTitle}}"
       input-align="right"
-      data-key ="title"
-      bind:change="onFieldChange"
-      required
+      disabled
+      />
+    </van-cell-group>
+  </van-row>
+  <van-row>
+    <van-cell-group>
+      <van-field
+      label="供应商"
+      value="{{ apply.companyName }} {{ apply.customerName }}"
+      input-align="right"
+      disabled
       />
     </van-cell-group>
   </van-row>
   <van-row class="margin-top">
     <van-cell-group>
       <van-field
-      label="编号"
-      value="{{ code }}"
+      label="订单号"
+      value="{{ apply.code }}"
       placeholder="自动生成"
       input-align="right"
       disabled
@@ -39,7 +46,7 @@
   </van-row>
   <van-row>
     <van-field
-    label="账单类型"
+    label="单据类型"
     value="{{ typeName }}"
     input-align="right"
     disabled
@@ -51,25 +58,96 @@
     </van-cell-group>
   </van-row>
   <van-row>
+    <van-cell
+    is-link
+    title="结算方式"
+    bind:click="onSelectPaymentType"
+    value ="{{apply.customerPaymentTypeName}}"
+    input-align="right"
+    />
+    <van-action-sheet
+    title="结算方式"
+    show="{{ showPaymentTypeSelect }}"
+    actions="{{ paymentTypeList }}"
+    bind:close ="onClose"
+    bind:select="onSelectPaymentType"
+    />
+  </van-row>
+  <van-row>
+    <van-field
+    label="账单日期"
+    value="{{ apply.accountCheckDate }}"
+    input-align="right"
+    disabled
+    />
+  </van-row>
+  <van-row>
     <view class="cu-form-group">
-      <view class="title">对账日期</view>
-      <picker mode="date" value="{{date}}" start="2019-09-01" end="2125-09-01" bindchange="dateChange">
+      <view class="title">预付款日期</view>
+      <picker mode="date" value="{{apply.date}}" start="2019-09-01" end="2125-09-01" bindchange="dateChange">
         <view class="picker">
-          {{date}}
+          {{apply.date}}
         </view>
       </picker>
     </view>
   </van-row>
   <van-row>
+    <van-cell
+    is-link
+    title="开票方式"
+    bind:click="onSelectTicketType"
+    value ="{{apply.ticketTypeName}}"
+    input-align="right"
+    />
+    <van-action-sheet
+    title="开票方式"
+    show="{{ showTicketTypeSelect }}"
+    actions="{{ ticketTypeList }}"
+    bind:close ="onClose"
+    bind:select="onSelectTicketType"
+    />
+  </van-row>
+  <van-row>
     <van-cell-group>
       <van-field
-      value="{{ lastAmount }}"
+      value="{{ apply.totalAmount }}"
       type="number"
-      required
-      label="最终金额"
-      placeholder="请输入金额"
+      label="对账金额"
       input-align="right"
-      bind:input ="inputLastPrice"
+      disabled
+      />
+    </van-cell-group>
+  </van-row>
+  <van-row>
+    <van-cell-group>
+      <van-field
+      value="{{ apply.residueAmount }}"
+      type="number"
+      label="剩余金额"
+      input-align="right"
+      disabled
+      />
+    </van-cell-group>
+  </van-row>
+  <van-row>
+    <van-cell-group>
+      <van-field
+      value="{{ apply.finishAmount }}"
+      type="number"
+      label="已结算金额"
+      input-align="right"
+      disabled
+      />
+    </van-cell-group>
+  </van-row>
+  <van-row>
+    <van-cell-group>
+      <van-field
+      value="{{ apply.offsetAmount }}"
+      type="number"
+      label="抵消金额"
+      input-align="right"
+      disabled
       />
     </van-cell-group>
   </van-row>
@@ -77,21 +155,13 @@
     <van-cell-group>
       <van-field
       label="备注"
-      value="{{ memo }}"
+      value="{{ apply.memo }}"
       input-align="right"
       data-key ="memo"
       bind:change="onFieldChange"
       />
     </van-cell-group>
   </van-row>
-  <van-cell-group>
-    <van-cell
-    is-link
-    title="添加采购单据"
-    bind:click="onSelectApply"
-    required
-  />
-  </van-cell-group>
   <scroll-view  scroll-y='true' > 
     <view  wx:for="{{applyList}}"  class="bg-blue padding radius light">
       <van-swipe-cell right-width="{{ 65 }}"   data-id="{{item.applyItemId}}">
@@ -144,7 +214,9 @@
   <i-divider ></i-divider>
   <van-submit-bar
   button-text="确定"
+  price= "{{totalAmount}}"
   bind:submit="onSubmit"
+  decimal-length="3"
   />
   <view class='cu-load load-modal' wx:if="{{loadModal}}">
     <image src='/images/logo.png' class='png' mode='aspectFit'></image>

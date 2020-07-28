@@ -8,23 +8,62 @@ Page({
    * 页面的初始数据
    */
   data: {
-    id:"",
     isLook:false,
     isEdit:false,
-    title:"",
-    type: 1,
-    typeName:"采购对账单",
-    status:0,
-    statusName:"新建",
-    totalAmount:0.000,
-    lastAmount:0.000,
+    showPaymentTypeSelect: false,
+    paymentTypeList:[{
+      type:'0',
+      name: '天结',
+    },
+    {
+      type:'1',
+      name: '当月结',
+    },
+    {
+      type:'2',
+      name: '月结',
+    },
+    {
+      type:'3',
+      name: '季结',
+    },
+    {
+      type:'4',
+      name: '其他',
+    },
+    {
+      type:'4',
+      name: '其他',
+    }],
+    showTicketTypeSelect: false,
+    ticketTypeList:[
+      {
+        type:'0',
+        name: '不开票',
+      },
+      {
+        type:'1',
+        name: '普通发票',
+      },
+      {
+        type:'2',
+        name: '增值发票',
+      },
+      {
+        type:'3',
+        name: '其他发票',
+      },
+      {
+        type:'3',
+        name: '其他发票',
+      }
+    ],
     memo:"",
-    customer:{},
+    apply:{},
     applyList:[],
     loadModal:false,
-    showTypeSelect: false,
     submitText:"提交",
-    supplierUrl:"../supplier/supplier",
+    checkUrl:"../purchaseAccountCheckSelect/purchaseAccountCheckSelect",
     purchaseUrl:"../purchaseNotCheckList/purchaseNotCheckList",
     formatter(type, value) {
       if (type === 'year') {
@@ -34,48 +73,6 @@ Page({
       }
       return value;
     },
-  },
-  //输入赋值
-  onFieldChange(e){
-    this.setData({
-      [e.target.dataset.key]:e.detail
-    });
-  },
-  //验证输入金额
-  inputLastPrice:function(e){
-    var reg=new RegExp('^[0-9]+.?[0-9]*$');
-    var istrue=reg.test(e.detail);
-    that.setData({
-      lastAmount:istrue?e.detail:0,
-    })
-  },
-  //计算总价
-  calculateTotalPrice:function(){
-    var list = that.data.applyList;
-    if( list.length>0){
-      var total=Number(0.000);
-      list.forEach(e => {
-        total+= e.totalPrice;
-      });
-      that.setData({
-        lastAmount : total,
-        totalAmount:total*100
-      })
-    }else{
-      that.setData({
-        lastAmount : 0.000 ,
-        totalAmount:0.000
-      })
-    }
-  },
-  //修改单据日期
-  dateChange(event) {
-    if(that.data.isLook){
-      return;
-    }
-    this.setData({
-      date: event.detail.value,
-    });
   },
   //选择单据按钮
   onSelectApply(){
@@ -91,21 +88,42 @@ Page({
       }
     }
   },
-  //删除单据
-  onCloseApply(event) {
-    if(that.data.isLook){
-      return;
-    }
-    var id = event.currentTarget.dataset.id;
-    var list =that.data.applyList;
-    var re = [];
-    list.forEach(e => {
-      if(e.applyItemId!= id){
-        re.push(e);
-      }
+  //输入赋值
+  onFieldChange(e){
+    this.setData({
+      [e.target.dataset.key]:e.detail
     });
-    that.setData({ applyList: re });
-    that.calculateTotalPrice();
+  },
+  //选择结算方式
+  onSelectPaymentType(event){
+    this.setData({ showPaymentTypeSelect: true });
+    var apply = that.data.apply;
+    apply.customerPaymentTypeName=event.detail.name ;
+    apply.customerPaymentType=event.detail.type ;
+    if(event.detail.type != null){
+      this.setData({ 
+        apply: apply
+      })
+    }
+  },
+  //选择开票方式
+  onSelectTicketType(event){
+    this.setData({ showTicketTypeSelect: true });
+    var apply = that.data.apply;
+    apply.ticketTypeName=event.detail.name ;
+    apply.ticketType=event.detail.type ;
+    if(event.detail.type != null){
+      this.setData({ 
+        apply: apply
+      })
+    }
+  },
+  //关闭类型选择
+  onClose() {
+    this.setData({ 
+      showTicketTypeSelect: false ,
+      showPaymentTypeSelect:false
+    });
   },
   //提交
   onSubmit:function(){
@@ -214,11 +232,15 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log(options);
     that = this;
     that.setHeader();
     that.setData({
       loadModal: true
     })
+    if(options.accountCheckId!=null){
+      that.getAddApplyInfo(options.accountCheckId);
+    }
     if(options.id!=null){
       that.getApplyInfo(options.id);
     }
@@ -243,6 +265,7 @@ Page({
       }
     })
   },
+  //加载编辑查看数据
   loadData:function(output){
     if(output!=null){
       var accountCheck = output.accountCheck;
@@ -307,9 +330,42 @@ Page({
         lastAmount :accountCheck.lastAmount,
         totalAmount : accountCheck.totalAmount*100
       })
-      //that.calculateTotalPrice();
     }
   },
+  //加载新增数据
+  getAddApplyInfo:function(accountCheckId){
+    wx.request({
+      url: config.getAccountCanPaymentAddInfo_url,
+      method: 'get',
+      header: header,//传在请求的header里
+      data:{id:accountCheckId},
+      success(res) {
+        if(res.data.success){
+          var output =res.data.data;
+          console.log(output)
+          output.accountCanPayment.date = output.accountCanPayment.date.substring(0,10);
+          output.accountCanPayment.accountCheckDate= output.accountCanPayment.accountCheckDate.substring(0,10);
+          output.accountCheckDetails.forEach(e => {
+            e.orderDate =  e.orderDate.substring(0,10);
+          });
+          that.setData({
+            apply:output.accountCanPayment,
+            applyList :output.accountCheckDetails,
+            status :output.accountCanPayment.status,
+            statusName:output.accountCanPayment.statusName,
+            type : output.accountCanPayment.type,
+            typeName:output.accountCanPayment.typeName,
+            customerPaymentType :output.accountCanPayment.customerPaymentType,
+            customerPaymentTypeName :output.accountCanPayment.customerPaymentTypeName
+          })
+        }
+        else{
+          Notify({ type: 'warning', message: res.data.message ,duration: 2000});
+        }
+      }
+    })
+  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -330,7 +386,6 @@ Page({
     if(that.data.isLook){
       return;
     }
-    this.calculateTotalPrice();
   },
   setHeader:function(){
     if(header==null||header=={}){

@@ -20,19 +20,19 @@ Page({
     showStatusSelect:false,
     statusList:[
       {
-        type:'-1',
+        status:'-1',
         name: '全部',
       },
       {
-        type:'0',
+        status:'0',
         name: '新建',
       },
       {
-        type:'1',
+        status:'1',
         name: '已生成',
       },
       {
-        type:'2',
+        status:'2',
         name: '完成',
       },
     ]
@@ -45,22 +45,6 @@ Page({
   onSearchMore(){
     this.setData({ show: false });
     this.getAccountCheckList();
-  },
-  //选择状态
-  onSelectStatus:function(event){
-    this.setData({ showStatusSelect: true });
-    if(event.detail.type != null){
-      this.setData({ 
-        status: event.detail.type,
-        statusName:event.detail.name 
-      })
-    }
-  },
-  //关闭类型选择
-  onClose() {
-    this.setData({ 
-      showStatusSelect: false ,
-    });
   },
   //修改search控件值
   onChangeSearch(e){

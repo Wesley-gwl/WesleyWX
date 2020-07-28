@@ -25,5 +25,7 @@ var config={
    getAccountCheckList_url:host+"api/AccountCheckWX/GetAccountCheckListByPage",
    getAccountCheckForEdit_url:host+"api/AccountCheckWX/GetAccountCheckForEdit",
    deleteAccountCheck_url:host+"api/AccountCheckWX/DeleteAccountCheck",
+   //应收付款单
+   getAccountCanPaymentAddInfo_url:host+"api/AccountCheckWX/GetAccountCanPaymentAddInfoByCheckId",
 }
 module.exports=config;

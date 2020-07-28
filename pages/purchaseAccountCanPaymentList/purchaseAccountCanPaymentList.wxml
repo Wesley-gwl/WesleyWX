@@ -1,6 +1,6 @@
 <van-notify id="van-notify" />
 <!-- 更多条件 -->
-<van-popup show="{{ show }}" round bind:close="onCloseMore"  position="top" custom-style="height: 270;">
+<van-popup show="{{ show }}" round bind:close="onCloseMore"  position="top" custom-style="height: 230;">
   <van-row>
     <van-search
     value="{{searchText}}"
@@ -29,22 +29,6 @@
         </view>
       </picker>
     </view>
-  </van-row>
-  <van-row>
-    <van-cell
-    is-link
-    title="状态"
-    bind:click="onSelectStatus"
-    value ="{{statusName}}"
-    input-align="right"
-    />
-    <van-action-sheet
-    title="状态"
-    show="{{ showStatusSelect }}"
-    actions="{{ statusList }}"
-    bind:close ="onClose"
-    bind:select="onSelectStatus"
-    />
   </van-row>
   <van-row>
     <van-cell-group>
