@@ -64,6 +64,7 @@
     bind:click="onSelectPaymentType"
     value ="{{apply.customerPaymentTypeName}}"
     input-align="right"
+    required
     />
     <van-action-sheet
     title="结算方式"
@@ -90,6 +91,14 @@
         </view>
       </picker>
     </view>
+  </van-row>
+  <van-row>
+    <van-field
+    label="账期天数"
+    value="{{ apply.paymentDays }}"
+    input-align="right"
+    disabled
+    />
   </van-row>
   <van-row>
     <van-cell
@@ -164,50 +173,47 @@
   </van-row>
   <scroll-view  scroll-y='true' > 
     <view  wx:for="{{applyList}}"  class="bg-blue padding radius light">
-      <van-swipe-cell right-width="{{ 65 }}"   data-id="{{item.applyItemId}}">
-        <van-cell-group>
-          <!-- 单据列表 -->
-              <view class="cu-card article ">
-                <view class="cu-item shadow">
-                  <view class="title">
-                    <view class="text-cut">
-                      <view style="width:50%;float:left">
-                      {{item.applyCode}}
-                      </view>
-                      <view class="text-blue" style="width:50%; float:right; text-align: right;">
-                        {{item.totalPrice}}￥
-                      </view>
+      <van-cell-group>
+        <!-- 单据列表 -->
+            <view class="cu-card article ">
+              <view class="cu-item shadow">
+                <view class="title">
+                  <view class="text-cut">
+                    <view style="width:50%;float:left">
+                    {{item.applyCode}}
+                    </view>
+                    <view class="text-blue" style="width:50%; float:right; text-align: right;">
+                      {{item.totalPrice}}￥
                     </view>
                   </view>
-                  <view class="content">
-                    <view class="desc">
-                      <view class="text-content">
-                        <view style="width:50%;float:left">
-                        单据日期:{{item.orderDate}}
-                        </view>
-                        <view style="width:50%; float:right; text-align: right;">
-                        {{item.customerName}}({{item.phoneNumber==null?"":item.phoneNumber}})
-                        </view>
-                        <view style="width:100%;float:left">
-                        商品:{{item.productName}}-{{item.productSpec}}({{item.productCode}})
-                        </view>
-                        <view style="width:50%;float:left">
-                          单价:<text class="text-blue">{{item.price}}</text>￥  数量:<text class="text-blue">{{item.number}}</text>{{item.unit}}
-                        </view>
-                        <view style="width:50%;float:right;text-align: right;">
-                          送货单号:{{item.freightCode}}
-                        </view>
+                </view>
+                <view class="content">
+                  <view class="desc">
+                    <view class="text-content">
+                      <view style="width:50%;float:left">
+                      单据日期:{{item.orderDate}}
                       </view>
-                      <view>
-                        <view class="cu-tag bg-red light  round">{{item.applyTypeName}}</view>
+                      <view style="width:50%; float:right; text-align: right;">
+                      {{item.customerName}}({{item.phoneNumber==null?"":item.phoneNumber}})
                       </view>
+                      <view style="width:100%;float:left">
+                      商品:{{item.productName}}-{{item.productSpec}}({{item.productCode}})
+                      </view>
+                      <view style="width:50%;float:left">
+                        单价:<text class="text-blue">{{item.price}}</text>￥  数量:<text class="text-blue">{{item.number}}</text>{{item.unit}}
+                      </view>
+                      <view style="width:50%;float:right;text-align: right;">
+                        送货单号:{{item.freightCode}}
+                      </view>
+                    </view>
+                    <view>
+                      <view class="cu-tag bg-red light  round">{{item.applyTypeName}}</view>
                     </view>
                   </view>
                 </view>
               </view>
-        </van-cell-group>
-        <view slot="right" class="van-swipe-cell__right" data-id="{{item.applyItemId}}" bindtap="onCloseApply">删除</view>
-      </van-swipe-cell>
+            </view>
+      </van-cell-group>
     </view>
   </scroll-view>
   <i-divider ></i-divider>

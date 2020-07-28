@@ -72,7 +72,7 @@ Page({
   },
   //重置条件筛选
   clearMore(){
-    var stime = util.formatDateAdd(new Date(),-3);
+    var stime = util.formatDateAdd(new Date(),-2);
     var dtime = util.formatDateAdd(new Date(),1);
     this.setData({
       searchText: '',
@@ -174,7 +174,7 @@ Page({
    */
   onReady: function () {
     var stime = util.formatDateAdd(new Date(),-2);
-    var dtime = util.formatDateAdd(new Date());
+    var dtime = util.formatDateAdd(new Date(),1);
     this.setData({
       sTime: stime,
       eTime: dtime,

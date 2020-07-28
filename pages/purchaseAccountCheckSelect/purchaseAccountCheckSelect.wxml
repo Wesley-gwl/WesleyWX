@@ -1,4 +1,3 @@
-<van-notify id="van-notify" />
 <!-- 更多条件 -->
 <van-popup show="{{ show }}" round bind:close="onCloseMore"  position="top" custom-style="height: 230;">
   <van-row>
@@ -127,5 +126,4 @@
   button-text="确定"
   bind:submit="onSubmit"
 />
-<!-- 弹出框 -->
-<van-dialog id="van-dialog" />
+

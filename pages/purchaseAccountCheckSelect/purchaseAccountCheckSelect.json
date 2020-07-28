@@ -12,8 +12,6 @@
     "van-popup": "../../dist/popup/index",
     "van-submit-bar": "../../dist/submit-bar/index",
     "van-swipe-cell": "../../dist/swipe-cell/index",
-    "van-dialog": "../../dist/dialog/index",
-    "van-notify": "../../dist/notify/index",
     "i-divider": "../../viewui/divider/index",
     "van-radio": "../../dist/radio/index",
     "van-radio-group": "../../dist/radio-group/index"

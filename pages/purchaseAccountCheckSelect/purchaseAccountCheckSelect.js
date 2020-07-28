@@ -1,7 +1,5 @@
 var util = require('../../utils/util.js');
 const config = require("../../configurl");
-import Dialog from '../../dist/dialog/dialog';
-import Notify from '../../dist/notify/notify';
 var header;
 var that;
 Page({

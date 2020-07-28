@@ -26,6 +26,11 @@ var config={
    getAccountCheckForEdit_url:host+"api/AccountCheckWX/GetAccountCheckForEdit",
    deleteAccountCheck_url:host+"api/AccountCheckWX/DeleteAccountCheck",
    //应收付款单
+   getAccountCanPaymentList_url:host+"api/AccountCanPaymentWX/GetAccountCanPaymentListByPage",
    getAccountCanPaymentAddInfo_url:host+"api/AccountCheckWX/GetAccountCanPaymentAddInfoByCheckId",
+   saveAccountCanPayment_url:host+"api/AccountCanPaymentWX/SaveAccountCanPayment",
+   deleteAccountCanPaymentg_url:host+"api/AccountCanPaymentWX/DeleteAccountCanPayment",
+   getPaymentDays_url:host+"api/CustomerWX/GetPaymentDays",
+   getAccountCanPaymentForEdit_url:host+"api/AccountCanPaymentWX/GetAccountCanPaymentForEdit",
 }
 module.exports=config;

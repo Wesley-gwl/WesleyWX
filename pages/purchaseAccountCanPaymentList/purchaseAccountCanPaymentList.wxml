@@ -80,7 +80,7 @@
                 {{item.code}}
                </view>
                <view style="width:50%; float:right; text-align: right;">
-                {{item.title}}
+                {{item.accountCheckTitle}}
                </view>
               </view>
             </view>
@@ -88,27 +88,27 @@
               <view class="desc">
                 <view class="text-content">
                    <view style="width:50%;float:left">
-                    公司:{{item.companyName}}
+                    {{item.companyName}}
                    </view>
                    <view style="width:50%; float:right; text-align: right;">
                     {{item.customerName}} {{item.phoneNumber==null?"":item.phoneNumber}}
                    </view>
-                   <view style="width:50%;float:left">
-                    制单日期:{{item.date}}
+                   <view style="width:50%;float:left" class="text-blue">
+                    付款日期: {{item.date}}
                    </view>
                    <view style="width:50%;float:right;text-align: right;">
-                    对账金额:{{item.totalAmount}}￥
+                    付款金额:{{item.totalAmount}}￥
                    </view>
-                   <view style="width:100%;float:left">
-                    {{item.memo==""?"":'备注:'+item.memo}}
+                   <view style="width:50%;float:left">
+                    已付款/抵消:{{item.finishAmount}}￥/{{item.offsetAmount}}￥
+                  </view>
+                   <view style="width:50%;float:right;text-align: right;" class="text-blue">
+                    剩余付款金额:{{item.residueAmount}}￥
                    </view>
                 </view>
                 <view>
                   <view class="cu-tag bg-red light  round">{{item.typeName}}</view>
                   <view class="cu-tag bg-green light  round">{{item.statusName}}</view>
-                  <view  class="text-cut text-green" style="float:right">
-                    总价:{{item.lastAmount}}￥
-                   </view>
                 </view>
               </view>
             </view>

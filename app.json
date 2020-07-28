@@ -1,10 +1,10 @@
 {
   "pages": [
+    "pages/purchaseAccountCanPaymentList/purchaseAccountCanPaymentList",
+    "pages/purchaseAccountCheckList/purchaseAccountCheckList",
     "pages/purchaseAccountCanPaymentAddOrEdit/purchaseAccountCanPaymentAddOrEdit",
     "pages/login/login",
     "pages/purchaseAccountCheckSelect/purchaseAccountCheckSelect",
-    "pages/purchaseAccountCheckList/purchaseAccountCheckList",
-    "pages/purchaseAccountCanPaymentList/purchaseAccountCanPaymentList",
     "pages/purchaseList/purchaseList",
     "pages/purchaseAccountCheckAddOrEdit/purchaseAccountCheckAddOrEdit",
     "pages/purchaseNotCheckList/purchaseNotCheckList",

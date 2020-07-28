@@ -25,11 +25,11 @@ Page({
       },
       {
         status:'0',
-        name: '新建',
+        name: '待核销',
       },
       {
         status:'1',
-        name: '已生成',
+        name: '部分核销',
       },
       {
         status:'2',
@@ -57,7 +57,7 @@ Page({
   //重置条件筛选
   clearMore(){
     var stime = util.formatDateAdd(new Date(),-3);
-    var dtime = util.formatDateAdd(new Date(),1);
+    var dtime = util.formatDateAdd(new Date(),3);
     this.setData({
       searchText: '',
       customer:{},
@@ -102,7 +102,6 @@ Page({
   },
   //删除
   deleteAccountCheck:function(event){
-    console.log(event);
     var id = event.currentTarget.dataset.id;
     var apply = {};
     that.data.applyList.forEach(e => {
@@ -126,7 +125,7 @@ Page({
   },
   DeleteApply:function(id){
     wx.request({
-      url: config.deleteAccountCheck_url,
+      url: config.deleteAccountCanPaymentg_url,
       method: 'post',
       dataType:"json",
       header: header,//传在请求的header里
@@ -143,7 +142,7 @@ Page({
   onLookAccountCheckInfo:function(event){
     var id = event.currentTarget.dataset.id;
     wx.navigateTo({
-      url: '/pages/purchaseAccountCheckAddOrEdit/purchaseAccountCheckAddOrEdit?id=' + id,
+      url: '/pages/purchaseAccountCanPaymentAddOrEdit/purchaseAccountCanPaymentAddOrEdit?id=' + id,
     })
   },
   /**
@@ -157,8 +156,8 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    var stime = util.formatDateAdd(new Date(),-2);
-    var dtime = util.formatDateAdd(new Date());
+    var stime = util.formatDateAdd(new Date(),-3);
+    var dtime = util.formatDateAdd(new Date(),3);
     this.setData({
       sTime: stime,
       eTime: dtime,
@@ -195,12 +194,13 @@ Page({
       input.customerId = data.customer.id;
     }
     wx.request({
-      url: config.getAccountCheckList_url,
+      url: config.getAccountCanPaymentList_url,
       method: 'post',
       dataType: "json",
       header: header,//传在请求的header里
       data:JSON.stringify(input),
       success(res) {
+        console.log(res.data);
         if(res.data.success){
           var total = parseInt(res.data.data.total/data.rows);
           if(res.data.data.total%data.rows!=0){

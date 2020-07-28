@@ -100,7 +100,29 @@ Page({
     var apply = that.data.apply;
     apply.customerPaymentTypeName=event.detail.name ;
     apply.customerPaymentType=event.detail.type ;
-    if(event.detail.type != null){
+   
+    if(apply.accountCheckId != null&&event.detail.type!=null){
+      wx.request({
+        url: config.getPaymentDays_url,
+        method: 'get',
+        header: header,//传在请求的header里
+        data:{
+          type :event.detail.type,
+          accountCheckDate: apply.accountCheckDate
+        },
+        success(res) {
+          if(res.data.success){
+            var re =res.data.data;
+            apply.paymentDays =re.paymentDays;
+            apply.date = re.date.substring(0,10);
+            that.setData({ 
+              apply: apply
+            })
+          }
+        }
+      })
+    }
+    else{
       this.setData({ 
         apply: apply
       })
@@ -135,65 +157,18 @@ Page({
     }
     var data =that.data;
     console.log(data);
-    if(data.title == ''){
-      Notify({ type: 'warning', message: '请填写标题' ,duration: 2000});
-      return ;
-    }
-    if(data.customer.id == null ){
-      Notify({ type: 'warning', message: '请先选择供应商' ,duration: 2000});
-      return ;
-    }
-    if(data.applyList.length<1){
-      Notify({ type: 'warning', message: '请先增加单据',duration: 2000 });
+    if(data.apply.accountCheckId == null){
+      Notify({ type: 'warning', message: '请先选择采购对账单' ,duration: 2000});
       return ;
     }
     that.setData({
       loadModal: true
     })
     var input = {};
-    var AccountCheck ={};
-    AccountCheck.Id= data.id;
-    AccountCheck.Code = data.code;
-    AccountCheck.Title = data.title;
-    AccountCheck.Type = data.type;
-    AccountCheck.CustomerId= data.customer.id;
-    AccountCheck.CustomerName =data.customer.name;
-    AccountCheck.CompanyName = data.customer.companyName;
-    AccountCheck.PhoneNumber =data.customer.phoneNumber;
-    AccountCheck.Date = data.date;
-    AccountCheck.TotalAmount = data.totalAmount/100;
-    AccountCheck.LastAmount = data.lastAmount;
-    AccountCheck.Status = data.status;
-    AccountCheck.Memo = data.memo == null?"":data.memo;
-    input.AccountCheck=AccountCheck;
-    var AccountCheckDetails = [];
-    data.applyList.forEach(e => {
-      var item = {};
-      item.id =e.id;
-      item.pid = e.pid;
-      item.applyId = e.applyId;
-      item.applyCode=e.applyCode;
-      item.applyType = e.applyType;
-      item.CustomerName =e.name;
-      item.CompanyName = e.companyName;
-      item.ApplyItemId = e.applyItemId;
-      item.ProductId = e.productId;
-      item.ProductName = e.productName;
-      item.ProductCode = e.productCode;
-      item.ProductSpec = e.productSpec;
-      item.Unit = e.unit;
-      item.Number = e.number;
-      item.Price = e.price;
-      item.TotalPrice = e.totalPrice;
-      item.OrderDate = e.orderDate;
-      item.DeliveryDate =e.deliveryDate;
-      item.FreightCode = e.freightCode;
-      AccountCheckDetails.push(item);
-    });
-    input.AccountCheckDetails=AccountCheckDetails;
-    console.log(input);
+    input.AccountCanPayment = data.apply;
+    input.AccountCanPayment.memo = data.memo;
     wx.request({
-      url: config.saveAccountCheck_url,
+      url: config.saveAccountCanPayment_url,
       method: 'post',
       dataType: "json",
       header: header,//传在请求的header里
@@ -209,9 +184,15 @@ Page({
             mask:true,//是否显示透明蒙层，防止触摸穿透，默认：false  
             icon:'success', //图标，支持"success"、"loading"  
             success:function(){ 
-              setTimeout(function(){ 
+              if(that.data.isEdit){
                 wx.navigateBack({//返回上一页
-                delta: 1
+                  delta: 1
+                  })
+                return;
+              }
+              setTimeout(function(){ 
+                wx.switchTab({//返回上一页
+                  url:"../purchase/purchase"
                 })
               },1500);
             },//接口调用成功
@@ -250,7 +231,7 @@ Page({
   },
   getApplyInfo:function(id){
     wx.request({
-      url: config.getAccountCheckForEdit_url,
+      url: config.getAccountCanPaymentForEdit_url,
       method: 'get',
       header: header,//传在请求的header里
       data:{id:id},
@@ -268,12 +249,12 @@ Page({
   //加载编辑查看数据
   loadData:function(output){
     if(output!=null){
-      var accountCheck = output.accountCheck;
-      if(accountCheck.status!=0){
+      var apply = output.accountCanPayment;
+      if(apply.status!=0){
         that.setData({
           submitText:"返回",
           isLook:true,
-          supplierUrl:"",
+          checkUrl:"",
           productUrl:""
         })
       }
@@ -282,53 +263,20 @@ Page({
           isEdit:true
         })
       }
-      var customer = {};
-      customer.id = accountCheck.customerId;
-      customer.name = accountCheck.customerName;
-      customer.companyName = accountCheck.companyName;
-      customer.phoneNumber = accountCheck.phoneNumber;
-      var list = [];
+      output.accountCanPayment.date = output.accountCanPayment.date.substring(0,10);
+      output.accountCanPayment.accountCheckDate= output.accountCanPayment.accountCheckDate.substring(0,10);
       output.accountCheckDetails.forEach(e => {
-        var item = {};
-        item.id= e.id;
-        item.pid=e.pid;
-        item.productId = e.productId;
-        item.productSpec = e.productSpec;
-        item.productCode = e.productCode;
-        item.productName = e.productName;
-        item.unit = e.unit;
-        item.customerName = e.customerName;
-        item.customerId = e.customerId;
-        item.phoneNumber = e.phoneNumber;
-        item.number = e.number;
-        item.price = e.price;
-        item.totalPrice = e.totalPrice;
-        item.memo = e.memo;
-        item.applyCode = e.applyCode;
-        item.applyId= e.applyId;
-        item.applyItemId = e.applyItemId;
-        item.applyType = e.applyType;
-        item.freightCode = e.freightCode;
-        item.orderDate = e.orderDate.substring(0,10);
-        item.deliveryDate = e.deliveryDate.substring(0,10); 
-        item.applyTypeName = e.applyTypeName;
-        item.isCheck = true;
-        list.push(item);
+        e.orderDate =  e.orderDate.substring(0,10);
       });
       that.setData({
-        id:accountCheck.id,
-        customer:customer,
-        code:accountCheck.code,
-        type:accountCheck.type,
-        typeName:accountCheck.typeName,
-        memo:accountCheck.memo,
-        date:accountCheck.date.substring(0,10),
-        applyList :list,
-        stutas:accountCheck.status,
-        statusName : accountCheck.statusName,
-        title :accountCheck.title,
-        lastAmount :accountCheck.lastAmount,
-        totalAmount : accountCheck.totalAmount*100
+        apply:output.accountCanPayment,
+        applyList :output.accountCheckDetails,
+        status :output.accountCanPayment.status,
+        statusName:output.accountCanPayment.statusName,
+        type : output.accountCanPayment.type,
+        typeName:output.accountCanPayment.typeName,
+        customerPaymentType :output.accountCanPayment.customerPaymentType,
+        customerPaymentTypeName :output.accountCanPayment.customerPaymentTypeName
       })
     }
   },
