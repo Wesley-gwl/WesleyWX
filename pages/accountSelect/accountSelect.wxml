@@ -1,0 +1,32 @@
+<van-notify id="van-notify" />
+<!-- 条件 -->
+<view>
+  <van-search
+  value="{{searchText}}"
+  input-align="center"
+  use-action-slot
+  placeholder="账户名称"
+  bind:search="onSearch"  
+  bind:change="onChangeSearch"
+  >
+  </van-search>
+</view>
+<!-- 分页 -->
+<scroll-view>
+  <view  wx:for="{{accountList}}" >
+    <van-radio-group value="{{ radio }}" >
+      <van-cell-group>
+        <van-cell title="{{item.name}}  ({{item.amount}}￥)"  clickable  bind:click="onSelect" data-name="{{item.name}}" data-id="{{item.id}}" >
+          <van-radio slot="right-icon" name="{{item.id}}" />
+        </van-cell>
+      </van-cell-group>
+    </van-radio-group>
+  </view>
+  <!-- 分割，防止底部不清晰 -->
+  <i-divider ></i-divider>
+</scroll-view>
+<van-submit-bar
+  button-text="确定"
+  bind:submit="onSubmit"
+>
+</van-submit-bar>

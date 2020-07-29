@@ -1,27 +1,21 @@
 var util = require('../../utils/util.js');
 const config = require("../../configurl");
-import Notify from '../../dist/notify/notify';
 var header;
 var that;
 Page({
   data: {
+    searchText:'',
     eTime:'',
     sTime:'',
     show:false,
-    searchText:'',
     customer:{},
     applyList:[],
-    status:0,//新建
-    radio:''
+    selectList:[],
   },
   //查询
   onSearch(){
-    this.getAccountCheckList();
-  },
-  //多条件查询
-  onSearchMore(){
     this.setData({ show: false });
-    this.getAccountCheckList();
+    this.getAccountCanPaymentList();
   },
   //修改search控件值
   onChangeSearch(e){
@@ -38,59 +32,25 @@ Page({
     this.setData({
       searchText: '',
       customer:{},
-      status:-1,
-      statusName:"全部",
       sTime: stime,
       eTime: dtime,
     });
   },
-  //选择
-  onChangeRadio(event) {
-    if(event.detail == that.data.radio){
-      this.setData({
-        radio:'',
-      });
-    }
-    else{
-      this.setData({
-        radio: event.detail,
-      });
-    }
+  //修改search控件值
+  onChangeSearch(e){
+    this.setData({ searchText: e.detail });
   },
-  //关闭更多条件筛选
-  onCloseMore() {
-    this.setData({ show: false });
-    this.getAccountCheckList();
-  },
-  //提交
-  onSubmit:function(){
-    var data = that.data;
-    if(data.radio !=''){
-      var url = "../purchaseAccountCanPaymentAddOrEdit/purchaseAccountCanPaymentAddOrEdit?accountCheckId="+data.radio ;
-      wx.navigateTo({
-        url:url
-      })
-    }else{
-      wx.navigateBack({//返回上一页
-        delta: 1
-      })
-    }
-   
-  },
-  //生命周期加载
+  /**
+   * 生命周期函数--监听页面加载
+   */
   onLoad: function (options) {
 
   },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    var stime = util.formatDateAdd(new Date(),-2);
-    var dtime = util.formatDateAdd(new Date());
-    this.setData({
-      sTime: stime,
-      eTime: dtime,
-    });
     var key = wx.getStorageSync("key");
     console.log(key);
     if(!key){
@@ -106,44 +66,33 @@ Page({
     header = {
       'sessionKey':key//读取cookie
     };
-    this.getAccountCheckList();
+    this.getAccountCanPaymentList();
   },
   //获取信息
-  getAccountCheckList:function(){
+  getAccountCanPaymentList:function(){
     var data = that.data;
     var input ={};
     input.Filter = data.searchText;
-    input.FromTime = data.sTime;
-    input.ToTime =data.eTime;
-    input.Status = data.status;
+    input.isHX = true;
     input.Type =1;
     if(data.customer.id!=null){
       input.customerId = data.customer.id;
     }
     wx.request({
-      url: config.getAccountCheckList_url,
+      url: config.getAccountCanPaymentList_url,
       method: 'post',
       dataType: "json",
       header: header,//传在请求的header里
       data:JSON.stringify(input),
       success(res) {
-        
+        console.log(res.data);
         if(res.data.success){
-          if( res.data.data.length == 0){
-            Notify({ type: 'primary', message: '无数据',duration: 2000 });
-          }else{
-            var total = parseInt(res.data.data.total/data.rows);
-            if(res.data.data.total%data.rows!=0){
-              total++;
-            }
-            res.data.data.rows.forEach((item) => {
-              item.date = item.date.substring(0, 10); //要截取时间的字符串
-            })
-            that.setData({
-              applyList : res.data.data.rows,
-              total:total
-            })
-          }
+          res.data.data.rows.forEach((item) => {
+            item.date = item.date.substring(0, 10); //要截取时间的字符串
+          })
+          that.setData({
+            applyList : res.data.data.rows,
+          })
         }
       }
     })

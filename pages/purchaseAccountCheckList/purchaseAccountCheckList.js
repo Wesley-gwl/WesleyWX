@@ -173,28 +173,8 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    var stime = util.formatDateAdd(new Date(),-2);
-    var dtime = util.formatDateAdd(new Date(),1);
-    this.setData({
-      sTime: stime,
-      eTime: dtime,
-    });
-    var key = wx.getStorageSync("key");
-    console.log(key);
-    if(!key){
-      wx.switchTab({
-        url:'/pages/login/login'
-      })
-      wx.showModal({
-        title: '提示',
-        content: '请先登入',
-        duration: 2000
-      })
-    }
-    header = {
-      'sessionKey':key//读取cookie
-    };
-    this.getAccountCheckList();
+   
+   
   },
   //获取信息
   getAccountCheckList:function(){
@@ -238,6 +218,31 @@ Page({
    */
   onShow: function () {
     that=this;
+    if(header==null){
+      var stime = util.formatDateAdd(new Date(),-2);
+      var dtime = util.formatDateAdd(new Date(),1);
+      this.setData({
+        sTime: stime,
+        eTime: dtime,
+      });
+      var key = wx.getStorageSync("key");
+      console.log(key);
+      if(!key){
+        wx.switchTab({
+          url:'/pages/login/login'
+        })
+        wx.showModal({
+          title: '提示',
+          content: '请先登入',
+          duration: 2000
+        })
+      }
+      header = {
+        'sessionKey':key//读取cookie
+      };
+    }
+    
+    this.getAccountCheckList();
   },
 
   /**

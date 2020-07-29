@@ -46,6 +46,14 @@ Page({
     this.setData({ show: false });
     this.getAccountCheckList();
   },
+  //修改search控件值
+  onChangeSearch(e){
+    this.setData({ searchText: e.detail });
+  },
+  //展示更多条件筛选
+  onShowMore(e){
+    this.setData({ show: true });
+  },
   //选择状态
   onSelectStatus:function(event){
     this.setData({ showStatusSelect: true });
@@ -61,14 +69,6 @@ Page({
     this.setData({ 
       showStatusSelect: false ,
     });
-  },
-  //修改search控件值
-  onChangeSearch(e){
-    this.setData({ searchText: e.detail });
-  },
-  //展示更多条件筛选
-  onShowMore(e){
-    this.setData({ show: true });
   },
   //重置条件筛选
   clearMore(){
@@ -106,18 +106,18 @@ Page({
     const { position, instance } = event.detail;
     switch (position) {
       case 'left':
-        that.deleteAccountCheck(event);
+        that.deleteAccountPayment(event);
         break;
       case 'cell':
         break;
       case 'right':
-        that.onLookAccountCheckInfo(event);
+        that.onLookAccountPaymentInfo(event);
         break;
     }
     instance.close();
   },
   //删除
-  deleteAccountCheck:function(event){
+  deleteAccountPayment:function(event){
     var id = event.currentTarget.dataset.id;
     var apply = {};
     that.data.applyList.forEach(e => {
@@ -141,7 +141,7 @@ Page({
   },
   DeleteApply:function(id){
     wx.request({
-      url: config.deleteAccountCanPaymentg_url,
+      url: config.deleteAccountPayment_url,
       method: 'post',
       dataType:"json",
       header: header,//传在请求的header里
@@ -155,10 +155,10 @@ Page({
     })
   },
   //查看编辑详情
-  onLookAccountCheckInfo:function(event){
+  onLookAccountPaymentInfo:function(event){
     var id = event.currentTarget.dataset.id;
     wx.navigateTo({
-      url: '/pages/purchaseAccountCanPaymentAddOrEdit/purchaseAccountCanPaymentAddOrEdit?id=' + id,
+      url: '/pages/purchaseAccountPaymentAddOrEdit/purchaseAccountPaymentAddOrEdit?id=' + id,
     })
   },
   /**
@@ -172,28 +172,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    var stime = util.formatDateAdd(new Date(),-3);
-    var dtime = util.formatDateAdd(new Date(),3);
-    this.setData({
-      sTime: stime,
-      eTime: dtime,
-    });
-    var key = wx.getStorageSync("key");
-    console.log(key);
-    if(!key){
-      wx.switchTab({
-        url:'/pages/login/login'
-      })
-      wx.showModal({
-        title: '提示',
-        content: '请先登入',
-        duration: 2000
-      })
-    }
-    header = {
-      'sessionKey':key//读取cookie
-    };
-    this.getAccountCheckList();
+   
   },
   //获取信息
   getAccountCheckList:function(){
@@ -210,7 +189,7 @@ Page({
       input.customerId = data.customer.id;
     }
     wx.request({
-      url: config.getAccountCanPaymentList_url,
+      url: config.getAccountPaymentList_url,
       method: 'post',
       dataType: "json",
       header: header,//传在请求的header里
@@ -238,8 +217,37 @@ Page({
    */
   onShow: function () {
     that=this;
+    if(header==null||header=={}){
+      var stime = util.formatDateAdd(new Date(),-3);
+      var dtime = util.formatDateAdd(new Date(),3);
+      this.setData({
+        sTime: stime,
+        eTime: dtime,
+      });
+      that.setHeader();
+    }
+    that.getAccountCheckList();
   },
-
+  setHeader:function(){
+    if(header==null||header=={}){
+      var key = wx.getStorageSync("key");
+      if(!key){
+        wx.switchTab({
+          url:'/pages/login/login'
+        })
+        wx.showModal({
+          title: '提示',
+          content: '请先登入',
+          duration: 2000
+        })
+      }
+      header = {
+        //'content-type': 'application/x-www-form-urlencoded;charset=utf-8',
+        'sessionKey':key//读取cookie
+      };
+    }
+    
+  },
   /**
    * 生命周期函数--监听页面隐藏
    */

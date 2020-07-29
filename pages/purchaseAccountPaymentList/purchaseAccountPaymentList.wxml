@@ -1,6 +1,6 @@
-<!-- 更多条件 -->
 <van-notify id="van-notify" />
-<van-popup show="{{ show }}" round bind:close="onCloseMore"  position="top" custom-style="height: 230;">
+<!-- 更多条件 -->
+<van-popup show="{{ show }}" round bind:close="onCloseMore"  position="top" custom-style="height: 290;">
   <van-row>
     <van-search
     value="{{searchText}}"
@@ -42,6 +42,22 @@
       />
     </van-cell-group>
   </van-row>
+  <van-row>
+    <van-cell
+    is-link
+    title="状态"
+    bind:click="onSelectStatus"
+    value ="{{statusName}}"
+    input-align="right"
+    />
+    <van-action-sheet
+    title="状态"
+    show="{{ showStatusSelect }}"
+    actions="{{ statusList }}"
+    bind:close ="onClose"
+    bind:select="onSelectStatus"
+    />
+  </van-row>
   <van-row gutter="20" class="padding solids-top margin-top">
     <van-col span="8">
       <button class="cu-btn bg-green round shadow" bindtap="onCloseMore" style="width:120px" >返回</button>
@@ -70,9 +86,9 @@
 <!-- 分页 -->
 <scroll-view>
   <view wx:for="{{applyList}}"  class="radius light ">
-    <van-radio-group value="{{ radio }}" bind:change="onChangeRadio">
-       <van-cell-group>
-        <view class="cu-card article " >
+    <van-swipe-cell right-width="{{ 65 }}" left-width="{{ 65}}" async-close  bind:close="onSwichCheck" data-id="{{item.id}}">
+      <van-cell-group>
+        <view class="cu-card article ">
           <view class="cu-item shadow">
             <view class="title">
               <view class="text-cut">
@@ -88,44 +104,46 @@
               <view class="desc">
                 <view class="text-content">
                    <view style="width:50%;float:left">
-                    公司:{{item.companyName}}
+                    {{item.companyName}}
                    </view>
                    <view style="width:50%; float:right; text-align: right;">
                     {{item.customerName}} {{item.phoneNumber==null?"":item.phoneNumber}}
                    </view>
-                   <view style="width:50%;float:left">
-                    制单日期:{{item.date}}
+                   <view style="width:50%;float:left" class="text-blue">
+                    付款日期: {{item.date}}
                    </view>
                    <view style="width:50%;float:right;text-align: right;">
-                    对账金额:{{item.totalAmount}}￥
+                    付款金额:{{item.totalAmount}}￥
                    </view>
-                   <view style="width:100%;float:left">
-                    {{item.memo==""?"":'备注:'+item.memo}}
+                   <view style="width:50%;float:left">
+                    已核销/抵消:{{item.finishAmount}}￥/{{item.offsetAmount}}￥
+                  </view>
+                   <view style="width:50%;float:right;text-align: right;" class="text-blue">
+                    剩余核销金额:{{item.residueAmount}}￥
                    </view>
                 </view>
                 <view>
                   <view class="cu-tag bg-red light  round">{{item.typeName}}</view>
                   <view class="cu-tag bg-green light  round">{{item.statusName}}</view>
-                  <view style="float:right">
-                    <van-radio data-id="{{item.id}}" name="{{item.id}}"></van-radio>
-                  </view>
-                  <view  class="text-cut text-green" style="float:right">
-                    总价:{{item.lastAmount}}￥
-                  </view>
                 </view>
               </view>
             </view>
           </view>
         </view>
       </van-cell-group>
-    </van-radio-group>
+      <view slot="left" class="van-swipe-cell__left" data-id="{{item.id}}"> 删除</view>
+      <view slot="right" class="van-swipe-cell__right" data-id="{{item.id}}">编辑查看</view>
+    </van-swipe-cell>
   </view>
   <!-- 分割，防止底部不清晰 -->
   <i-divider ></i-divider>
 </scroll-view>
-<van-submit-bar
-  button-text="确定"
-  bind:submit="onSubmit"
-/>
-
-
+<!-- 页脚分页 -->
+<view style="position:fixed; bottom:0;width: 100%;">
+  <i-page current="{{ current }}" total="{{total}}" bind:change="onPaged">
+    <view slot="prev">上一页</view>
+    <view slot="next">下一页</view>
+</i-page>
+</view>
+<!-- 弹出框 -->
+<van-dialog id="van-dialog" />

@@ -58,17 +58,6 @@
     </van-cell-group>
   </van-row>
   <van-row>
-    <van-cell-group>
-      <van-field
-      label="备注"
-      data-key="memo"
-      value="{{ memo }}"
-      input-align="right"
-      bind:change="onFieldChange"
-      />
-    </van-cell-group>
-  </van-row>
-  <van-row>
     <view class="cu-form-group">
       <view class="title">制单日期</view>
       <picker mode="date" value="{{orderDate}}" start="2019-09-01" end="2125-09-01" bindchange="DateChange">
@@ -87,6 +76,17 @@
         </view>
       </picker>
     </view>
+  </van-row>
+  <van-row>
+    <van-cell-group>
+      <van-field
+      label="备注"
+      data-key="memo"
+      value="{{ memo }}"
+      input-align="right"
+      bind:change="onFieldChange"
+      />
+    </van-cell-group>
   </van-row>
   <van-cell-group>
     <van-cell

@@ -1,0 +1,26 @@
+
+.van-swipe-cell__right {
+  display: inline-block;
+  width: 65px;
+  height: 44px;
+  font-size: 15px;
+  line-height: 44px;
+  color: #fff;
+  text-align: center;
+  background-color:rgb(106, 148, 236);
+  padding-top: 40px;
+}
+.van-swipe-cell__left{
+  display: inline-block;
+  width: 65px;
+  height: 44px;
+  font-size: 15px;
+  line-height: 44px;
+  color: #fff;
+  text-align: center;
+  background-color: rgb(231, 55, 31);
+  padding-top: 40px;
+}
+.value-class {
+  flex: none !important;
+}

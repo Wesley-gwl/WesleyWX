@@ -14,7 +14,6 @@
     "van-swipe-cell": "../../dist/swipe-cell/index",
     "i-divider": "../../viewui/divider/index",
     "van-radio": "../../dist/radio/index",
-    "van-radio-group": "../../dist/radio-group/index",
-    "van-notify": "../../dist/notify/index"
+    "van-radio-group": "../../dist/radio-group/index"
   }
 }

@@ -1,9 +1,12 @@
 {
   "pages": [
+    "pages/purchaseAccountHXAddOrEdit/purchaseAccountHXAddOrEdit",
+    "pages/login/login",
+    "pages/purchaseAccountPaymentList/purchaseAccountPaymentList",
+    "pages/purchaseAccountPaymentAddOrEdit/purchaseAccountPaymentAddOrEdit",
     "pages/purchaseAccountCanPaymentList/purchaseAccountCanPaymentList",
     "pages/purchaseAccountCheckList/purchaseAccountCheckList",
     "pages/purchaseAccountCanPaymentAddOrEdit/purchaseAccountCanPaymentAddOrEdit",
-    "pages/login/login",
     "pages/purchaseAccountCheckSelect/purchaseAccountCheckSelect",
     "pages/purchaseList/purchaseList",
     "pages/purchaseAccountCheckAddOrEdit/purchaseAccountCheckAddOrEdit",
@@ -17,7 +20,11 @@
     "pages/storeOut/storeOut",
     "pages/customer/customer",
     "pages/supplier/supplier",
-    "pages/productList/productList"
+    "pages/productList/productList",
+    "pages/accountSelect/accountSelect",
+    "pages/purchaseAccountHXList/purchaseAccountHXList",
+    "pages/purchaseAccountCanPaymentSelect/purchaseAccountCanPaymentSelect",
+    "pages/purchaseAccountPaymentSelect/purchaseAccountPaymentSelect"
   ],
   "window": {
     "backgroundTextStyle": "light",
