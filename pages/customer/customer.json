@@ -4,6 +4,10 @@
     "i-card": "../../viewui/card/index",
     "i-input-number": "../../viewui/input-number/index",
     "van-search": "../../dist/search/index",
-    "van-submit-bar": "../../dist/submit-bar/index"
+    "van-submit-bar": "../../dist/submit-bar/index",
+    "van-cell": "../../dist/cell/index",
+    "van-cell-group": "../../dist/cell-group/index",
+    "van-radio": "../../dist/radio/index",
+    "van-radio-group": "../../dist/radio-group/index"
   }
 }

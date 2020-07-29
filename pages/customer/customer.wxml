@@ -3,7 +3,7 @@
   value="{{ searchText }}"
   input-align="center"
   show-action
-  placeholder="供应商公司联系人"
+  placeholder="客户公司联系人"
   bind:search="onSearch"  
   />
 </view>
@@ -17,15 +17,13 @@
   <!--右侧栏-->
   <scroll-view class="nav_right" style='width:73%;' scroll-y='true'>
     <view  wx:for="{{customerList}}" >
-      <view  wx:for="{{customerList}}" >
-        <van-radio-group value="{{ radio }}" >
-          <van-cell-group>
-            <van-cell title="{{item.companyName}}--{{item.name}}"  clickable  bind:click="onClick" data-name="{{item.name}}" data-index="{{item.index}}" data-id="{{item.id}}" >
-              <van-radio slot="right-icon" name="{{item.name}}" />
-            </van-cell>
-          </van-cell-group>
-        </van-radio-group>
-      </view>
+      <van-radio-group value="{{ radio }}" >
+        <van-cell-group>
+          <van-cell title="{{item.companyName}}--{{item.name}}"  clickable  bind:click="onClick" data-name="{{item.name}}" data-index="{{item.index}}" data-id="{{item.id}}" >
+            <van-radio slot="right-icon" name="{{item.name}}" />
+          </van-cell>
+        </van-cell-group>
+      </van-radio-group>
     </view>
   </scroll-view>
 </view>
