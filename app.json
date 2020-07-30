@@ -1,7 +1,9 @@
 {
   "pages": [
-    "pages/purchaseAccountHXAddOrEdit/purchaseAccountHXAddOrEdit",
+    "pages/sale/sale",
+    "pages/purchase/purchase",
     "pages/login/login",
+    "pages/purchaseAccountHXAddOrEdit/purchaseAccountHXAddOrEdit",
     "pages/purchaseAccountPaymentList/purchaseAccountPaymentList",
     "pages/purchaseAccountPaymentAddOrEdit/purchaseAccountPaymentAddOrEdit",
     "pages/purchaseAccountCanPaymentList/purchaseAccountCanPaymentList",
@@ -14,8 +16,6 @@
     "pages/purchaseAddOrEdit/purchaseAddOrEdit",
     "pages/product/product",
     "pages/logs/logs",
-    "pages/purchase/purchase",
-    "pages/sale/sale",
     "pages/storeIn/storeIn",
     "pages/storeOut/storeOut",
     "pages/customer/customer",
@@ -24,7 +24,8 @@
     "pages/accountSelect/accountSelect",
     "pages/purchaseAccountHXList/purchaseAccountHXList",
     "pages/purchaseAccountCanPaymentSelect/purchaseAccountCanPaymentSelect",
-    "pages/purchaseAccountPaymentSelect/purchaseAccountPaymentSelect"
+    "pages/purchaseAccountPaymentSelect/purchaseAccountPaymentSelect",
+    "pages/purchaseMonthEchart/purchaseMonthEchart"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -62,13 +63,13 @@
         "pagePath": "pages/storeOut/storeOut",
         "iconPath": "images/nav/stock-off.png",
         "selectedIconPath": "images/nav/stock-on.png",
-        "text": "出库单"
+        "text": "入出库单"
       },
       {
         "pagePath": "pages/storeIn/storeIn",
-        "iconPath": "images/nav/report-off.png",
-        "selectedIconPath": "images/nav/report-on.png",
-        "text": "入库单"
+        "iconPath": "images/nav/base-off.png",
+        "selectedIconPath": "images/nav/base-on.png",
+        "text": "基础信息"
       }
     ]
   }

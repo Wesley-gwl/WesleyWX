@@ -104,7 +104,7 @@
               <view class="desc">
                 <view class="text-content">
                    <view style="width:50%;float:left">
-                    公司:{{item.companyName}}
+                    {{item.companyName}}
                    </view>
                    <view style="width:50%; float:right; text-align: right;">
                     {{item.customerName}} {{item.phoneNumber==null?"":item.phoneNumber}}
@@ -123,7 +123,7 @@
                   <view class="cu-tag bg-red light  round">{{item.typeName}}</view>
                   <view class="cu-tag bg-green light  round">{{item.statusName}}</view>
                   <view  class="text-cut text-green" style="float:right">
-                    总价:{{item.lastAmount}}￥
+                    总金额:{{item.lastAmount}}￥
                    </view>
                 </view>
               </view>

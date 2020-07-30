@@ -4,7 +4,7 @@
     <van-cell-group>
       <van-cell
       is-link
-      title="选择收款单"
+      title="选择付款单"
       link-type="navigateTo"
       url="{{accountPaymentUrl}}"
       value ="{{payment.code}}"
@@ -17,7 +17,7 @@
     <van-cell-group>
       <van-field
       label="标题"
-      value="{{apply.accountCheckTitle}}"
+      value="{{payment.title}}"
       input-align="right"
       disabled
       />
@@ -27,7 +27,7 @@
     <van-cell-group>
       <van-field
       label="供应商"
-      value="{{ apply.companyName }} {{ apply.customerName }}"
+      value="{{ payment.companyName }} {{ payment.customerName }}"
       input-align="right"
       disabled
       />
@@ -37,8 +37,7 @@
     <van-cell-group>
       <van-field
       label="订单号"
-      value="{{ apply.code }}"
-      placeholder="自动生成"
+      value="{{ payment.code }}"
       input-align="right"
       disabled
       />
@@ -47,58 +46,25 @@
   <van-row>
     <van-field
     label="单据类型"
-    value="{{ typeName }}"
+    value="{{ payment.typeName }}"
     input-align="right"
     disabled
-    />
-  </van-row>
-  <van-row>
-    <van-cell-group>
-      <van-cell title="状态" value="{{statusName}}" />
-    </van-cell-group>
-  </van-row>
-  <van-row>
-    <van-cell
-    is-link
-    title="结算方式"
-    bind:click="onSelectPaymentType"
-    value ="{{apply.customerPaymentTypeName}}"
-    input-align="right"
-    required
-    />
-    <van-action-sheet
-    title="结算方式"
-    show="{{ showPaymentTypeSelect }}"
-    actions="{{ paymentTypeList }}"
-    bind:close ="onClose"
-    bind:select="onSelectPaymentType"
     />
   </van-row>
   <van-row>
     <van-field
-    label="账单日期"
-    value="{{ apply.accountCheckDate }}"
+    label="状态"
+    value="{{payment.statusName}}"
     input-align="right"
     disabled
     />
   </van-row>
   <van-row>
-    <view class="cu-form-group">
-      <view class="title">预付款日期</view>
-      <picker mode="date" value="{{apply.date}}" start="2019-09-01" end="2125-09-01" bindchange="dateChange">
-        <view class="picker">
-          {{apply.date}}
-        </view>
-      </picker>
-    </view>
-  </van-row>
-  
-  <van-row>
     <van-cell-group>
       <van-field
-      value="{{ apply.totalAmount }}"
+      value="{{ payment.totalAmount }}"
       type="number"
-      label="对账金额"
+      label="付款金额"
       input-align="right"
       disabled
       />
@@ -107,9 +73,9 @@
   <van-row>
     <van-cell-group>
       <van-field
-      value="{{ apply.residueAmount }}"
+      value="{{ payment.residueAmount }}"
       type="number"
-      label="剩余金额"
+      label="剩余核销金额"
       input-align="right"
       disabled
       />
@@ -118,9 +84,9 @@
   <van-row>
     <van-cell-group>
       <van-field
-      value="{{ apply.finishAmount }}"
+      value="{{ payment.finishAmount }}"
       type="number"
-      label="已结算金额"
+      label="已核销金额"
       input-align="right"
       disabled
       />
@@ -129,7 +95,7 @@
   <van-row>
     <van-cell-group>
       <van-field
-      value="{{ apply.offsetAmount }}"
+      value="{{ payment.offsetAmount }}"
       type="number"
       label="抵消金额"
       input-align="right"
@@ -141,10 +107,10 @@
     <van-cell-group>
       <van-field
       label="备注"
-      value="{{ apply.memo }}"
+      value="{{ payment.memo }}"
       input-align="right"
       data-key ="memo"
-      bind:change="onFieldChange"
+      disabled
       />
     </van-cell-group>
   </van-row>
@@ -152,13 +118,13 @@
     <van-cell
     is-link
     title="添加应付款单"
-    link-type="navigateTo"
-    url="{{accountCanPaymentUrl}}"
+    bind:click="onSelectApply"
     required
-    />
+  />
   </van-row>
   <scroll-view  scroll-y='true' > 
     <view  wx:for="{{applyList}}"  class="bg-blue padding radius light">
+    <van-swipe-cell right-width="{{ 65 }}" async-close  bind:close="onSwichCheck" data-id="{{item.id}}">
       <van-cell-group>
         <!-- 单据列表 -->
             <view class="cu-card article ">
@@ -166,10 +132,10 @@
                 <view class="title">
                   <view class="text-cut">
                     <view style="width:50%;float:left">
-                    {{item.applyCode}}
+                    {{item.code}}
                     </view>
-                    <view class="text-blue" style="width:50%; float:right; text-align: right;">
-                      {{item.totalPrice}}￥
+                    <view style="width:50%; float:right; text-align: right;">
+                    {{item.accountCheckTitle}}
                     </view>
                   </view>
                 </view>
@@ -177,38 +143,47 @@
                   <view class="desc">
                     <view class="text-content">
                       <view style="width:50%;float:left">
-                      单据日期:{{item.orderDate}}
+                      {{item.companyName}}  
                       </view>
                       <view style="width:50%; float:right; text-align: right;">
-                      {{item.customerName}}({{item.phoneNumber==null?"":item.phoneNumber}})
+                      已核销金额:{{item.finishAmount}}￥
                       </view>
-                      <view style="width:100%;float:left">
-                      商品:{{item.productName}}-{{item.productSpec}}({{item.productCode}})
-                      </view>
-                      <view style="width:50%;float:left">
-                        单价:<text class="text-blue">{{item.price}}</text>￥  数量:<text class="text-blue">{{item.number}}</text>{{item.unit}}
+                      <view style="width:50%;float:left" class="text-blue">
+                      付款日期: {{item.date}}
                       </view>
                       <view style="width:50%;float:right;text-align: right;">
-                        送货单号:{{item.freightCode}}
+                      付款金额:{{item.totalAmount}}￥
+                      </view>
+                      <view style="width:50%;float:left">
+                      抵消金额:{{item.offsetAmount}}￥
+                    </view>
+                      <view style="width:50%;float:right;text-align: right;" class="text-blue">
+                      剩余付款金额:{{item.residueAmount}}￥
                       </view>
                     </view>
                     <view>
-                      <view class="cu-tag bg-red light  round">{{item.applyTypeName}}</view>
+                      <view class="cu-tag bg-red light  round">{{item.typeName}}</view>
+                      <view class="cu-tag bg-green light  round">{{item.statusName}}</view>
+                      <view style="float:right">
+                        <van-stepper value="{{ item.HXAmount }}" step="1" decimal-length="{{ 2 }}" data-id="{{item.id}}" min="0" max="{{item.residueAmount}}" input-width="80px" button-size="22px" bind:change="onChangeAmount"/>
+                      </view>
                     </view>
                   </view>
                 </view>
               </view>
             </view>
       </van-cell-group>
+      <view slot="right" class="van-swipe-cell__right" data-id="{{item.id}}">删除</view>
+    </van-swipe-cell>
     </view>
   </scroll-view>
   <i-divider ></i-divider>
   <i-divider ></i-divider>
   <van-submit-bar
-  button-text="确定"
-  price= "{{totalAmount}}"
+  button-text="{{submitText}}"
+  price= "{{showHXTotalAmount}}"
   bind:submit="onSubmit"
-  decimal-length="3"
+  decimal-length="2"
   />
   <view class='cu-load load-modal' wx:if="{{loadModal}}">
     <image src='/images/logo.png' class='png' mode='aspectFit'></image>

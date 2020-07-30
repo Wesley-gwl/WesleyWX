@@ -140,7 +140,7 @@
                   <view class="cu-tag bg-red light  round">{{item.typeName}}</view>
                   <view class="cu-tag bg-green light  round">{{item.statusName}}</view>
                   <view  class="text-cut text-green" style="float:right">
-                    总价:{{item.lastPrice}}￥
+                    总金额:{{item.lastPrice}}￥
                    </view>
                 </view>
               </view>

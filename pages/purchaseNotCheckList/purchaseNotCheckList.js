@@ -132,7 +132,7 @@ Page({
   onSubmit:function(){
     var that = this;
     var list = that.data.selectList;
-    if(list.length>0)
+    if(list.length>0){
       var result = [];
       var pages = getCurrentPages();
       var prevPage = pages[pages.length - 2]; //上一个页面
@@ -155,9 +155,10 @@ Page({
       prevPage.setData({
         applyList: result
       })
-      wx.navigateBack({//返回上一页
-        delta: 1
-      })
+    }
+    wx.navigateBack({//返回上一页
+      delta: 1
+    })
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

@@ -118,7 +118,6 @@ Page({
   },
   //删除
   deleteAccountCheck:function(event){
-    console.log(event);
     var id = event.currentTarget.dataset.id;
     var apply = {};
     that.data.applyList.forEach(e => {
@@ -166,7 +165,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    var stime = util.formatDateAdd(new Date(),-2);
+    var dtime = util.formatDateAdd(new Date(),1);
+    this.setData({
+      sTime: stime,
+      eTime: dtime,
+    });
   },
 
   /**
@@ -219,12 +223,6 @@ Page({
   onShow: function () {
     that=this;
     if(header==null){
-      var stime = util.formatDateAdd(new Date(),-2);
-      var dtime = util.formatDateAdd(new Date(),1);
-      this.setData({
-        sTime: stime,
-        eTime: dtime,
-      });
       var key = wx.getStorageSync("key");
       console.log(key);
       if(!key){

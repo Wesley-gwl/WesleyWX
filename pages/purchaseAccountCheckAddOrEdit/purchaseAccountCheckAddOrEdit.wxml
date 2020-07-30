@@ -143,7 +143,7 @@
   <i-divider ></i-divider>
   <i-divider ></i-divider>
   <van-submit-bar
-  button-text="确定"
+  button-text="{{submitText}}"
   bind:submit="onSubmit"
   />
   <view class='cu-load load-modal' wx:if="{{loadModal}}">

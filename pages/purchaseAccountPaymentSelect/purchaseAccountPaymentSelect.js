@@ -59,7 +59,25 @@ Page({
   },
   //提交
   onSubmit(e){
-
+    var that = this;
+    var list = that.data.applyList;
+    var id = that.data.selectId;
+    if(list.length>0&&id!='' ){
+      var select = {};
+      var pages = getCurrentPages();
+      var prevPage = pages[pages.length - 2]; //上一个页面
+      list.forEach(p => {
+          if(p.id == id){
+            select = p;
+          }
+      });
+      prevPage.setData({
+        payment: select
+      })
+    }
+    wx.navigateBack({//返回上一页
+      delta: 1
+    })
   },
   /**
    * 生命周期函数--监听页面加载

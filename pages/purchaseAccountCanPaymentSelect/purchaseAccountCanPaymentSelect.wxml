@@ -57,64 +57,62 @@
 <!-- 分页 -->
 <scroll-view>
   <view wx:for="{{applyList}}"  class="radius light ">
-    <van-swipe-cell right-width="{{ 65 }}" left-width="{{ 65}}" async-close  bind:close="onSwichCheck" data-id="{{item.id}}">
-      <van-cell-group>
-        <view class="cu-card article ">
-          <view class="cu-item shadow">
-            <view class="title">
-              <view class="text-cut">
-               <view style="width:50%;float:left">
-                {{item.code}}
-               </view>
-               <view style="width:50%; float:right; text-align: right;">
-                {{item.accountCheckTitle}}
-               </view>
+    <van-cell-group>
+      <view class="cu-card article ">
+        <view class="cu-item shadow">
+          <view class="title">
+            <view class="text-cut">
+              <view style="width:50%;float:left">
+              {{item.code}}
+              </view>
+              <view style="width:50%; float:right; text-align: right;">
+              {{item.accountCheckTitle}}
               </view>
             </view>
-            <view class="content">
-              <view class="desc">
-                <view class="text-content">
-                   <view style="width:50%;float:left">
-                    {{item.companyName}}
-                   </view>
-                   <view style="width:50%; float:right; text-align: right;">
-                    {{item.customerName}} {{item.phoneNumber==null?"":item.phoneNumber}}
-                   </view>
-                   <view style="width:50%;float:left" class="text-blue">
-                    付款日期: {{item.date}}
-                   </view>
-                   <view style="width:50%;float:right;text-align: right;">
-                    付款金额:{{item.totalAmount}}￥
-                   </view>
-                   <view style="width:50%;float:left">
-                    已付款/抵消:{{item.finishAmount}}￥/{{item.offsetAmount}}￥
+          </view>
+          <view class="content">
+            <view class="desc">
+              <view class="text-content">
+                  <view style="width:50%;float:left">
+                  {{item.companyName}}  
                   </view>
-                   <view style="width:50%;float:right;text-align: right;" class="text-blue">
-                    剩余付款金额:{{item.residueAmount}}￥
-                   </view>
+                  <view style="width:50%; float:right; text-align: right;"  class="text-blue">
+                  已付款:{{item.finishAmount}}￥
+                  </view>
+                  <view style="width:50%;float:left" class="text-blue">
+                  付款日期: {{item.date}}
+                  </view>
+                  <view style="width:50%;float:right;text-align: right;"  class="text-blue">
+                  付款金额:{{item.totalAmount}}￥
+                  </view>
+                  <view style="width:50%;float:left">
+                  抵消金额:{{item.offsetAmount}}￥
                 </view>
-                <view>
-                  <view class="cu-tag bg-red light  round">{{item.typeName}}</view>
-                  <view class="cu-tag bg-green light  round">{{item.statusName}}</view>
+                  <view style="width:50%;float:right;text-align: right;" class="text-blue">
+                  剩余付款金额:{{item.residueAmount}}￥
+                  </view>
+              </view>
+              <view>
+                <view class="cu-tag bg-red light  round">{{item.typeName}}</view>
+                <view class="cu-tag bg-green light  round">{{item.statusName}}</view>
+                <view style="float:right">
+                  <van-stepper value="{{ item.HXAmount }}" step="1" decimal-length="{{ 2 }}" data-id="{{item.id}}" min="0" max="{{item.residueAmount}}" input-width="80px" button-size="22px" bind:change="onChangeAmount"/>
                 </view>
               </view>
             </view>
           </view>
         </view>
-      </van-cell-group>
-      <view slot="left" class="van-swipe-cell__left" data-id="{{item.id}}"> 删除</view>
-      <view slot="right" class="van-swipe-cell__right" data-id="{{item.id}}">编辑查看</view>
-    </van-swipe-cell>
+      </view>
+    </van-cell-group>
   </view>
   <!-- 分割，防止底部不清晰 -->
   <i-divider ></i-divider>
 </scroll-view>
-<!-- 页脚分页 -->
-<view style="position:fixed; bottom:0;width: 100%;">
-  <i-page current="{{ current }}" total="{{total}}" bind:change="onPaged">
-    <view slot="prev">上一页</view>
-    <view slot="next">下一页</view>
-</i-page>
-</view>
+<van-submit-bar
+button-text="确定"
+price= "{{showHXTotalAmount}}"
+bind:submit="onSubmit"
+decimal-length="2"
+/>
 <!-- 弹出框 -->
 <van-dialog id="van-dialog" />

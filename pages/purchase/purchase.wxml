@@ -1,13 +1,12 @@
 <van-grid square column-num="3" border="ture" gutter="2"> 
   <van-grid-item icon="../../images/menu/purchase-search.png" text="查询采购单" url="../purchaseList/purchaseList" />
   <van-grid-item icon="../../images/menu/purchase-add.png" text="新增采购单" url="../purchaseAddOrEdit/purchaseAddOrEdit" />
-  <van-grid-item icon="../../images/menu/purchase-check.png" text="查询采购对账单" url="../purchaseAccountCheckList/purchaseAccountCheckList" />
+  <van-grid-item icon="../../images/menu/paymentcheck.png" text="查询采购对账单" url="../purchaseAccountCheckList/purchaseAccountCheckList" />
   <van-grid-item icon="../../images/menu/purchase-check.png" text="新增采购对账单" url="../purchaseAccountCheckAddOrEdit/purchaseAccountCheckAddOrEdit" />
   <van-grid-item icon="../../images/menu/purchase-canpayment.png" text="新增应付款单" url="../purchaseAccountCanPaymentAddOrEdit/purchaseAccountCanPaymentAddOrEdit" />
   <van-grid-item icon="../../images/menu/purchase-canpayment.png" text="应付款单" url="../purchaseAccountCanPaymentList/purchaseAccountCanPaymentList" />
-  <van-grid-item icon="../../images/menu/purchase-payment.png" text="新增付款单" url="../purchaseAccountPaymentAddOrEdit/purchaseAccountPaymentAddOrEdit" />
-  <van-grid-item icon="../../images/menu/purchase-payment.png" text="付款单" url="../purchaseAccountPaymentList/purchaseAccountPaymentList" />
-  <van-grid-item icon="../../images/menu/hx-check.png" text="付款核销" url="../purchaseAddOrEdit/purchaseAddOrEdit" />
-  <van-grid-item icon="../../images/menu/hx-check.png" text="付款核销列表" url="../purchaseAddOrEdit/purchaseAddOrEdit" />
-  <van-grid-item icon="../../images/menu/line-report.png" text="报表" url="../purchaseAddOrEdit/purchaseAddOrEdit" />
+  <van-grid-item icon="../../images/menu/purchase-checkadd.png" text="新增付款单" url="../purchaseAccountPaymentAddOrEdit/purchaseAccountPaymentAddOrEdit" />
+  <van-grid-item icon="../../images/menu/purchase-paymentlist.png" text="付款单" url="../purchaseAccountPaymentList/purchaseAccountPaymentList" />
+  <van-grid-item icon="../../images/menu/hx-check.png" text="付款核销" url="../purchaseAccountHXAddOrEdit/purchaseAccountHXAddOrEdit" />
+  <van-grid-item icon="../../images/menu/hx-list.png" text="付款核销列表" url="../purchaseAccountHXList/purchaseAccountHXList" />
 </van-grid>

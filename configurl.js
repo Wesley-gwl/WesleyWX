@@ -32,13 +32,15 @@ var config={
    deleteAccountCanPaymentg_url:host+"api/AccountCanPaymentWX/DeleteAccountCanPayment",
    getPaymentDays_url:host+"api/CustomerWX/GetPaymentDays",
    getAccountCanPaymentForEdit_url:host+"api/AccountCanPaymentWX/GetAccountCanPaymentForEdit",
+   getListByPageOfAccountHX_url :host+"api/AccountCanPaymentWX/GetListByPageOfAccountHX",
    //收付款单
    getAccountPaymentList_url:host+"api/AccountPaymentWX/GetAccountPaymentListByPage",
    getAccountPaymentForEdit_url:host+"api/AccountPaymentWX/GetAccountPaymentForEdit",
    saveAccountPayment_url:host+"api/AccountPaymentWX/SaveAccountPayment",
    deleteAccountPayment_url:host+"api/AccountPaymentWX/DeleteAccountPayment",
    //核销
-   getAccountHXListByPage_url:host+"api/AccountHXWX/GetAccountHXListByPage",
+   getAccountHXList_url:host+"api/AccountHXWX/GetAccountHXListByPage",
+   getAccountHXForEdit_url:host+"api/AccountHXWX/GetAccountHXForEdit",
    saveAccountHX_url:host+"api/AccountHXWX/SaveAccountHX",
    deleteAccountHX_url:host+"api/AccountHXWX/DeleteAccountHX",
    //账户

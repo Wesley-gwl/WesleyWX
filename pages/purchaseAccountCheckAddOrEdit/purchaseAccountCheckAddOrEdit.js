@@ -23,7 +23,7 @@ Page({
     applyList:[],
     loadModal:false,
     showTypeSelect: false,
-    submitText:"提交",
+    submitText:"确定",
     supplierUrl:"../supplier/supplier",
     purchaseUrl:"../purchaseNotCheckList/purchaseNotCheckList",
     formatter(type, value) {

@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "采购单",
+  "navigationBarTitleText": "采购管理",
   "usingComponents": {
     "van-grid": "../../dist/grid/index",
     "van-grid-item": "../../dist/grid-item/index"

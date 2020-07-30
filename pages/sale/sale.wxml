@@ -1,21 +1,12 @@
-<view class='topTabSwiper'>
-  <view class='tab  {{currentData == 0 ? "tabBorer" : ""}}'  data-current = "0" bindtap='checkCurrent'>销售单</view>
-  <view class='tab  {{currentData == 1 ? "tabBorer" : ""}}'  data-current = "1" bindtap='checkCurrent'>对账单</view>
-  <view class='tab  {{currentData == 2 ? "tabBorer" : ""}}'  data-current = "2" bindtap='checkCurrent'>应收款单</view>
-</view>
-<swiper current="{{currentData}}" class='swiper' style="height:600px;" duration="300" bindchange="bindchange">
-<swiper-item>
-  <view class='swiper_con'>
-    welcome come to 推荐\
-  </view>
-</swiper-item>
-<swiper-item>
-  <view class='swiper_con'>
-  welcome come to 热点
-  </view>
-</swiper-item>
-<swiper-item>
-  <view class='swiper_con'>
-    welcome come to 关注</view>
-  </swiper-item> 
-</swiper>
+<van-grid square column-num="3" border="ture" gutter="2"> 
+  <van-grid-item icon="../../images/menu/sale-list.png" text="查询销售单" url="../saleList/saleList" />
+  <van-grid-item icon="../../images/menu/sale-add.png" text="新增销售单" url="../saleAddOrEdit/saleAddOrEdit" />
+  <van-grid-item icon="../../images/menu/sale-check.png" text="查询销售对账单" url="../saleAccountCheckList/saleAccountCheckList" />
+  <van-grid-item icon="../../images/menu/sale-check.png" text="新增销售对账单" url="../saleAccountCheckAddOrEdit/saleAccountCheckAddOrEdit" />
+  <van-grid-item icon="../../images/menu/sale-checklist.png" text="新增应收款单" url="../saleAccountCanPaymentAddOrEdit/saleAccountCanPaymentAddOrEdit" />
+  <van-grid-item icon="../../images/menu/sale-canpayment.png" text="应收款单" url="../saleAccountCanPaymentList/saleAccountCanPaymentList" />
+  <van-grid-item icon="../../images/menu/sale-paymentadd.png" text="新增收款单" url="../saleAccountPaymentAddOrEdit/saleAccountPaymentAddOrEdit" />
+  <van-grid-item icon="../../images/menu/sale-payment.png" text="收款单" url="../saleAccountPaymentList/saleAccountPaymentList" />
+  <van-grid-item icon="../../images/menu/hx-check.png" text="收款核销" url="../saleAccountHXAddOrEdit/saleAccountHXAddOrEdit" />
+  <van-grid-item icon="../../images/menu/hx-list.png" text="收款核销列表" url="../saleAccountHXList/saleAccountHXList" />
+</van-grid>

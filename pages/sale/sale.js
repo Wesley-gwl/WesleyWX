@@ -1,31 +1,45 @@
-// pages/sale/sale.js
+const config = require("../../configurl");
+
 Page({
   data: {
-      currentData : 0,
+    
   },
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-  },
-  //获取当前滑块的index
-  bindchange:function(e){
-    const that  = this;
-    that.setData({
-      currentData: e.detail.current
-    })
-  },
-  //点击切换，滑块index赋值
-  checkCurrent:function(e){
-    const that = this;
-
-    if (that.data.currentData === e.target.dataset.current){
-        return false;
-    }else{
-
-      that.setData({
-        currentData: e.target.dataset.current
+  onShow: function () {
+    var key = wx.getStorageSync("key");
+    console.log(key);
+    if(!key){
+      wx.switchTab({
+        url:'/pages/login/login'
+      })
+      wx.showModal({
+        title: '提示',
+        content: '请先登入',
+        duration: 2000
       })
     }
+    else{
+      wx.request({
+        url: config.loginVerify_url,
+        method: 'get',
+        header:  {
+          'sessionKey':key
+        },//传在请求的header里
+        success(res) {
+          if(res.data.success==false){
+            wx.switchTab({
+              url:'/pages/login/login'
+            })
+            wx.showModal({
+              title: '提示',
+              content: '请先登入',
+              duration: 2000
+            })
+          }
+        }
+      })
+    }
+  },
+  onLoad:function(){
+    
   }
-})
+});

@@ -1,4 +1,7 @@
 {
-  "usingComponents": {},
-  "navigationBarTitleText": "销售单"
+  "navigationBarTitleText": "销售管理",
+  "usingComponents": {
+    "van-grid": "../../dist/grid/index",
+    "van-grid-item": "../../dist/grid-item/index"
+  }
 }

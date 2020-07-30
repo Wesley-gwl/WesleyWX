@@ -1,2 +1,133 @@
-<!--pages/purchaseAccountHXList/purchaseAccountHXList.wxml-->
-<text>pages/purchaseAccountHXList/purchaseAccountHXList.wxml</text>
+<van-notify id="van-notify" />
+<!-- 更多条件 -->
+<van-popup show="{{ show }}" round bind:close="onCloseMore"  position="top" custom-style="height: 230;">
+  <van-row>
+    <van-search
+    value="{{searchText}}"
+    input-align="center"
+    placeholder="收款单号供应商"
+    bind:search="onSearch"  
+    bind:change="onChangeSearch"
+    />
+  </van-row>
+  <van-row>
+    <view class="cu-form-group">
+      <view class="title">单据日期(从)</view>
+      <picker mode="date" value="{{sTime}}" start="2019-09-01" end="2125-09-01" bindchange="DateChange">
+        <view class="picker">
+          {{sTime}}
+        </view>
+      </picker>
+    </view>
+  </van-row>
+  <van-row>
+    <view class="cu-form-group">
+      <view class="title">单据日期(至)</view>
+      <picker mode="date" value="{{eTime}}" start="2019-09-01" end="2125-09-01" bindchange="DateChange2">
+        <view class="picker">
+          {{eTime}}
+        </view>
+      </picker>
+    </view>
+  </van-row>
+  <van-row>
+    <van-cell-group>
+      <van-cell
+      is-link
+      title="选择供应商"
+      link-type="navigateTo"
+      url="../supplier/supplier"
+      value ="{{customer.companyName}}{{customer.name}}"
+      input-align="right"
+      />
+    </van-cell-group>
+  </van-row>
+  <van-row gutter="20" class="padding solids-top margin-top">
+    <van-col span="8">
+      <button class="cu-btn bg-green round shadow" bindtap="onCloseMore" style="width:120px" >返回</button>
+    </van-col>
+    <van-col span="8">
+      <button class="cu-btn bg-brown round shadow" bindtap="clearMore" style="width:120px">重置</button>
+    </van-col>
+    <van-col span="8">
+      <button class="cu-btn bg-blue round shadow" bindtap="onSearch" style="width:120px">查询</button>
+    </van-col>
+  </van-row>
+</van-popup>
+<!-- 条件 -->
+<view>
+  <van-search
+  value="{{searchText}}"
+  input-align="center"
+  use-action-slot
+  placeholder="收款单号供应商"
+  bind:search="onSearch"  
+  bind:change="onChangeSearch"
+  >
+  <view slot="action" bind:tap="onShowMore">更多</view>
+  </van-search>
+</view>
+<!-- 分页 -->
+<scroll-view>
+  <view wx:for="{{applyList}}"  class="radius light ">
+    <van-swipe-cell right-width="{{ 65 }}" left-width="{{ 65}}" async-close  bind:close="onSwichCheck" data-id="{{item.id}}">
+      <van-cell-group>
+        <view class="cu-card article ">
+          <view class="cu-item shadow">
+            <view class="title">
+              <view class="text-cut">
+               <view style="width:50%;float:left">
+                {{item.code}}
+               </view>
+               <view style="width:50%; float:right; text-align: right;">
+                {{item.accountPaymentTitle}}
+               </view>
+              </view>
+            </view>
+            <view class="content">
+              <view class="desc">
+                <view class="text-content">
+                   <view style="width:50%;float:left">
+                    {{item.companyName}}
+                   </view>
+                   <view style="width:50%; float:right; text-align: right;">
+                    {{item.customerName}} {{item.phoneNumber==null?"":item.phoneNumber}}
+                   </view>
+                   <view style="width:50%;float:left">
+                    付款账号:{{item.accountName}}
+                   </view>
+                   <view style="width:50%;float:right;text-align: right;"  class="text-blue">
+                    付款金额:{{item.accountPaymentAmount}}￥
+                   </view>
+                   <view style="width:50%;float:left">
+                    核销日期: {{item.date}}
+                  </view>
+                   <view style="width:50%;float:right;text-align: right;" class="text-blue">
+                    核销金额:{{item.totalAmount}}￥
+                   </view>
+                </view>
+                <view>
+                  <view class="cu-tag bg-red light  round">{{item.typeName}}</view>
+                  <view class="cu-tag bg-green light  round">{{item.statusName}}</view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </van-cell-group>
+      <view slot="left" class="van-swipe-cell__left" data-id="{{item.id}}"> 删除</view>
+      <view slot="right" class="van-swipe-cell__right" data-id="{{item.id}}">查看</view>
+    </van-swipe-cell>
+  </view>
+  <!-- 分割，防止底部不清晰 -->
+  <i-divider ></i-divider>
+</scroll-view>
+<!-- 页脚分页 -->
+<view style="position:fixed; bottom:0;width: 100%;">
+  <i-page current="{{ current }}" total="{{total}}" bind:change="onPaged">
+    <view slot="prev">上一页</view>
+    <view slot="next">下一页</view>
+</i-page>
+</view>
+<!-- 弹出框 -->
+<van-dialog id="van-dialog" />
