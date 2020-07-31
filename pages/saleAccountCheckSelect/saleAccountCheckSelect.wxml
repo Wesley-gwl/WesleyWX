@@ -1,0 +1,131 @@
+<!-- 更多条件 -->
+<van-notify id="van-notify" />
+<van-popup show="{{ show }}" round bind:close="onCloseMore"  position="top" custom-style="height: 230;">
+  <van-row>
+    <van-search
+    value="{{searchText}}"
+    input-align="center"
+    placeholder="订单号客户"
+    bind:search="onSearch"  
+    bind:change="onChangeSearch"
+    />
+  </van-row>
+  <van-row>
+    <view class="cu-form-group">
+      <view class="title">单据日期(从)</view>
+      <picker mode="date" value="{{sTime}}" start="2019-09-01" end="2125-09-01" bindchange="DateChange">
+        <view class="picker">
+          {{sTime}}
+        </view>
+      </picker>
+    </view>
+  </van-row>
+  <van-row>
+    <view class="cu-form-group">
+      <view class="title">单据日期(至)</view>
+      <picker mode="date" value="{{eTime}}" start="2019-09-01" end="2125-09-01" bindchange="DateChange2">
+        <view class="picker">
+          {{eTime}}
+        </view>
+      </picker>
+    </view>
+  </van-row>
+  <van-row>
+    <van-cell-group>
+      <van-cell
+      is-link
+      title="选择客户"
+      link-type="navigateTo"
+      url="../customer/customer"
+      value ="{{customer.companyName}}{{customer.name}}"
+      input-align="right"
+      />
+    </van-cell-group>
+  </van-row>
+  <van-row gutter="20" class="padding solids-top margin-top">
+    <van-col span="8">
+      <button class="cu-btn bg-green round shadow" bindtap="onCloseMore" style="width:120px" >返回</button>
+    </van-col>
+    <van-col span="8">
+      <button class="cu-btn bg-brown round shadow" bindtap="clearMore" style="width:120px">重置</button>
+    </van-col>
+    <van-col span="8">
+      <button class="cu-btn bg-blue round shadow" bindtap="onSearchMore" style="width:120px">查询</button>
+    </van-col>
+  </van-row>
+</van-popup>
+<!-- 条件 -->
+<view>
+  <van-search
+  value="{{searchText}}"
+  input-align="center"
+  use-action-slot
+  placeholder="订单号客户"
+  bind:search="onSearch"  
+  bind:change="onChangeSearch"
+  >
+  <view slot="action" bind:tap="onShowMore">更多</view>
+  </van-search>
+</view>
+<!-- 分页 -->
+<scroll-view>
+  <view wx:for="{{applyList}}"  class="radius light ">
+    <van-radio-group value="{{ radio }}" bind:change="onChangeRadio">
+       <van-cell-group>
+        <view class="cu-card article " >
+          <view class="cu-item shadow">
+            <view class="title">
+              <view class="text-cut">
+               <view style="width:50%;float:left">
+                {{item.code}}
+               </view>
+               <view style="width:50%; float:right; text-align: right;">
+                {{item.title}}
+               </view>
+              </view>
+            </view>
+            <view class="content">
+              <view class="desc">
+                <view class="text-content">
+                   <view style="width:50%;float:left">
+                    公司:{{item.companyName}}
+                   </view>
+                   <view style="width:50%; float:right; text-align: right;">
+                    {{item.customerName}} {{item.phoneNumber==null?"":item.phoneNumber}}
+                   </view>
+                   <view style="width:50%;float:left">
+                    制单日期:{{item.date}}
+                   </view>
+                   <view style="width:50%;float:right;text-align: right;">
+                    对账金额:{{item.totalAmount}}￥
+                   </view>
+                   <view style="width:100%;float:left">
+                    {{item.memo==""?"":'备注:'+item.memo}}
+                   </view>
+                </view>
+                <view>
+                  <view class="cu-tag bg-red light  round">{{item.typeName}}</view>
+                  <view class="cu-tag bg-green light  round">{{item.statusName}}</view>
+                  <view style="float:right">
+                    <van-radio data-id="{{item.id}}" name="{{item.id}}"></van-radio>
+                  </view>
+                  <view  class="text-cut text-green" style="float:right">
+                    总金额:{{item.lastAmount}}￥
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </van-cell-group>
+    </van-radio-group>
+  </view>
+  <!-- 分割，防止底部不清晰 -->
+  <i-divider ></i-divider>
+</scroll-view>
+<van-submit-bar
+  button-text="确定"
+  bind:submit="onSubmit"
+/>
+
+

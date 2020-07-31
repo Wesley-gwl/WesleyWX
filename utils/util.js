@@ -71,9 +71,12 @@ const formatDateAdd = (date,addMonth=0, addDay=0 )=>{
       month = monthTotal
     }
   }
-  if(month ==2&&(day ==29 ||day==30)){
+  if(month ==2&&(day ==29 ||day==30||day==31)){
     month=3;
     day = 1;
+  }
+  if((month==4||month==6||month==9||month==11)&&day==31){
+    day =30;
   }
   return [year, month, day].map(formatNumber).join('-') 
 }
@@ -81,9 +84,15 @@ const formatNumber = n => {
   n = n.toString()
   return n[1] ? n : '0' + n
 }
-
+//计算两个时间差天数
+const colDateDifference=(date1,date2)=>{
+  var temp1 = new Date(date1.replace(/-/g,"/"));
+  var temp2 = new Date(date2.replace(/-/g,"/"));
+  return parseInt((temp1.getTime()-temp2.getTime())/(1000*60*60*24));
+}
 module.exports = {
   formatTime: formatTime,
   formatDate:formatDate,
   formatDateAdd:formatDateAdd,
+  colDateDifference:colDateDifference,
 }

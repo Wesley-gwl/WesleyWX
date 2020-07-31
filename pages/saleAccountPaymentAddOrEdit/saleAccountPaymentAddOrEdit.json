@@ -1,0 +1,17 @@
+{
+  "navigationBarTitleText": "新增编辑收款单",
+  "usingComponents": {
+    "van-field": "../../dist/field/index",
+    "van-button": "../../dist/button/index",
+    "van-cell": "../../dist/cell/index",
+    "van-cell-group": "../../dist/cell-group/index",
+    "van-row": "../../dist/row/index",
+    "van-action-sheet": "../../dist/action-sheet/index",
+    "van-submit-bar": "../../dist/submit-bar/index",
+    "van-datetime-picker": "../../dist/datetime-picker/index",
+    "i-card": "../../viewui/card/index",
+    "i-divider": "../../viewui/divider/index",
+    "van-notify": "../../dist/notify/index",
+    "van-stepper": "../../dist/stepper/index"
+  }
+}

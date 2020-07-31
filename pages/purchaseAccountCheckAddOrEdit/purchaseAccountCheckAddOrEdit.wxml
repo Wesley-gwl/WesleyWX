@@ -1,41 +1,35 @@
 <van-notify id="van-notify" />
 <view class="page">
   <van-row>
-    <van-cell-group>
-      <van-cell
-      is-link
-      title="选择供应商"
-      link-type="navigateTo"
-      url="{{supplierUrl}}"
-      value ="{{customer.companyName}}{{customer.name}}"
-      input-align="right"
-      required
-      />
-    </van-cell-group>
+    <van-cell
+    is-link
+    title="选择供应商"
+    link-type="navigateTo"
+    url="{{supplierUrl}}"
+    value ="{{customer.companyName}}{{customer.name}}"
+    input-align="right"
+    required
+    />
   </van-row>
   <van-row>
-    <van-cell-group>
-      <van-field
-      label="标题"
-      value="{{title}}"
-      placeholder="标题"
-      input-align="right"
-      data-key ="title"
-      bind:change="onFieldChange"
-      required
-      />
-    </van-cell-group>
+    <van-field
+    label="标题"
+    value="{{title}}"
+    placeholder="标题"
+    input-align="right"
+    data-key ="title"
+    bind:change="onFieldChange"
+    required
+    />
   </van-row>
   <van-row class="margin-top">
-    <van-cell-group>
-      <van-field
-      label="编号"
-      value="{{ code }}"
-      placeholder="自动生成"
-      input-align="right"
-      disabled
-      />
-    </van-cell-group>
+    <van-field
+    label="编号"
+    value="{{ code }}"
+    placeholder="自动生成"
+    input-align="right"
+    disabled
+    />
   </van-row>
   <van-row>
     <van-field
@@ -61,28 +55,24 @@
     </view>
   </van-row>
   <van-row>
-    <van-cell-group>
-      <van-field
-      value="{{ lastAmount }}"
-      type="number"
-      required
-      label="最终金额"
-      placeholder="请输入金额"
-      input-align="right"
-      bind:input ="inputLastPrice"
-      />
-    </van-cell-group>
+    <van-field
+    value="{{ lastAmount }}"
+    type="number"
+    required
+    label="最终金额"
+    placeholder="请输入金额"
+    input-align="right"
+    bind:input ="inputLastPrice"
+    />
   </van-row>
   <van-row>
-    <van-cell-group>
-      <van-field
-      label="备注"
-      value="{{ memo }}"
-      input-align="right"
-      data-key ="memo"
-      bind:change="onFieldChange"
-      />
-    </van-cell-group>
+    <van-field
+    label="备注"
+    value="{{ memo }}"
+    input-align="right"
+    data-key ="memo"
+    bind:change="onFieldChange"
+    />
   </van-row>
   <van-cell-group>
     <van-cell
@@ -144,7 +134,9 @@
   <i-divider ></i-divider>
   <van-submit-bar
   button-text="{{submitText}}"
+  price= "{{totalAmount}}"
   bind:submit="onSubmit"
+  decimal-length="3"
   />
   <view class='cu-load load-modal' wx:if="{{loadModal}}">
     <image src='/images/logo.png' class='png' mode='aspectFit'></image>

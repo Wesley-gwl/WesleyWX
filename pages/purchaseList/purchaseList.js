@@ -46,7 +46,7 @@ Page({
       },
       {
         status:'2',
-        name: '待收款',
+        name: '待付款',
       },
       {
         status:'3',
@@ -194,36 +194,38 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
+    that=this;
     var stime = util.formatDateAdd(new Date(),-3);
     var dtime = util.formatDateAdd(new Date(),1);
     this.setData({
       sTime: stime,
       eTime: dtime,
     });
-    var key = wx.getStorageSync("key");
-    console.log(key);
-    if(!key){
-      wx.switchTab({
-        url:'/pages/login/login'
-      })
-      wx.showModal({
-        title: '提示',
-        content: '请先登入',
-        duration: 2000
-      })
+    if(header==null){
+      var key = wx.getStorageSync("key");
+      console.log(key);
+      if(!key){
+        wx.switchTab({
+          url:'/pages/login/login'
+        })
+        wx.showModal({
+          title: '提示',
+          content: '请先登入',
+          duration: 2000
+        })
+      }
+      header = {
+        //'content-type': 'application/x-www-form-urlencoded;charset=utf-8',
+        'sessionKey':key//读取cookie
+      };
     }
-    header = {
-      //'content-type': 'application/x-www-form-urlencoded;charset=utf-8',
-      'sessionKey':key//读取cookie
-    };
-    this.getPurchaseList();
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+   
   },
   //获取信息
   getPurchaseList:function(){
@@ -269,7 +271,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    that=this;
+    if(header!=null){
+      this.getPurchaseList();
+    }
   },
 
   /**

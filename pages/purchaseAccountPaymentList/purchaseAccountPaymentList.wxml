@@ -110,13 +110,13 @@
                     {{item.customerName}} {{item.phoneNumber==null?"":item.phoneNumber}}
                    </view>
                    <view style="width:50%;float:left" class="text-blue">
-                    付款日期: {{item.date}}
-                   </view>
-                   <view style="width:50%;float:right;text-align: right;">
                     付款金额:{{item.totalAmount}}￥
                    </view>
+                   <view style="width:50%;float:right;text-align: right;">
+                    已核销金额:{{item.finishAmount}}￥
+                   </view>
                    <view style="width:50%;float:left">
-                    已核销/抵消:{{item.finishAmount}}￥/{{item.offsetAmount}}￥
+                    抵消金额:{{item.offsetAmount}}￥
                   </view>
                    <view style="width:50%;float:right;text-align: right;" class="text-blue">
                     剩余核销金额:{{item.residueAmount}}￥
@@ -125,6 +125,9 @@
                 <view>
                   <view class="cu-tag bg-red light  round">{{item.typeName}}</view>
                   <view class="cu-tag bg-green light  round">{{item.statusName}}</view>
+                  <view style=" float:right; text-align: right;" class="text-blue">
+                    付款日期: {{item.date}}
+                  </view>
                 </view>
               </view>
             </view>

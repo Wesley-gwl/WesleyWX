@@ -110,7 +110,7 @@
                     <van-radio data-id="{{item.id}}" name="{{item.id}}"></van-radio>
                   </view>
                   <view  class="text-cut text-green" style="float:right">
-                    总价:{{item.lastAmount}}￥
+                    总金额:{{item.lastAmount}}￥
                   </view>
                 </view>
               </view>

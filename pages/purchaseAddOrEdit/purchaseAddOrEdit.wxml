@@ -1,29 +1,25 @@
 <van-notify id="van-notify" />
 <view class="page">
   <van-row>
-    <van-cell-group>
-      <van-cell
-      is-link
-      title="选择供应商"
-      link-type="navigateTo"
-      url="{{supplierUrl}}"
-      value ="{{customer.companyName}}{{customer.name}}"
-      input-align="right"
-      required
-      />
-    </van-cell-group>
+    <van-cell
+    is-link
+    title="选择供应商"
+    link-type="navigateTo"
+    url="{{supplierUrl}}"
+    value ="{{customer.companyName}}{{customer.name}}"
+    input-align="right"
+    required
+    />
   </van-row>
   <van-row class="margin-top">
-    <van-cell-group>
-      <van-field
-      label="订单号"
-      data-key="code"
-      value="{{ code }}"
-      placeholder="默认自动生成"
-      input-align="right"
-      bind:change="onFieldChange"
-      />
-    </van-cell-group>
+    <van-field
+    label="订单号"
+    data-key="code"
+    value="{{ code }}"
+    placeholder="默认自动生成"
+    input-align="right"
+    bind:change="onFieldChange"
+    />
   </van-row>
   <van-row>
     <van-cell
@@ -47,15 +43,13 @@
     </van-cell-group>
   </van-row>
   <van-row>
-    <van-cell-group>
-      <van-field
-      data-key="freightCode"
-      label="送货单号"
-      value="{{ freightCode }}"
-      input-align="right"
-      bind:change="onFieldChange"
-      />
-    </van-cell-group>
+    <van-field
+    data-key="freightCode"
+    label="送货单号"
+    value="{{ freightCode }}"
+    input-align="right"
+    bind:change="onFieldChange"
+    />
   </van-row>
   <van-row>
     <view class="cu-form-group">

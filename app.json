@@ -25,7 +25,21 @@
     "pages/purchaseAccountHXList/purchaseAccountHXList",
     "pages/purchaseAccountCanPaymentSelect/purchaseAccountCanPaymentSelect",
     "pages/purchaseAccountPaymentSelect/purchaseAccountPaymentSelect",
-    "pages/purchaseMonthEchart/purchaseMonthEchart"
+    "pages/saleAddOrEdit/saleAddOrEdit",
+    "pages/saleList/saleList",
+    "pages/saleNotCheckList/saleNotCheckList",
+    "pages/saleAccountCheckAddOrEdit/saleAccountCheckAddOrEdit",
+    "pages/saleAccountCheckList/saleAccountCheckList",
+    "pages/saleAccountCheckSelect/saleAccountCheckSelect",
+    "pages/saleAccountCanPaymentAddOrEdit/saleAccountCanPaymentAddOrEdit",
+    "pages/saleAccountCanPaymentList/saleAccountCanPaymentList",
+    "pages/saleAccountCanPaymentSelect/saleAccountCanPaymentSelect",
+    "pages/saleAccountPaymentList/saleAccountPaymentList",
+    "pages/saleAccountPaymentSelect/saleAccountPaymentSelect",
+    "pages/saleAccountPaymentAddOrEdit/saleAccountPaymentAddOrEdit",
+    "pages/saleAccountHXList/saleAccountHXList",
+    "pages/saleAccountHXAddOrEdit/saleAccountHXAddOrEdit",
+    "pages/store/store"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -60,7 +74,7 @@
         "text": "采购单"
       },
       {
-        "pagePath": "pages/storeOut/storeOut",
+        "pagePath": "pages/store/store",
         "iconPath": "images/nav/stock-off.png",
         "selectedIconPath": "images/nav/stock-on.png",
         "text": "入出库单"

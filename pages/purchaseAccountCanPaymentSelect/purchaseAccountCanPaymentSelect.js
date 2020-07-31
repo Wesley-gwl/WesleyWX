@@ -1,5 +1,6 @@
 var util = require('../../utils/util.js');
 const config = require("../../configurl");
+import Notify from '../../dist/notify/notify';
 var header;
 var that;
 Page({
@@ -187,6 +188,9 @@ Page({
           that.setData({
             applyList : res.data.data.rows,
           })
+        }
+        else{
+          Notify({ type: 'primary', message: '没有数据',duration: 2000 });
         }
       }
     })

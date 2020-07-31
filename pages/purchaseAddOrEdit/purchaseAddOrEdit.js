@@ -188,14 +188,13 @@ Page({
     Apply.OrderDate = data.orderDate;
     Apply.DeliveryDate = data.deliveryDate;
     Apply.TotalPrice = data.totalPrice/100;
-    Apply.LastPrice = data.totalPrice;
+    Apply.LastPrice = data.totalPrice/100;
     Apply.Status = data.status;
-    if(data.freightCode == null){
-      Apply.FreightCode = "";
-    }else{
-      Apply.FreightCode = data.freightCode;
+    Apply.FreightCode = data.freightCode;
+    if(data.freightCode != ""){
       Apply.Status = 2//待付款
     }
+ 
     Apply.Memo = data.memo == null?"":data.memo;
     input.Apply=Apply;
     var ApplyItemList = [];

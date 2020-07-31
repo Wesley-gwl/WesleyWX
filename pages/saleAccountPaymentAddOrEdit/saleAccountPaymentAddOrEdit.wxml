@@ -1,0 +1,131 @@
+<van-notify id="van-notify" />
+<view class="page">
+  <van-row>
+    <van-cell-group>
+      <van-field
+      label="标题"
+      value="{{apply.title }}"
+      input-align="right"
+      bind:change="onTitleChange"
+      required
+      />
+    </van-cell-group>
+  </van-row>
+  <van-row>
+    <van-cell-group>
+      <van-cell
+      is-link
+      title="选择客户"
+      link-type="navigateTo"
+      url="{{customerUrl}}"
+      value ="{{customer.companyName}}{{customer.name}}"
+      input-align="right"
+      required
+      />
+    </van-cell-group>
+  </van-row>
+  <van-row class="margin-top">
+    <van-field
+    label="编号"
+    value="{{ apply.code }}"
+    placeholder="自动生成"
+    input-align="right"
+    disabled
+    />
+  </van-row>
+  <van-row>
+    <van-field
+    label="单据类型"
+    value="{{ apply.typeName }}"
+    input-align="right"
+    disabled
+    />
+  </van-row>
+  <van-row>
+    <van-field
+    label="状态"
+    value="{{ apply.statusName }}"
+    input-align="right"
+    disabled
+    />
+  </van-row>
+  <van-row>
+    <van-cell-group>
+      <van-cell
+      is-link
+      title="选择账户"
+      link-type="navigateTo"
+      url="{{accountUrl}}"
+      value ="{{account.name}}"
+      input-align="right"
+      required
+      />
+    </van-cell-group>
+  </van-row>
+  <van-row>
+    <view class="cu-form-group">
+      <view class="title">收款日期</view>
+      <picker mode="date" value="{{apply.date}}}" start="2019-09-01" end="2125-09-01" bindchange="DateChange">
+        <view class="picker">
+          {{apply.date}}
+        </view>
+      </picker>
+    </view>
+  </van-row>
+  <van-row>
+    <van-field
+    label="收款金额"
+    type="number"
+    value="{{ apply.totalAmount }}"
+    input-align="right"
+    bind:change="onTotalAmountChange"
+    request
+    />
+  </van-row>
+  <van-row>
+    <van-field
+    label="剩余核销金额"
+    value="{{ apply.residueAmount }}"
+    input-align="right"
+    disabled
+    />
+  </van-row>
+  <van-row>
+    <van-field
+    label="已核销金额"
+    value="{{ apply.finishAmount }}"
+    input-align="right"
+    disabled
+    />
+  </van-row>
+  <van-row>
+    <van-field
+    label="抵消金额"
+    value="{{ apply.offsetAmount }}"
+    input-align="right"
+    disabled
+    />
+  </van-row>
+  <van-row>
+    <van-cell-group>
+      <van-field
+      label="备注"
+      value="{{apply.memo }}"
+      input-align="right"
+      bind:change="onMemoChange"
+      />
+    </van-cell-group>
+  </van-row>
+  <i-divider ></i-divider>
+  <i-divider ></i-divider>
+  <van-submit-bar
+  price="{{showTotalAmount}}"
+  button-text="{{submitText}}"
+  bind:submit="onSubmit"
+  decimal-length="2"
+  />
+  <view class='cu-load load-modal' wx:if="{{loadModal}}">
+    <image src='/images/logo.png' class='png' mode='aspectFit'></image>
+    <view class='gray-text'>加载中...</view>
+  </view>
+</view>

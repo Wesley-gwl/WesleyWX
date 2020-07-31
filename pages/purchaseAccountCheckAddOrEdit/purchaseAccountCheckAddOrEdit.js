@@ -20,6 +20,7 @@ Page({
     lastAmount:0.000,
     memo:"",
     customer:{},
+    checkCustomerId:'',
     applyList:[],
     loadModal:false,
     showTypeSelect: false,
@@ -329,6 +330,19 @@ Page({
     this.setHeader();
     if(that.data.isLook){
       return;
+    }
+    if(that.data.checkCustomerId==''&&that.data.customer.id!=null){
+      var customerId=that.data.customer.id;
+      that.setData({
+        checkCustomerId:customerId,
+      })
+    }
+    if(that.data.checkCustomerId!=''&&that.data.checkCustomerId !=that.data.customer.id){
+      var customerId=that.data.customer.id;
+      that.setData({
+        checkCustomerId:customerId,
+        applyList:[]
+      })
     }
     this.calculateTotalPrice();
   },

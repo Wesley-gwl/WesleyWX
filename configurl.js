@@ -21,6 +21,7 @@ var config={
    deleteApply_url:host+"api/ApplyWX/DeleteApply",
    //对账单
    getAccountNotCheckPurchase_url:host+"api/ApplyWX/GetApplyOfPurchaseAccountCheck",
+   getAccountNotCheckSale_url:host+"api/ApplyWX/GetApplyOfSaleAccountCheck",
    saveAccountCheck_url:host+"api/AccountCheckWX/SaveAccountCheck",
    getAccountCheckList_url:host+"api/AccountCheckWX/GetAccountCheckListByPage",
    getAccountCheckForEdit_url:host+"api/AccountCheckWX/GetAccountCheckForEdit",

@@ -94,6 +94,18 @@ Page({
       [e.target.dataset.key]:e.detail
     });
   },
+    //修改单据日期
+  dateChange(event) {
+      if(that.data.isLook){
+        return;
+      }
+      var apply = that.data.apply;
+      apply.date= event.detail.value;
+      apply.paymentDays = util.colDateDifference(apply.date,apply.accountCheckDate);
+      this.setData({
+        apply: apply
+      });
+    },
   //选择结算方式
   onSelectPaymentType(event){
     this.setData({ showPaymentTypeSelect: true });

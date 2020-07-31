@@ -96,7 +96,6 @@ Page({
     },
     onClick(event) {
       var data= event.currentTarget.dataset;
-      console.log(data);
       this.setData({
         radio:data.name,
         customerIndex:data.index

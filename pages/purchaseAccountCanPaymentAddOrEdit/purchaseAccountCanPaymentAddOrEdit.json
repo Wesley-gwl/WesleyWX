@@ -11,7 +11,7 @@
     "van-datetime-picker": "../../dist/datetime-picker/index",
     "i-card": "../../viewui/card/index",
     "i-divider": "../../viewui/divider/index",
-    "van-notify": "../../dist/notify/index",
+    "van-notify": "../../dist/notify/index", 
     "van-stepper": "../../dist/stepper/index"
   }
 }
