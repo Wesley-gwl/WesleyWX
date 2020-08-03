@@ -1,8 +1,10 @@
 {
   "pages": [
+    "pages/login/login",
+    "pages/storageList/storageList",
+    "pages/storageAddOrEdit/storageAddOrEdit",
     "pages/sale/sale",
     "pages/purchase/purchase",
-    "pages/login/login",
     "pages/purchaseAccountHXAddOrEdit/purchaseAccountHXAddOrEdit",
     "pages/purchaseAccountPaymentList/purchaseAccountPaymentList",
     "pages/purchaseAccountPaymentAddOrEdit/purchaseAccountPaymentAddOrEdit",
@@ -39,7 +41,9 @@
     "pages/saleAccountPaymentAddOrEdit/saleAccountPaymentAddOrEdit",
     "pages/saleAccountHXList/saleAccountHXList",
     "pages/saleAccountHXAddOrEdit/saleAccountHXAddOrEdit",
-    "pages/store/store"
+    "pages/store/store",
+    "pages/storageSelect/storageSelect",
+    "pages/storageLocationAddOrEdit/storageLocationAddOrEdit"
   ],
   "window": {
     "backgroundTextStyle": "light",

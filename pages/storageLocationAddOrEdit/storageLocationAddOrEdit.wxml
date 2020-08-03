@@ -1,0 +1,94 @@
+<van-notify id="van-notify" />
+<view class="page">
+  <van-row>
+    <van-field
+    label="名称"
+    value="{{storageLocation.name}}"
+    input-align="right"
+    data-key ="storageLocation.name"
+    bind:change="onFieldChange"
+    request
+    />
+  </van-row>
+  <van-row class="margin-top">
+    <van-field
+    label="编号"
+    value="{{ storageLocation.code }}"
+    placeholder="自动生成"
+    input-align="right"
+    disabled
+    />
+  </van-row>
+  <van-row class="margin-top">
+    <van-field
+    label="长(m)"
+    value="{{ storageLocation.shLength }}"
+    data-key ="storageLocation.shLength"
+    input-align="right"
+    bind:change="onFieldChange"
+    type="number"
+    request
+    />
+  </van-row>
+  <van-row class="margin-top">
+    <van-field
+    label="宽(m)"
+    value="{{ storageLocation.shWidth }}"
+    data-key ="storageLocation.shWidth"
+    input-align="right"
+    bind:change="onFieldChange"
+    type="number"
+    request
+    />
+  </van-row>
+  <van-row class="margin-top">
+    <van-field
+    label="高(m)"
+    value="{{ storageLocation.shHeight }}"
+    data-key ="storageLocation.shHeight"
+    input-align="right"
+    bind:change="onFieldChange"
+    type="number"
+    request
+    />
+  </van-row>
+  <van-row class="margin-top">
+    <van-field
+    label="X轴"
+    value="{{ storageLocation.srx }}"
+    data-key ="storageLocation.srx"
+    input-align="right"
+    bind:change="onFieldChange"
+    type="number"
+    request
+    />
+  </van-row>
+  <van-row class="margin-top">
+    <van-field
+    label="Y轴"
+    value="{{ storageLocation.sry }}"
+    data-key ="storageLocation.sry"
+    input-align="right"
+    type="number"
+    bind:change="onFieldChange"
+    request
+    />
+  </van-row>
+  <van-row>
+    <van-field
+    label="备注"
+    value="{{ storageLocation.memo }}"
+    input-align="right"
+    data-key ="storageLocation.memo"
+    bind:change="onFieldChange"
+    />
+  </van-row>
+  <van-submit-bar
+  button-text="确定"
+  bind:submit="onSubmit"
+  />
+  <view class='cu-load load-modal' wx:if="{{loadModal}}">
+    <image src='/images/logo.png' class='png' mode='aspectFit'></image>
+    <view class='gray-text'>加载中...</view>
+  </view>
+</view>

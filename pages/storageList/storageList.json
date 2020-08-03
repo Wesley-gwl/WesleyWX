@@ -1,0 +1,20 @@
+{
+  "navigationBarTitleText": "仓库分页",
+  "usingComponents": {
+    "van-field": "../../dist/field/index",
+    "van-button": "../../dist/button/index",
+    "van-cell": "../../dist/cell/index",
+    "van-row": "../../dist/row/index",
+    "van-col": "../../dist/col/index",
+    "van-cell-group": "../../dist/cell-group/index",
+    "van-search": "../../dist/search/index",
+    "van-action-sheet": "../../dist/action-sheet/index",
+    "van-popup": "../../dist/popup/index",
+    "van-submit-bar": "../../dist/submit-bar/index",
+    "van-swipe-cell": "../../dist/swipe-cell/index",
+    "i-page": "../../viewui/page/index",
+    "van-dialog": "../../dist/dialog/index",
+    "van-notify": "../../dist/notify/index",
+    "i-divider": "../../viewui/divider/index"
+  }
+}

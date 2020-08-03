@@ -1,0 +1,71 @@
+<van-notify id="van-notify" />
+<view class="page">
+  <van-row>
+    <van-cell-group>
+      <van-field
+      label="名称"
+      value="{{storage.name}}"
+      input-align="right"
+      data-key ="storage.name"
+      bind:change="onFieldChange"
+      request
+      />
+    </van-cell-group>
+  </van-row>
+  <van-row class="margin-top">
+    <van-cell-group>
+      <van-field
+      label="编号"
+      placeholder="自动生成"
+      value="{{ storage.code }}"
+      input-align="right"
+      disabled
+      />
+    </van-cell-group>
+  </van-row>
+  <van-row>
+    <van-field
+    label="地址"
+    value="{{ storage.address }}"
+    input-align="right"
+    data-key ="storage.address"
+    bind:change="onFieldChange"
+    />
+  </van-row>
+  <van-row>
+    <van-field
+    label="备注"
+    value="{{ storage.memo }}"
+    input-align="right"
+    data-key ="storage.memo"
+    bind:change="onFieldChange"
+    />
+  </van-row>
+  <van-row>
+    <van-cell
+    is-link
+    title="添加货架"
+    bind:click="onAddStorage"
+  />
+  </van-row>
+  <scroll-view  scroll-y='true' > 
+    <view  wx:for="{{storageLocationList}}"  class="bg-blue padding radius light">
+      <van-swipe-cell right-width="{{ 65 }}" left-width="{{ 65}}" async-close  bind:close="onSwichCheck" data-id="{{item.id}}">
+      <van-cell-group>
+        <van-cell title="{{item.name}}" value="{{item.code}}" label="{{item.memo}}"/>
+      </van-cell-group>
+      <view slot="left" class="van-swipe-cell__left" data-id="{{item.id}}">删除</view>
+      <view slot="right" class="van-swipe-cell__right" data-id="{{item.id}}">编辑查看</view>
+    </van-swipe-cell>
+    </view>
+  </scroll-view>
+  <i-divider ></i-divider>
+  <van-submit-bar
+  button-text="{{submitText}}"
+  bind:submit="onSubmit"
+  />
+  <view class='cu-load load-modal' wx:if="{{loadModal}}">
+    <image src='/images/logo.png' class='png' mode='aspectFit'></image>
+    <view class='gray-text'>加载中...</view>
+  </view>
+</view>

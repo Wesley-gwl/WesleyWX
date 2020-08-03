@@ -48,5 +48,11 @@ var config={
    getAccountList_url:host+"api/AccountWX/GetAccountListByPage",
    saveAccount_url:host+"api/AccountWX/SaveAccount",
    deleteAccount_url:host+"api/AccountWX/DeleteAccount",
+   //仓库库位
+   getStorageList_url:host+"api/StorageWX/GetStorageListByPage",
+   getStorageForEdit_url:host+"api/StorageWX/GetStorageForEdit",
+   saveStorage_url:host+"api/StorageWX/SaveStorage",
+   deleteStorage_url:host+"api/StorageWX/DeleteStorage",
+   deleteStorageLocation_url:host+"api/StorageWX/DeleteStorageLocation",
 }
 module.exports=config;

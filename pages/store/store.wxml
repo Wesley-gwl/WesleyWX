@@ -1,7 +1,7 @@
 <van-grid square column-num="3" border="ture" gutter="2"> 
   <van-grid-item icon="../../images/menu/hx-check.png" text="库存查询" url="../saleAccountHXAddOrEdit/saleAccountHXAddOrEdit" />
-  <van-grid-item icon="../../images/menu/sale-list.png" text="仓库管理" url="../saleList/saleList" />
-  <van-grid-item icon="../../images/menu/sale-add.png" text="仓库新增" url="../saleAddOrEdit/saleAddOrEdit" />
+  <van-grid-item icon="../../images/menu/sale-list.png" text="仓库管理" url="../storageList/storageList" />
+  <!-- <van-grid-item icon="../../images/menu/sale-add.png" text="仓库新增" url="../storageAddOrEdit/storageAddOrEdit" /> -->
   <van-grid-item icon="../../images/menu/sale-check.png" text="入库单新增" url="../saleAccountCheckList/saleAccountCheckList" />
   <van-grid-item icon="../../images/menu/sale-check.png" text="入库单" url="../saleAccountCheckAddOrEdit/saleAccountCheckAddOrEdit" />
   <van-grid-item icon="../../images/menu/sale-canpayment.png" text="出库单新增" url="../saleAccountCanPaymentList/saleAccountCanPaymentList" />
