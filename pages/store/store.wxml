@@ -1,5 +1,5 @@
 <van-grid square column-num="3" border="ture" gutter="2"> 
-  <van-grid-item icon="../../images/menu/hx-check.png" text="库存查询" url="../InventoryList/InventoryList" />
+  <van-grid-item icon="../../images/menu/hx-check.png" text="库存查询" url="../inventoryList/inventoryList" />
   <van-grid-item icon="../../images/menu/sale-list.png" text="仓库管理" url="../storageList/storageList" />
   <van-grid-item icon="../../images/menu/sale-check.png" text="入库单新增" url="../inStockApplyAddOrEdit/inStockApplyAddOrEdit" />
   <van-grid-item icon="../../images/menu/sale-check.png" text="入库单" url="../inStockApplyList/inStockApplyList" />

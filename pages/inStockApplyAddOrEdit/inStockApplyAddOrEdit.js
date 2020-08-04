@@ -9,47 +9,52 @@ Page({
    */
   data: {
     apply:{
-      offsetAmount:0,
-      finishAmount:0,
-      residueAmount:0,
-      totalAmount:0,
-      type :1,
-      typeName:"付款单",
+      type :0,
+      typeName:"采购入库单",
       status:0,
-      statusName:"待核销",
+      statusName:"申请",
     },
-    showTotalAmount:0,
     isLook:false,
     isEdit:false,
+    typeList:[{
+        type:0,
+        name:'采购入库单'
+      },
+      {
+        type:3,
+        name:'销售退货入库单'
+      }, {
+        type:4,
+        name:'其他入库单'
+      }
+    ],
     customer:{},
+    storageList:[],
+    storage:{},
     productList:[],
     loadModal:false,
     submitText:"提交",
-    supplierUrl:"../supplier/supplier",
-    accountUrl:"../accountSelect/accountSelect",
-    formatter(type, value) {
-      if (type === 'year') {
-        return `${value}年`;
-      } else if (type === 'month') {
-        return `${value}月`;
-      }
-      return value;
-    },
+    productUrl:"../productSelect/productSelect",
   },
-  //修改金额
-  onTotalAmountChange(event){
-    if(that.data.isLook){
-      return;
+  //选择仓库
+  onSelectStorage:function(event){
+    that.setData({ showStorageSelect: true });
+    if(event.detail.type != null){
+      var storage = {
+        id : event.detail.type,
+        name : event.detail.name 
+      }
+      that.setData({ 
+        storage: storage,
+      })
     }
-    var apply =that.data.apply;
-    apply.totalAmount= event.detail;
-    apply.residueAmount= event.detail;
-    this.setData({
-      apply: apply,
-      showTotalAmount:event.detail*100
+  },
+   //关闭类型选择
+   onClose() {
+    this.setData({ 
+      showStorageSelect: false 
     });
   },
-  
   //修改单据日期
   DateChange(event) {
     if(that.data.isLook){
@@ -217,6 +222,24 @@ Page({
    */
   onShow: function () {
     this.setHeader();
+    that.getStorageList();
+  },
+  //获取仓库下拉框
+  getStorageList:function(){
+    wx.request({
+      url: config.getStorageCombobox_url,
+      method: 'get',
+      header: header,//传在请求的header里
+      success(res) {
+        if(res.data.success){
+          var list = res.data.data;
+          list.push({type:"0",name:'1313'})
+          that.setData({
+            storageList :list ,
+          })
+        }
+      }
+    })
   },
   setHeader:function(){
     if(header==null||header=={}){

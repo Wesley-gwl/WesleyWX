@@ -1,8 +1,9 @@
 {
   "pages": [
+    "pages/inStockApplyAddOrEdit/inStockApplyAddOrEdit",
+    "pages/login/login",
     "pages/store/store",
     "pages/inventoryList/inventoryList",
-    "pages/login/login",
     "pages/storageList/storageList",
     "pages/storageAddOrEdit/storageAddOrEdit",
     "pages/sale/sale",
@@ -53,7 +54,6 @@
     "pages/takeStockApplyAddOrEdit/takeStockApplyAddOrEdit",
     "pages/inStockApplyList/inStockApplyList",
     "pages/outStockApplyList/outStockApplyList",
-    "pages/inStockApplyAddOrEdit/inStockApplyAddOrEdit",
     "pages/outStockApplyAddOrEdit/outStockApplyAddOrEdit"
   ],
   "window": {

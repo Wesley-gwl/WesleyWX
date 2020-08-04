@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "新增编辑付款单",
+  "navigationBarTitleText": "新增编辑入库单",
   "usingComponents": {
     "van-field": "../../dist/field/index",
     "van-button": "../../dist/button/index",
