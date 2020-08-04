@@ -1,12 +1,12 @@
 <van-grid square column-num="3" border="ture" gutter="2"> 
-  <van-grid-item icon="../../images/menu/hx-check.png" text="库存查询" url="../saleAccountHXAddOrEdit/saleAccountHXAddOrEdit" />
+  <van-grid-item icon="../../images/menu/hx-check.png" text="库存查询" url="../InventoryList/InventoryList" />
   <van-grid-item icon="../../images/menu/sale-list.png" text="仓库管理" url="../storageList/storageList" />
-  <!-- <van-grid-item icon="../../images/menu/sale-add.png" text="仓库新增" url="../storageAddOrEdit/storageAddOrEdit" /> -->
-  <van-grid-item icon="../../images/menu/sale-check.png" text="入库单新增" url="../saleAccountCheckList/saleAccountCheckList" />
-  <van-grid-item icon="../../images/menu/sale-check.png" text="入库单" url="../saleAccountCheckAddOrEdit/saleAccountCheckAddOrEdit" />
-  <van-grid-item icon="../../images/menu/sale-canpayment.png" text="出库单新增" url="../saleAccountCanPaymentList/saleAccountCanPaymentList" />
-  <van-grid-item icon="../../images/menu/sale-checklist.png" text="盘点单" url="../saleAccountCanPaymentAddOrEdit/saleAccountCanPaymentAddOrEdit" />
-  <van-grid-item icon="../../images/menu/sale-payment.png" text="盘点仓库" url="../saleAccountPaymentList/saleAccountPaymentList" />
-  <van-grid-item icon="../../images/menu/sale-paymentadd.png" text="移库单" url="../saleAccountPaymentAddOrEdit/saleAccountPaymentAddOrEdit" />
-  <van-grid-item icon="../../images/menu/hx-list.png" text="移库新增" url="../saleAccountHXList/saleAccountHXList" />
-</van-grid>
+  <van-grid-item icon="../../images/menu/sale-check.png" text="入库单新增" url="../inStockApplyAddOrEdit/inStockApplyAddOrEdit" />
+  <van-grid-item icon="../../images/menu/sale-check.png" text="入库单" url="../inStockApplyList/inStockApplyList" />
+  <van-grid-item icon="../../images/menu/sale-canpayment.png" text="出库单新增" url="../outStockApplyAddOrEdit/outStockApplyAddOrEdit" />
+  <van-grid-item icon="../../images/menu/sale-check.png" text="出库单" url="../outStockApplyList/outStockApplyList" />
+  <van-grid-item icon="../../images/menu/sale-checklist.png" text="盘点单新增" url="../takeStockApplyAddOrEdit/takeStockApplyAddOrEdit" />
+  <van-grid-item icon="../../images/menu/sale-payment.png" text="盘点单" url="../takeStockApplyList/takeStockApplyList" />
+  <van-grid-item icon="../../images/menu/hx-list.png" text="移库新增" url="../adjustStockApplyAddOrEdit/adjustStockApplyAddOrEdit" />
+  <van-grid-item icon="../../images/menu/sale-paymentadd.png" text="移库单" url="../adjustStockApplyList/adjustStockApplyList" />
+</van-grid> 

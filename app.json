@@ -1,5 +1,7 @@
 {
   "pages": [
+    "pages/store/store",
+    "pages/inventoryList/inventoryList",
     "pages/login/login",
     "pages/storageList/storageList",
     "pages/storageAddOrEdit/storageAddOrEdit",
@@ -41,9 +43,18 @@
     "pages/saleAccountPaymentAddOrEdit/saleAccountPaymentAddOrEdit",
     "pages/saleAccountHXList/saleAccountHXList",
     "pages/saleAccountHXAddOrEdit/saleAccountHXAddOrEdit",
-    "pages/store/store",
     "pages/storageSelect/storageSelect",
-    "pages/storageLocationAddOrEdit/storageLocationAddOrEdit"
+    "pages/storageLocationAddOrEdit/storageLocationAddOrEdit",
+    "pages/storageLocationSelect/storageLocationSelect",
+    "pages/productSelect/productSelect",
+    "pages/adjustStockApplyList/adjustStockApplyList",
+    "pages/adjustStockApplyAddOrEdit/adjustStockApplyAddOrEdit",
+    "pages/takeStockApplyList/takeStockApplyList",
+    "pages/takeStockApplyAddOrEdit/takeStockApplyAddOrEdit",
+    "pages/inStockApplyList/inStockApplyList",
+    "pages/outStockApplyList/outStockApplyList",
+    "pages/inStockApplyAddOrEdit/inStockApplyAddOrEdit",
+    "pages/outStockApplyAddOrEdit/outStockApplyAddOrEdit"
   ],
   "window": {
     "backgroundTextStyle": "light",

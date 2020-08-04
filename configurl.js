@@ -54,5 +54,10 @@ var config={
    saveStorage_url:host+"api/StorageWX/SaveStorage",
    deleteStorage_url:host+"api/StorageWX/DeleteStorage",
    deleteStorageLocation_url:host+"api/StorageWX/DeleteStorageLocation",
+   getStorageCombobox_url:host+"api/StorageWX/GetStorageCombobox",
+   getStorageLocationCombobox_url:host+"api/StorageWX/GetStorageLocationCombobox",
+   getStorageInfoSelectTree_url:host+"api/StorageWX/GetStorageInfoSelectTree",
+   //库存
+   getInventoryList_url:host+"api/InventoryWX/GetInventoryListByPage",
 }
 module.exports=config;

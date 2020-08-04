@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "库位选择",
+  "usingComponents": {
+    "van-tree-select": "../../dist/tree-select/index",
+    "van-submit-bar": "../../dist/submit-bar/index",
+    "i-divider": "../../viewui/divider/index"
+  }
+}

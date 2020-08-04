@@ -1,0 +1,11 @@
+<van-tree-select
+  items="{{ list }}"
+  main-active-index="{{ storageIndex }}"
+  active-id="{{ locationId }}"
+  bind:click-nav="onClickNav"
+  bind:click-item="onClickItem"
+/> 
+<van-submit-bar
+button-text="确定"
+bind:submit="onSubmit"
+/>

@@ -21,7 +21,7 @@ VantComponent({
     },
     height: {
       type: [Number, String],
-      value: 300,
+      value: 550,
     },
     max: {
       type: Number,

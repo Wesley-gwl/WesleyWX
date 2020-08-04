@@ -1,0 +1,78 @@
+<view>
+  <van-search
+  value=""
+  input-align="center"
+  show-action
+  placeholder="商品名称编号规格"
+  bind:search="onSearch"  
+  />
+</view>
+<view class='big-box'>
+  <!--左侧栏-->
+  <scroll-view class="left-menu"  scroll-y='true'>
+    <block wx:for="{{productTypeList}}" wx:key="id">
+      <view class='{{index == idx ? "avtive":"Default-Class"}}' bindtap="getProductList" data-id="{{item.id}}" data-index="{{item.index}}">{{item.name}}</view>
+    </block>
+  </scroll-view>
+  <!--右侧栏-->
+  <scroll-view class="nav_right" style='width:73%;' scroll-y='true'>
+    <view wx:for="{{productList}}"  class="radius light ">
+      <van-radio-group value="{{ radio }}" bind:change="onChangeRadio">
+        <van-cell-group>
+          <view class="cu-card article ">
+            <view class="cu-item shadow">
+              <view class="title">
+                <view class="text-cut">
+                 <view style="width:50%;float:left">
+                  {{item.name}}
+                 </view>
+                 <view style="width:50%; float:right; text-align: right;">
+                  {{item.productTypeName}}
+                 </view>
+                </view>
+              </view>
+              <view class="content">
+                <view class="desc">
+                  <view class="text-content">
+                     <view style="width:50%;float:left">
+                      规格:{{item.spec}}
+                     </view>
+                     <view style="width:50%; float:right; text-align: right;">
+                      编号:{{item.code}}
+                     </view>
+                     <view style="width:50%;float:left" class="text-blue">
+                      进货价:{{item.purchasePrice}}￥
+                     </view>
+                     <view style="width:50%;float:right;text-align: right;"class="text-blue">
+                      零售价:{{item.salesPrice}}￥
+                     </view>
+                     <view style="width:50%;float:left" class="text-blue">
+                      批发价:{{item.tradePrice}}￥
+                    </view>
+                     <view style="width:50%;float:right;text-align: right;" >
+                     </view>
+                  </view>
+                  <view>
+                    <view class="cu-tag bg-green light  round">{{item.unit}}</view>
+                    <view style="float:right">
+                      <van-radio data-id="{{item.id}}" name="{{item.id}}"></van-radio>
+                    </view>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </van-cell-group>
+      </van-radio-group>
+    </view>
+  </scroll-view>
+</view>
+<i-divider ></i-divider>
+<i-divider ></i-divider>
+
+<view>
+  <van-submit-bar
+  button-text="确定"
+  bind:submit="onSubmit"
+/>
+</view>

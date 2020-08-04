@@ -1,0 +1,133 @@
+<van-notify id="van-notify" />
+<!-- 更多条件 -->
+<van-popup show="{{ show }}" round bind:close="onCloseMore"  position="top" custom-style="height: 290;">
+  <van-row>
+    <van-search
+    value="{{searchText}}"
+    input-align="center"
+    placeholder="商品仓库货架"
+    bind:search="onSearch"  
+    bind:change="onChangeSearch"
+    />
+  </van-row>
+  <van-row>
+    <van-cell
+    is-link
+    title="选择商品"
+    link-type="navigateTo"
+    url="../productSelect/productSelect"
+    value ="{{product.name}}"
+    input-align="right"
+    />
+  </van-row>
+  <van-row>
+    <van-cell
+    is-link
+    title="仓库"
+    bind:click="onSelectStorage"
+    value ="{{storage.name}}"
+    input-align="right"
+    />
+    <van-action-sheet
+    title="仓库"
+    show="{{ showStorageSelect }}"
+    actions="{{ storageList }}"
+    bind:close ="onClose"
+    bind:select="onSelectStorage"
+    />
+  </van-row>
+  <van-row>
+    <van-cell
+    is-link
+    title="货架"
+    value ="{{storageLocation.name}}"
+    input-align="right"
+    bind:click="onSelectStorageLocation"
+    />
+  </van-row>
+  <van-row gutter="20" class="padding solids-top margin-top">
+    <van-col span="8">
+      <button class="cu-btn bg-green round shadow" bindtap="onCloseMore" style="width:120px" >返回</button>
+    </van-col>
+    <van-col span="8">
+      <button class="cu-btn bg-brown round shadow" bindtap="clearMore" style="width:120px">重置</button>
+    </van-col>
+    <van-col span="8">
+      <button class="cu-btn bg-blue round shadow" bindtap="onSearch" style="width:120px">查询</button>
+    </van-col>
+  </van-row>
+</van-popup>
+<!-- 条件 -->
+<view>
+  <van-search
+  value="{{searchText}}"
+  input-align="center"
+  use-action-slot
+  placeholder="商品仓库货架"
+  bind:search="onSearch"  
+  bind:change="onChangeSearch"
+  >
+  <view slot="action" bind:tap="onShowMore">更多</view>
+  </van-search>
+</view>
+<!-- 分页 -->
+<scroll-view>
+  <view wx:for="{{inventoryList}}"  class="radius light ">
+      <van-cell-group>
+        <view class="cu-card article ">
+          <view class="cu-item shadow">
+            <view class="title">
+              <view class="text-cut">
+               <view style="width:50%;float:left">
+                {{item.productName}}
+               </view>
+               <view style="width:50%; float:right; text-align: right;">
+                {{item.number}}
+               </view>
+              </view>
+            </view>
+            <view class="content">
+              <view class="desc">
+                <view class="text-content">
+                   <view style="width:50%;float:left">
+                    {{item.productSpec}}
+                   </view>
+                   <view style="width:50%; float:right; text-align: right;"class="text-blue">
+                    仓库: {{item.storageName}}
+                   </view>
+                   <view style="width:50%;float:left" >
+                    {{item.productCode}}
+                   </view>
+                   <view style="width:50%;float:right;text-align: right;"class="text-blue">
+                    货架:{{item.storageLocationName}}
+                   </view>
+                   <view style="width:50%;float:left">
+                    采购价:{{item.price}}￥
+                  </view>
+                   <view style="width:50%;float:right;text-align: right;" >
+                   </view>
+                </view>
+                <view>
+                  <view class="cu-tag bg-green light  round">{{item.unit}}</view>
+                  <view style="float:right" class="text-blue"> 
+                    总价值:{{item.price*item.number}}￥
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </van-cell-group>
+  </view>
+  <!-- 分割，防止底部不清晰 -->
+  <i-divider ></i-divider>
+</scroll-view>
+<!-- 页脚分页 -->
+<view style="position:fixed; bottom:0;width: 100%;">
+  <i-page current="{{ current }}" total="{{total}}" bind:change="onPaged">
+    <view slot="prev">上一页</view>
+    <view slot="next">下一页</view>
+</i-page>
+</view>
+<!-- 弹出框 -->
+<van-dialog id="van-dialog" />
