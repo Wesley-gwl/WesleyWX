@@ -7,7 +7,7 @@ Page({
   data: {
     current:1,//分页页数
     total:0,//总页数
-    rows:5,//一页的行数
+    rows:10,//一页的行数
     show:false,
     searchText:'',
     product:{},

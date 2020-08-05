@@ -59,5 +59,10 @@ var config={
    getStorageInfoSelectTree_url:host+"api/StorageWX/GetStorageInfoSelectTree",
    //库存
    getInventoryList_url:host+"api/InventoryWX/GetInventoryListByPage",
+   //出入库单
+   getStockApplyList_url:host+"api/StockApplyWX/GetStockApplyListByPage",
+   saveStockApply_url:host+"api/StockApplyWX/SaveStockApply",
+   deleteStockApply_url:host+"api/StockApplyWX/DeleteStockApply",
+   getStockApplyForEdit_url:host+"api/StockApplyWX/GetStockApplyForEdit",
 }
 module.exports=config;

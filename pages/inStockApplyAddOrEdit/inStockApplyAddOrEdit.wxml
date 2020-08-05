@@ -13,7 +13,7 @@
     <van-cell
     is-link
     title="订单类型"
-    bind:click="onSelect"
+    bind:click="onSelectType"
     value ="{{apply.typeName}}"
     input-align="right"
     />
@@ -22,7 +22,7 @@
     show="{{ showTypeSelect }}"
     actions="{{ typeList }}"
     bind:close ="onClose"
-    bind:select="onSelect"
+    bind:select="onSelectType"
     />
   </van-row>
   <van-row>
@@ -39,6 +39,24 @@
     actions="{{ storageList }}"
     bind:close ="onClose"
     bind:select="onSelectStorage"
+    required
+    />
+  </van-row>
+  <van-row  class="margin-top">
+    <van-cell
+    is-link
+    title="状态"
+    bind:click="onSelectStatus"
+    value ="{{apply.statusName }}"
+    input-align="right"
+    />
+    <van-action-sheet
+    title="状态"
+    show="{{ showStatusSelect }}"
+    actions="{{ statusList }}"
+    bind:close ="onClose"
+    bind:select="onSelectStatus"
+    required
     />
   </van-row>
   <van-row>
@@ -51,44 +69,43 @@
       </picker>
     </view>
   </van-row>
-  <van-row>
-      <van-field
-      label="备注"
-      data-key="apply.memo"
-      value="{{ apply.memo }}"
-      input-align="right"
-      bind:change="onFieldChange"
-      />
+  <van-row  class="margin-top">
+    <van-field
+    label="备注"
+    data-key="apply.memo"
+    value="{{ apply.memo }}"
+    input-align="right"
+    bind:change="onFieldChange"
+    />
   </van-row>
   <van-cell-group>
     <van-cell
     is-link
     title="添加商品"
-    link-type="navigateTo"
-    url="{{productUrl}}"
+    bindtap="onAddProduct"
     required
   />
   </van-cell-group>
   <scroll-view  scroll-y='true' > 
     <view  wx:for="{{productList}}"  class="bg-blue padding radius light">
-      <van-swipe-cell right-width="{{ 65 }}"   data-id="{{item.id}}">
+      <van-swipe-cell right-width="{{ 65 }}"  async-close  bind:close="onSwichCheck" data-id="{{item.id}}">
         <van-cell-group>
           <i-card full title="{{item.name}}"  extra="{{item.code}}-{{item.spec}}"  i-class="card-demo">
             <view slot="content">
-              价格：
-              <view style="float:right">
-                <van-stepper value="{{ item.purchasePrice }}" step="0.001" decimal-length="{{ 3 }}" data-index="{{item.index}}" min="0.001" max="999999" input-width="80px" button-size="22px" bind:change="handleChangePrice"/>
+             货架:
+             <view style="float:right" >
+              {{item.toStorageLocationName}}
             </view>
             </view>
             <view slot="footer" >
               数量：
               <view style="float:right" >
-                <van-stepper value="{{ item.number }}" step="1"   min="0" max="9999999999"  data-index="{{item.index}}" input-width="80px" button-size="22px" bind:change="handleChangeNumber" />
-                </view>
+                <van-stepper value="{{ item.number }}" step="1"   min="1" max="9999999999"  data-id="{{item.id}}" input-width="80px" button-size="22px" bind:change="handleChangeNumber" />
+              </view>
             </view>
           </i-card>
         </van-cell-group>
-        <view slot="right" class="van-swipe-cell__right" data-id="{{item.id}}" bindtap="onCloseProduct">删除</view>
+        <view slot="right" class="van-swipe-cell__right" data-id="{{item.id}}" >删除</view>
       </van-swipe-cell>
     </view>
   </scroll-view>

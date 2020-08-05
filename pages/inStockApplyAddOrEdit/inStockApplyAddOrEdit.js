@@ -12,29 +12,70 @@ Page({
       type :0,
       typeName:"采购入库单",
       status:0,
-      statusName:"申请",
+      statusName:"新建",
     },
     isLook:false,
     isEdit:false,
-    typeList:[{
+    typeList:[
+      {
         type:0,
         name:'采购入库单'
       },
       {
         type:3,
         name:'销售退货入库单'
-      }, {
+      },
+      {
+        type:4,
+        name:'其他入库单'
+      }
+      , {
         type:4,
         name:'其他入库单'
       }
     ],
-    customer:{},
+    statusList:[
+      {
+        type:0,
+        name:'新建'
+      },
+      {
+        type:1,
+        name:'完成'
+      },
+      {
+        type:1,
+        name:'完成'
+      },
+    ],
     storageList:[],
     storage:{},
     productList:[],
     loadModal:false,
     submitText:"提交",
-    productUrl:"../productSelect/productSelect",
+    showStorageSelect:false,
+    showStatusSelect:false,
+    showTypeSelect:false,
+    formatter(type, value) {
+      if (type === 'year') {
+        return `${value}年`;
+      } else if (type === 'month') {
+        return `${value}月`;
+      }
+      return value;
+    }
+  },
+  //选择类型
+  onSelectType(event){
+    that.setData({ showTypeSelect: true });
+    if(event.detail.type != null){
+      var apply =that.data.apply;
+      apply.type = event.detail.type;
+      apply.typeName = event.detail.name;
+      that.setData({ 
+        apply: apply,
+      })
+    }
   },
   //选择仓库
   onSelectStorage:function(event){
@@ -46,13 +87,28 @@ Page({
       }
       that.setData({ 
         storage: storage,
+        productList:[]
       })
     }
   },
+    //选择状态
+    onSelectStatus(event){
+      that.setData({ showStatusSelect: true });
+      if(event.detail.type != null){
+        var apply =that.data.apply;
+        apply.status = event.detail.type;
+        apply.statusName = event.detail.name;
+        that.setData({ 
+          apply: apply,
+        })
+      }
+    },
    //关闭类型选择
    onClose() {
     this.setData({ 
-      showStorageSelect: false 
+      showStorageSelect: false ,
+      showTypeSelect: false ,
+      showStatusSelect: false ,
     });
   },
   //修改单据日期
@@ -61,10 +117,70 @@ Page({
       return;
     }
     var apply =that.data.apply;
-    apply.date= event.date.value;
+    apply.date= event.detail.value;
     this.setData({
       apply: apply
     });
+  },
+  //输入赋值
+  onFieldChange(e){
+    this.setData({
+      [e.target.dataset.key]:e.detail
+    });
+  },
+  
+  //添加商品
+  onAddProduct(){
+    var storage = that.data.storage;
+    if(storage.id==null){
+      Notify({ type: 'warning', message: '请先选择仓库',duration: 2000 });
+    }else{
+      wx.navigateTo({
+        url: "../inStockApplyDetailAddOrEdit/inStockApplyDetailAddOrEdit?storage="+JSON.stringify(storage),
+      })
+    }
+  },
+  //删除
+  onSwichCheck:function(event){
+    const { position, instance } = event.detail;
+    switch (position) {
+      case 'left':
+        break;
+      case 'cell':
+        break;
+      case 'right':
+        that.deleteAccountCheck(event);
+        break;
+    }
+    instance.close();
+  },
+  //删除
+  deleteAccountCheck:function(event){
+    var id = event.currentTarget.dataset.id;
+    var productList = [];
+    that.data.productList.forEach(e => {
+      if(e.id!= id){
+        productList.push(e);
+      }
+    });
+    this.setData({
+      productList: productList
+    })
+  },
+   //修改数量
+   handleChangeNumber (event) {
+    var id = event.target.dataset.id;
+    var productList = [];
+    for (let index = 0; index < that.data.productList.length; index++) {
+      const e = that.data.productList[index];
+      if(e.id == id){
+        e.number = event.detail;
+      }
+      productList.push(e);
+    }
+    this.setData({
+      productList: productList
+    })
   },
   //提交
   onSubmit:function(){
@@ -75,34 +191,37 @@ Page({
       return;
     }
     var data =that.data;
-    if(data.apply.title==null||data.apply.title==""){
-      Notify({ type: 'warning', message: '请填写标题',duration: 2000 });
+    if(data.storage.id == null){
+      Notify({ type: 'warning', message: '请先选择仓库' ,duration: 2000});
       return ;
     }
-    if(data.customer.id == null){
-      Notify({ type: 'warning', message: '请先选择供应商' ,duration: 2000});
-      return ;
-    }
-    if(data.account.id== null){
-      Notify({ type: 'warning', message: '请先选中账户',duration: 2000 });
-      return ;
-    }
-    if(data.apply.totalAmount<=0){
-      Notify({ type: 'warning', message: '付款金额不能小于0',duration: 2000 });
+    if(data.productList.length== 0){
+      Notify({ type: 'warning', message: '请先添加商品',duration: 2000 });
       return ;
     }
     that.setData({
       loadModal: true
     })
-    var input =data.apply;
-    input.accountId = data.account.id;
-    input.accountName = data.account.name;
-    input.customerId=data.customer.id;
-    input.customerName = data.customer.name;
-    input.companyName = data.customer.companyName;
-    input.phoneNumber = data.customer.phoneNumber;
+    var input ={};
+    var stockApply=data.apply;
+    stockApply.action =0;
+    stockApply.toStorageId = data.storage.id;
+    stockApply.toStorageName = data.storage.name;
+    var stockApplyItems =[];
+    for (let index = 0; index < data.productList.length; index++) {
+      const e = data.productList[index];
+      if(e.productId == null){
+        e.productId = e.id;
+      }
+      e.productName = e.name;
+      e.ProductCode = e.code;
+      e.ProductSpec= e.spec;
+      stockApplyItems.push(e);
+    }
+    input.stockApply=stockApply;
+    input.stockApplyItems=stockApplyItems;
     wx.request({
-      url: config.saveAccountPayment_url,
+      url: config.saveStockApply_url,
       method: 'post',
       dataType: "json",
       header: header,//传在请求的header里
@@ -155,7 +274,7 @@ Page({
   },
   getApplyInfo:function(id){
     wx.request({
-      url: config.getAccountPaymentForEdit_url,
+      url: config.getStockApplyForEdit_url,
       method: 'get',
       header: header,//传在请求的header里
       data:{id:id},
@@ -170,7 +289,8 @@ Page({
       }
     })
   },
-  loadData:function(apply){
+  loadData:function(output){
+    var apply = output.stockApply;
     if(apply!=null){
       if(apply.status!=0){
         that.setData({
@@ -185,21 +305,21 @@ Page({
           isEdit:true
         })
       }
-      var customer = {};
-      customer.id = apply.customerId;
-      customer.name = apply.customerName;
-      customer.companyName = apply.companyName;
-      customer.phoneNumber = apply.phoneNumber;
+      var storage = {};
+      storage.id = apply.toStorageId;
+      storage.name = apply.toStorageName;
       apply.date = apply.date.substring(0,10);
-      var account ={
-        id: apply.accountId,
-        name : apply.accountName
-      };
-      
+      var productList = [];
+      output.stockApplyItems.forEach(e => {
+        e.name= e.productName;
+        e.code = e.productCode;
+        e.spec= e.productSpec;
+        productList.push(e);
+      });
       that.setData({
-        customer :customer,
-        account : account,
+        storage :storage,
         apply:apply,
+        productList:productList,
         showTotalAmount:apply.totalAmount*100
       })
     }
