@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "新增编辑入库单",
+  "navigationBarTitleText": "新增编辑移库单",
   "usingComponents": {
     "van-field": "../../dist/field/index",
     "van-button": "../../dist/button/index",

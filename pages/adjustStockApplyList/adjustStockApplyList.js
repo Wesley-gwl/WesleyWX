@@ -13,10 +13,14 @@ Page({
     sTime:'',
     show:false,
     searchText:'',
-    storage:{},
     applyList:[],
     status:-1,
     statusName:"全部",
+    storageList:[],
+    fromStorage:{},
+    toStorage:{},
+    showFromStorageSelect:false,
+    showToStorageSelect:false,
     showStatusSelect:false,
     statusList:[
       {
@@ -31,11 +35,9 @@ Page({
         type:'1',
         name: '已生成',
       },
-      {
-        type:'2',
-        name: '完成',
-      },
-    ]
+    ],
+    showTypeSelect:false,
+   
   },
   //查询
   onSearch(){
@@ -52,10 +54,39 @@ Page({
       })
     }
   },
+ 
+  //选择仓库
+  onSelectFromStorage:function(event){
+    that.setData({ showFromStorageSelect: true });
+    if(event.detail.type != null){
+      var storage = {
+        id : event.detail.type,
+        name : event.detail.name 
+      }
+      that.setData({ 
+        fromStorage: storage,
+      })
+    }
+  },
+   //选择仓库
+   onSelectToStorage:function(event){
+    that.setData({ showToStorageSelect: true });
+    if(event.detail.type != null){
+      var storage = {
+        id : event.detail.type,
+        name : event.detail.name 
+      }
+      that.setData({ 
+        toStorage: storage,
+      })
+    }
+  },
   //关闭类型选择
   onClose() {
     this.setData({ 
       showStatusSelect: false ,
+      showFromStorageSelect: false ,
+      showToStorageSelect: false ,
     });
   },
   //修改search控件值
@@ -156,7 +187,7 @@ Page({
   onLookAccountCheckInfo:function(event){
     var id = event.currentTarget.dataset.id;
     wx.navigateTo({
-      url: '/pages/inStockApplyAddOrEdit/inStockApplyAddOrEdit?id=' + id,
+      url: '/pages/adjustStockApplyAddOrEdit/adjustStockApplyAddOrEdit?id=' + id,
     })
   },
   /**
@@ -170,7 +201,7 @@ Page({
       eTime: dtime,
     });
   },
-
+  
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -188,10 +219,12 @@ Page({
     input.FromTime = data.sTime;
     input.ToTime =data.eTime;
     input.Status = data.status;
-    input.Type = data.type;
-    input.Action =0;
-    if(data.storage.id!=null){
-      input.storageId = data.storage.id;
+    input.ApplyAction = 2;
+    if(data.fromStorage.id!=null){
+      input.fromStorageId = data.fromStorage.id;
+    }
+    if(data.toStorage.id!=null){
+      input.StorageId = data.toStorage.id;
     }
     wx.request({
       url: config.getStockApplyList_url,
@@ -238,10 +271,25 @@ Page({
         'sessionKey':key//读取cookie
       };
     }
-    
     this.getStockApplyList();
+    that.getStorageList();
   },
-
+  //获取仓库下拉框
+  getStorageList:function(){
+    wx.request({
+      url: config.getStorageCombobox_url,
+      method: 'get',
+      header: header,//传在请求的header里
+      success(res) {
+        if(res.data.success){
+          var list = res.data.data;
+          that.setData({
+            storageList :list ,
+          })
+        }
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面隐藏
    */

@@ -13,10 +13,12 @@ Page({
     sTime:'',
     show:false,
     searchText:'',
-    storage:{},
     applyList:[],
     status:-1,
     statusName:"全部",
+    showStorageSelect:false,
+    storageList:[],
+    storage:{},
     showStatusSelect:false,
     statusList:[
       {
@@ -25,17 +27,13 @@ Page({
       },
       {
         type:'0',
-        name: '新建',
+        name: '申请',
       },
       {
         type:'1',
-        name: '已生成',
-      },
-      {
-        type:'2',
         name: '完成',
       },
-    ]
+    ],
   },
   //查询
   onSearch(){
@@ -52,10 +50,35 @@ Page({
       })
     }
   },
+  //选择类型
+  onSelectType(event){
+    that.setData({ showTypeSelect: true });
+    if(event.detail.type != null){
+      that.setData({ 
+        type : event.detail.type,
+        typeName :event.detail.name
+      })
+    }
+  },
+  //选择仓库
+  onSelectStorage:function(event){
+    that.setData({ showStorageSelect: true });
+    if(event.detail.type != null){
+      var storage = {
+        id : event.detail.type,
+        name : event.detail.name 
+      }
+      that.setData({ 
+        storage: storage,
+      })
+    }
+  },
   //关闭类型选择
   onClose() {
     this.setData({ 
       showStatusSelect: false ,
+      showTypeSelect: false ,
+      showStorageSelect: false ,
     });
   },
   //修改search控件值
@@ -170,7 +193,7 @@ Page({
       eTime: dtime,
     });
   },
-
+  
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -189,7 +212,7 @@ Page({
     input.ToTime =data.eTime;
     input.Status = data.status;
     input.Type = data.type;
-    input.Action =0;
+    input.ApplyAction =0;
     if(data.storage.id!=null){
       input.storageId = data.storage.id;
     }
@@ -238,10 +261,25 @@ Page({
         'sessionKey':key//读取cookie
       };
     }
-    
     this.getStockApplyList();
+    that.getStorageList();
   },
-
+  //获取仓库下拉框
+  getStorageList:function(){
+    wx.request({
+      url: config.getStorageCombobox_url,
+      method: 'get',
+      header: header,//传在请求的header里
+      success(res) {
+        if(res.data.success){
+          var list = res.data.data;
+          that.setData({
+            storageList :list ,
+          })
+        }
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面隐藏
    */

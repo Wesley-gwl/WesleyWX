@@ -10,35 +10,43 @@
     />
   </van-row>
   <van-row>
-    <van-cell
-    is-link
-    title="订单类型"
-    bind:click="onSelectType"
+    <van-field
+    label="订单类型"
     value ="{{apply.typeName}}"
     input-align="right"
-    />
-    <van-action-sheet
-    title="订单类型"
-    show="{{ showTypeSelect }}"
-    actions="{{ typeList }}"
-    bind:close ="onClose"
-    bind:select="onSelectType"
     />
   </van-row>
   <van-row>
     <van-cell
     is-link
-    title="仓库"
-    bind:click="onSelectStorage"
-    value ="{{storage.name}}"
+    title="出库仓库"
+    bind:click="onSelectFromStorage"
+    value ="{{fromStorage.name}}"
     input-align="right"
     />
     <van-action-sheet
-    title="仓库"
-    show="{{ showStorageSelect }}"
+    title="出库仓库"
+    show="{{ showFromStorageSelect }}"
     actions="{{ storageList }}"
     bind:close ="onClose"
-    bind:select="onSelectStorage"
+    bind:select="onSelectFromStorage"
+    required
+    />
+  </van-row>
+  <van-row>
+    <van-cell
+    is-link
+    title="入库仓库"
+    bind:click="onSelectToStorage"
+    value ="{{toStorage.name}}"
+    input-align="right"
+    />
+    <van-action-sheet
+    title="入库仓库"
+    show="{{ showToStorageSelect }}"
+    actions="{{ storageList }}"
+    bind:close ="onClose"
+    bind:select="onSelectToStorage"
     required
     />
   </van-row>
@@ -86,18 +94,18 @@
     required
   />
   </van-cell-group>
-  <scroll-view  scroll-y='true' > 
+  <scroll-view  scroll-y='true'> 
     <view  wx:for="{{productList}}"  class="bg-blue padding radius light">
       <van-swipe-cell right-width="{{ 65 }}"  async-close  bind:close="onSwichCheck" data-id="{{item.id}}">
         <van-cell-group>
           <i-card full title="{{item.name}}"  extra="{{item.code}}-{{item.spec}}"  i-class="card-demo">
             <view slot="content">
-             货架:
+             出库货架(库存):{{item.toStorageLocationName}}
              <view style="float:right" >
-              {{item.toStorageLocationName}}
+              入库货架(库存):{{item.fromStorageLocationName}}
+              </view>
             </view>
-            </view>
-            <view slot="footer" >
+            <view slot="footer">
               数量：
               <view style="float:right" >
                 <van-stepper value="{{ item.number }}" step="1"   min="1" max="9999999999"  data-id="{{item.id}}" input-width="80px" button-size="22px" bind:change="handleChangeNumber" />

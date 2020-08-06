@@ -57,6 +57,7 @@ var config={
    getStorageCombobox_url:host+"api/StorageWX/GetStorageCombobox",
    getStorageLocationCombobox_url:host+"api/StorageWX/GetStorageLocationCombobox",
    getStorageInfoSelectTree_url:host+"api/StorageWX/GetStorageInfoSelectTree",
+   getStorageLocationInventoryCombobox_url:host+"api/StorageWX/GetStorageLocationInventoryCombobox",
    //库存
    getInventoryList_url:host+"api/InventoryWX/GetInventoryListByPage",
    //出入库单

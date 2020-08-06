@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "新增编辑出库单",
+  "navigationBarTitleText": "新增编辑出库单明细",
   "usingComponents": {
     "van-field": "../../dist/field/index",
     "van-button": "../../dist/button/index",
@@ -12,7 +12,6 @@
     "i-card": "../../viewui/card/index",
     "i-divider": "../../viewui/divider/index",
     "van-notify": "../../dist/notify/index",
-    "van-stepper": "../../dist/stepper/index",
-    "van-swipe-cell": "../../dist/swipe-cell/index"
+    "van-stepper": "../../dist/stepper/index"
   }
 }

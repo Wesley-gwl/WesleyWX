@@ -12,7 +12,7 @@ Page({
       type :0,
       typeName:"采购入库单",
       status:0,
-      statusName:"新建",
+      statusName:"申请",
     },
     isLook:false,
     isEdit:false,
@@ -91,18 +91,18 @@ Page({
       })
     }
   },
-    //选择状态
-    onSelectStatus(event){
-      that.setData({ showStatusSelect: true });
-      if(event.detail.type != null){
-        var apply =that.data.apply;
-        apply.status = event.detail.type;
-        apply.statusName = event.detail.name;
-        that.setData({ 
-          apply: apply,
-        })
-      }
-    },
+  //选择状态
+  onSelectStatus(event){
+    that.setData({ showStatusSelect: true });
+    if(event.detail.type != null){
+      var apply =that.data.apply;
+      apply.status = event.detail.type;
+      apply.statusName = event.detail.name;
+      that.setData({ 
+        apply: apply,
+      })
+    }
+  },
    //关闭类型选择
    onClose() {
     this.setData({ 
@@ -128,7 +128,6 @@ Page({
       [e.target.dataset.key]:e.detail
     });
   },
-  
   //添加商品
   onAddProduct(){
     var storage = that.data.storage;
@@ -320,7 +319,6 @@ Page({
         storage :storage,
         apply:apply,
         productList:productList,
-        showTotalAmount:apply.totalAmount*100
       })
     }
   },

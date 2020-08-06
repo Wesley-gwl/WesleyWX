@@ -10,16 +10,30 @@ Page({
   data: {
     isEdit:false,
     product:{},
-    storage:{},
+    toStorage:{},
+    fromStorage:{},
     loadModal:false,
     addProductUrl:"../productSelect/productSelect",
-    showLocationSelect:false,
-    locationList:[]
+    showToLocationSelect:false,
+    showFromLocationSelect:false,
+    toLocationList:[],
+    fromLocationList:[],
   },
-  
   //选择库位
-  onSelectLocation:function(event){
-    that.setData({ showLocationSelect: true });
+  onSelectFromLocation:function(event){
+    that.setData({ showFromLocationSelect: true });
+    if(event.detail.type != null){
+      var product = that.data.product;
+      product.fromStorageLocationName = event.detail.name;
+      product.fromStorageLocationId = event.detail.type;
+      that.setData({ 
+        product: product,
+      })
+    }
+  },
+   //选择库位
+   onSelectToLocation:function(event){
+    that.setData({ showToLocationSelect: true });
     if(event.detail.type != null){
       var product = that.data.product;
       product.toStorageLocationName = event.detail.name;
@@ -38,7 +52,8 @@ Page({
   //关闭类型选择
   onClose() {
     this.setData({ 
-      showLocationSelect: false ,
+      showToLocationSelect: false ,
+      showFromLocationSelect: false ,
     });
   },
   //提交
@@ -48,8 +63,12 @@ Page({
       Notify({ type: 'warning', message: '请先选择商品' ,duration: 2000});
       return ;
     }
+    if(data.product.fromStorageLocationId== null){
+      Notify({ type: 'warning', message: '请选择出库货架',duration: 2000 });
+      return ;
+    }
     if(data.product.toStorageLocationId== null){
-      Notify({ type: 'warning', message: '请选择货架',duration: 2000 });
+      Notify({ type: 'warning', message: '请选择入库货架',duration: 2000 });
       return ;
     }
     if(Number(data.product.number)<=0){
@@ -64,6 +83,7 @@ Page({
     var productList= prevPage.data.productList;
     var product = data.product;
     product.toStorageLocationName =  product.toStorageLocationName.split('-')[0];
+    product.fromStorageLocationName =  product.fromStorageLocationName.split('-')[0];
     productList.push(product);
     prevPage.setData({
       productList: productList
@@ -81,13 +101,14 @@ Page({
     that.setData({
       loadModal: true
     })
-    if(options.storage!=null){
-      var storage = JSON.parse(options.storage);
+    if(options.toStorage!=null){
+      var toStorage = JSON.parse(options.toStorage);
+      var fromStorage = JSON.parse(options.fromStorage);
       that.setData({
-        storage: storage
+        toStorage: toStorage,
+        fromStorage:fromStorage,
       })
     }
-  
     that.setData({
       loadModal: false
     })
@@ -104,12 +125,13 @@ Page({
   onShow: function () {
     this.setHeader();
     if(that.data.product.id!=null){
-      that.getLocationList();
+      that.getToLocationList();
+      that.getFromLocationList();
     }
   },
   //获取库位下拉框
-  getLocationList:function(){
-    var id= that.data.storage.id;
+  getToLocationList:function(){
+    var id= that.data.toStorage.id;
     var productId = that.data.product.id;
     wx.request({
       url: config.getStorageLocationInventoryCombobox_url,
@@ -124,7 +146,30 @@ Page({
           var list = res.data.data;
           list.push({type:"0",name:'1313'})
           that.setData({
-            locationList :list ,
+            toLocationList :list ,
+          })
+        }
+      }
+    })
+  },
+  //获取库位下拉框
+  getFromLocationList:function(){
+    var id= that.data.fromStorage.id;
+    var productId = that.data.product.id;
+    wx.request({
+      url: config.getStorageLocationInventoryCombobox_url,
+      method: 'get',
+      header: header,//传在请求的header里
+      data:{
+        id:id,
+        productId:productId
+      },
+      success(res) {
+        if(res.data.success){
+          var list = res.data.data;
+          list.push({type:"0",name:'1313'})
+          that.setData({
+            fromLocationList :list ,
           })
         }
       }

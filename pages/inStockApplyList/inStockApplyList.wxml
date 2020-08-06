@@ -5,7 +5,7 @@
     <van-search
     value="{{searchText}}"
     input-align="center"
-    placeholder="订单号供应商"
+    placeholder="订单号仓库"
     bind:search="onSearch"  
     bind:change="onChangeSearch"
     />
@@ -33,6 +33,22 @@
   <van-row>
     <van-cell
     is-link
+    title="订单类型"
+    bind:click="onSelectType"
+    value ="{{typeName}}"
+    input-align="right"
+    />
+    <van-action-sheet
+    title="订单类型"
+    show="{{ showTypeSelect }}"
+    actions="{{ typeList }}"
+    bind:close ="onClose"
+    bind:select="onSelectType"
+    />
+  </van-row>
+  <van-row>
+    <van-cell
+    is-link
     title="状态"
     bind:click="onSelectStatus"
     value ="{{statusName}}"
@@ -47,16 +63,21 @@
     />
   </van-row>
   <van-row>
-    <van-cell-group>
-      <van-cell
-      is-link
-      title="选择供应商"
-      link-type="navigateTo"
-      url="../supplier/supplier"
-      value ="{{customer.companyName}}{{customer.name}}"
-      input-align="right"
-      />
-    </van-cell-group>
+    <van-cell
+    is-link
+    title="仓库"
+    bind:click="onSelectStorage"
+    value ="{{storage.name}}"
+    input-align="right"
+    />
+    <van-action-sheet
+    title="仓库"
+    show="{{ showStorageSelect }}"
+    actions="{{ storageList }}"
+    bind:close ="onClose"
+    bind:select="onSelectStorage"
+    required
+    />
   </van-row>
   <van-row gutter="20" class="padding solids-top margin-top">
     <van-col span="8">
@@ -66,7 +87,7 @@
       <button class="cu-btn bg-brown round shadow" bindtap="clearMore" style="width:120px">重置</button>
     </van-col>
     <van-col span="8">
-      <button class="cu-btn bg-blue round shadow" bindtap="onSearchMore" style="width:120px">查询</button>
+      <button class="cu-btn bg-blue round shadow" bindtap="onSearch" style="width:120px">查询</button>
     </van-col>
   </van-row>
 </van-popup>
@@ -76,11 +97,11 @@
   value="{{searchText}}"
   input-align="center"
   use-action-slot
-  placeholder="订单号供应商"
+  placeholder="订单号仓库"
   bind:search="onSearch"  
   bind:change="onChangeSearch"
   >
-  <view slot="action" bind:tap="onShow">更多</view>
+  <view slot="action" bind:tap="onShowMore">更多</view>
   </van-search>
 </view>
 <!-- 分页 -->

@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "应付款单分页",
+  "navigationBarTitleText": "移库单分页",
   "usingComponents": {
     "van-field": "../../dist/field/index",
     "van-button": "../../dist/button/index",

@@ -1,0 +1,94 @@
+<van-notify id="van-notify" />
+<view class="page">
+  <van-row>
+    <van-cell
+    is-link
+    title="添加商品"
+    link-type="navigateTo"
+    url="{{addProductUrl}}"
+    input-align="right"
+    value="{{ product.name }}"
+    required
+  />
+  </van-row>
+  <van-row class="margin-top">
+    <van-field
+    label="商品编号"
+    value="{{ product.code }}"
+    input-align="right"
+    disabled
+    />
+  </van-row>
+  <van-row>
+    <van-field
+    label="商品规格"
+    value="{{ product.spec }}"
+    input-align="right"
+    disabled
+    />
+  </van-row>
+  <van-row>
+    <van-field
+    is-field
+    label="仓库"
+    value ="{{storage.name}}"
+    input-align="right"
+    disabled
+    />
+  </van-row>
+  <van-row>
+    <van-cell
+    is-link
+    title="货架"
+    bind:click="onSelectLocation"
+    value ="{{product.toStorageLocationName}}"
+    input-align="right"
+    required
+    />
+    <van-action-sheet
+    title="货架"
+    show="{{ showLocationSelect }}"
+    actions="{{ locationList }}"
+    bind:close ="onClose"
+    bind:select="onSelectLocation"
+    />
+  </van-row>
+  <van-row>
+    <van-field
+    label="数量"
+    data-key="product.number"
+    value="{{ product.number }}"
+    input-align="right"
+    bind:change="onFieldChange"
+    type="number"
+    required
+    />
+  </van-row>
+  <van-row>
+    <van-field
+    label="单位"
+    value="{{ product.unit }}"
+    input-align="right"
+    disabled
+    />
+  </van-row>
+  <van-row>
+      <van-field
+      label="备注"
+      data-key="product.memo"
+      value="{{ product.memo }}"
+      input-align="right"
+      bind:change="onFieldChange"
+      />
+  </van-row>
+ 
+  <i-divider ></i-divider>
+  <van-submit-bar
+  button-text="确定"
+  bind:submit="onSubmit"
+  />
+  <view class='cu-load load-modal' wx:if="{{loadModal}}">
+    <image src='/images/logo.png' class='png' mode='aspectFit'></image>
+    <view class='gray-text'>加载中...</view>
+  </view>
+</view>
