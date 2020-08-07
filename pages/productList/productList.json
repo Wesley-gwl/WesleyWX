@@ -1,3 +1,17 @@
 {
-  "usingComponents": {}
+  "navigationBarTitleText": "商品选择",
+  "usingComponents": {
+    "i-card": "../../viewui/card/index",
+    "van-search": "../../dist/search/index",
+    "van-submit-bar": "../../dist/submit-bar/index",
+    "van-stepper": "../../dist/stepper/index",
+    "i-divider": "../../viewui/divider/index",
+    "van-radio": "../../dist/radio/index",
+    "van-radio-group": "../../dist/radio-group/index",
+    "i-page": "../../viewui/page/index",
+    "van-swipe-cell": "../../dist/swipe-cell/index",
+    "van-popup": "../../dist/popup/index",
+    "van-dialog": "../../dist/dialog/index",
+    "van-notify": "../../dist/notify/index"
+  }
 }

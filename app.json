@@ -1,6 +1,9 @@
 {
   "pages": [
     "pages/login/login",
+    "pages/base/base",
+    "pages/customerList/customerList",
+    "pages/customerAddOrEdit/customerAddOrEdit",
     "pages/inStockApplyList/inStockApplyList",
     "pages/inStockApplyAddOrEdit/inStockApplyAddOrEdit",
     "pages/store/store",
@@ -22,8 +25,6 @@
     "pages/purchaseAddOrEdit/purchaseAddOrEdit",
     "pages/product/product",
     "pages/logs/logs",
-    "pages/storeIn/storeIn",
-    "pages/storeOut/storeOut",
     "pages/customer/customer",
     "pages/supplier/supplier",
     "pages/productList/productList",
@@ -58,7 +59,16 @@
     "pages/inStockApplyDetailAddOrEdit/inStockApplyDetailAddOrEdit",
     "pages/outStockApplyDetailAddOrEdit/outStockApplyDetailAddOrEdit",
     "pages/adjustStockApplyDetailAddOrEdit/adjustStockApplyDetailAddOrEdit",
-    "pages/takeStockApplyDetailAddOrEdit/takeStockApplyDetailAddOrEdit"
+    "pages/takeStockApplyDetailAddOrEdit/takeStockApplyDetailAddOrEdit",
+    "pages/supplierList/supplierList",
+    "pages/supplierAddOrEdit/supplierAddOrEdit",
+    "pages/customerTypeAddOrEdit/customerTypeAddOrEdit",
+    "pages/merchantsList/merchantsList",
+    "pages/merchantsAddOrEdit/merchantsAddOrEdit",
+    "pages/accountList/accountList",
+    "pages/accountAddOrEdit/accountAddOrEdit",
+    "pages/productAddOrEdit/productAddOrEdit",
+    "pages/productTypeAddOrEdit/productTypeAddOrEdit"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -99,7 +109,7 @@
         "text": "入出库单"
       },
       {
-        "pagePath": "pages/storeIn/storeIn",
+        "pagePath": "pages/base/base",
         "iconPath": "images/nav/base-off.png",
         "selectedIconPath": "images/nav/base-on.png",
         "text": "基础信息"

@@ -1,0 +1,14 @@
+{
+  "navigationBarTitleText": "客户",
+  "usingComponents": {
+    "i-card": "../../viewui/card/index",
+    "i-input-number": "../../viewui/input-number/index",
+    "van-search": "../../dist/search/index",
+    "van-cell": "../../dist/cell/index",
+    "van-cell-group": "../../dist/cell-group/index",
+    "van-dialog": "../../dist/dialog/index",
+    "van-popup": "../../dist/popup/index",
+    "van-notify": "../../dist/notify/index",
+    "van-swipe-cell": "../../dist/swipe-cell/index"
+  }
+}

@@ -1,0 +1,31 @@
+<van-notify id="van-notify" />
+<view class="page">
+  <van-row class="margin-top">
+    <van-field
+    label="名称"
+    data-key="productType.name"
+    value="{{ productType.name }}"
+    input-align="right"
+    bind:change="onFieldChange"
+    required
+    />
+  </van-row>
+  <van-row>
+    <van-field
+    label="备注"
+    data-key="productType.memo"
+    value="{{ productType.memo }}"
+    input-align="right"
+    bind:change="onFieldChange"
+    />
+  </van-row>
+  <i-divider ></i-divider>
+  <van-submit-bar
+  button-text="确定"
+  bind:submit="onSubmit"
+  />
+  <view class='cu-load load-modal' wx:if="{{loadModal}}">
+    <image src='/images/logo.png' class='png' mode='aspectFit'></image>
+    <view class='gray-text'>加载中...</view>
+  </view>
+</view>

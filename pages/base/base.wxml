@@ -1,0 +1,8 @@
+<van-grid square column-num="3" border="ture" gutter="2"> 
+  <van-grid-item icon="../../images/menu/purchase-search.png" text="客户管理" url="../customerList/customerList" />
+  <van-grid-item icon="../../images/menu/purchase-add.png" text="供应商管理" url="../supplierList/supplierList" />
+  <van-grid-item icon="../../images/menu/paymentcheck.png" text="来往单位管理" url="../merchantsList/merchantsList" />
+  <van-grid-item icon="../../images/menu/purchase-check.png" text="账户管理" url="../accountList/accountList" />
+  <van-grid-item icon="../../images/menu/purchase-canpayment.png" text="新增商品" url="../productAddOrEdit/productAddOrEdit" />
+  <van-grid-item icon="../../images/menu/purchase-canpayment.png" text="商品管理" url="../productList/productList" />
+</van-grid>

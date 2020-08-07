@@ -121,6 +121,12 @@ Page({
     input.Filter = data.searchText;
     input.Page = data.current;
     input.Rows= data.rows;
+    if(data.storage.type!=null){
+      input.storageId=data.storage.type;
+    }
+    if(data.storageLocation.type!=null){
+      input.storageLocationId =data.storageLocation.type;
+    }
     if(data.product.id!=null){
       input.productId = data.product.id;
     }

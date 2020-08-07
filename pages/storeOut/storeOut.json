@@ -1,6 +1,0 @@
-{
-  "usingComponents": {
-    "van-swipe-cell": "../../dist/swipe-cell/index"
-  },
-  "navigationBarTitleText": "出库单"
-}

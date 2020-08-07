@@ -1,0 +1,58 @@
+<van-notify id="van-notify" />
+<van-popup show="{{ show }}" round bind:close="onCloseMore"  position="top" custom-style="height: 200;">
+  <van-row>
+    <van-search
+    value="{{searchText}}"
+    input-align="center"
+    placeholder="客户公司联系人"
+    bind:search="onSearch"  
+    bind:change="onChangeSearch"
+    />
+  </van-row>
+  <van-row gutter="20" class="padding solids-top margin-top">
+    <van-col span="8">
+      <button class="cu-btn bg-green round shadow" bindtap="addCustomerType" style="width:120px" >新增分类</button>
+    </van-col>
+    <van-col span="8">
+      <button class="cu-btn bg-red round shadow" bindtap="addCustomer" style="width:120px">新增客户</button>
+    </van-col>
+    <van-col span="8">
+      <button class="cu-btn bg-blue round shadow" bindtap="onSearch" style="width:120px">查询</button>
+    </van-col>
+  </van-row>
+</van-popup>
+<view>
+  <van-search
+  value="{{searchText}}"
+  input-align="center"
+  use-action-slot
+  placeholder="客户公司联系人"
+  bind:search="onSearch"  
+  bind:change="onChangeSearch"
+  >
+  <view slot="action" bind:tap="onShowMore">更多</view>
+  </van-search>
+</view>
+<view class='big-box'>
+  <!--左侧栏-->
+  <scroll-view class="left-menu"  scroll-y='true'>
+    <block wx:for="{{customerTypeList}}" wx:key="id">
+      <view class='{{index == idx ? "avtive":"Default-Class"}}' bindtap="getCustomerList" data-id="{{item.id}}" data-index="{{item.index}}">{{item.name}}</view>
+    </block>
+  </scroll-view>
+  <!--右侧栏-->
+  <scroll-view class="nav_right" style='width:73%;' scroll-y='true'>
+    <view  wx:for="{{customerList}}" >
+      <van-swipe-cell right-width="{{ 65 }}" left-width="{{ 65}}" async-close  bind:close="onSwichCheck" data-id="{{item.id}}">
+        <van-cell-group>
+          <van-cell title="{{item.companyName}}--{{item.name}}"  clickable  bind:click="onClick" data-name="{{item.name}}" data-index="{{item.index}}" data-id="{{item.id}}" >
+          </van-cell>
+        </van-cell-group>
+        <view slot="left" class="van-swipe-cell__left" data-id="{{item.id}}"> 删除</view>
+        <view slot="right" class="van-swipe-cell__right" data-id="{{item.id}}">编辑查看</view>
+      </van-swipe-cell>
+    </view>
+  </scroll-view>
+</view>
+<!-- 弹出框 -->
+<van-dialog id="van-dialog" />

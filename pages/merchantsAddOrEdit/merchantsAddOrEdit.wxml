@@ -1,0 +1,146 @@
+<van-notify id="van-notify" />
+<view class="page">
+  <van-row class="margin-top">
+    <van-field
+    label="公司名称"
+    data-key="customer.companyName"
+    value="{{ customer.companyName }}"
+    input-align="right"
+    bind:change="onFieldChange"
+    required
+    />
+  </van-row>
+  <van-row class="margin-top">
+    <van-field
+    label="联系人"
+    data-key="customer.name"
+    value="{{ customer.name }}"
+    input-align="right"
+    bind:change="onFieldChange"
+    required
+    />
+  </van-row>
+  <van-row class="margin-top">
+    <van-field
+    label="联系电话"
+    data-key="customer.phoneNumber"
+    value="{{ customer.phoneNumber }}"
+    input-align="right"
+    bind:change="onFieldChange"
+    required
+    />
+  </van-row>
+  <van-row class="margin-top">
+    <van-field
+    label="地址"
+    data-key="customer.address"
+    value="{{ customer.address }}"
+    input-align="right"
+    bind:change="onFieldChange"
+    />
+  </van-row>
+  <van-row  class="margin-top">
+    <van-field
+    label="类型"
+    value="{{ customer.typeName }}"
+    input-align="right"
+    disabled
+    />
+  </van-row>
+  <van-row>
+    <van-cell
+    is-link
+    title="单位分类"
+    bind:click="onSelectType"
+    value ="{{customer.customerTypeName}}"
+    input-align="right"
+    required
+    />
+    <van-action-sheet
+    title="单位分类"
+    show="{{ showTypeSelect }}"
+    actions="{{ customerTypeList }}"
+    bind:close ="onClose"
+    bind:select="onSelectType"
+    />
+  </van-row>
+  <van-row>
+    <van-cell
+    is-link
+    title="结算方式"
+    bind:click="onSelectPaymentType"
+    value ="{{customer.paymentTypeName}}"
+    input-align="right"
+    required
+    />
+    <van-action-sheet
+    title="结算方式"
+    show="{{ showPaymentTypeSelect }}"
+    actions="{{ paymentTypeList }}"
+    bind:close ="onClose"
+    bind:select="onSelectPaymentType"
+    />
+  </van-row>
+  <van-row>
+    <van-cell
+    is-link
+    title="单位等级"
+    bind:click="onSelectGrade"
+    value ="{{customer.gradeName}}"
+    input-align="right"
+    required
+    />
+    <van-action-sheet
+    title="单位等级"
+    show="{{ showGradeSelect }}"
+    actions="{{ gradeList }}"
+    bind:close ="onClose"
+    bind:select="onSelectGrade"
+    />
+  </van-row>
+  <van-row>
+    <van-field
+    label="邮箱"
+    data-key="customer.email"
+    value="{{ customer.email }}"
+    input-align="right"
+    bind:change="onFieldChange"
+    />
+  </van-row>
+  <van-row>
+    <van-field
+    label="邮政编码"
+    data-key="customer.postcode"
+    value="{{ customer.postcode }}"
+    input-align="right"
+    bind:change="onFieldChange"
+    />
+  </van-row>
+  <van-row>
+    <van-field
+    label="传真"
+    data-key="customer.faxes"
+    value="{{ customer.faxes }}"
+    input-align="right"
+    bind:change="onFieldChange"
+    />
+  </van-row>
+  <van-row>
+    <van-field
+    label="备注"
+    data-key="customer.memo"
+    value="{{ customer.memo }}"
+    input-align="right"
+    bind:change="onFieldChange"
+    />
+  </van-row>
+  <i-divider ></i-divider>
+  <van-submit-bar
+  button-text="确定"
+  bind:submit="onSubmit"
+  />
+  <view class='cu-load load-modal' wx:if="{{loadModal}}">
+    <image src='/images/logo.png' class='png' mode='aspectFit'></image>
+    <view class='gray-text'>加载中...</view>
+  </view>
+</view>

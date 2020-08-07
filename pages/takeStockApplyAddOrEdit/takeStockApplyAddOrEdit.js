@@ -19,7 +19,7 @@ Page({
     statusList:[
       {
         type:0,
-        name:'新建'
+        name:'申请'
       },
       {
         type:1,

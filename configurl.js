@@ -1,5 +1,5 @@
-// var host="http://39.106.112.135:9000/";
-var host="http://localhost:62115/";
+var host="http://39.106.112.135:9000/";
+//var host="http://localhost:62115/";
 var config={
    host,
    //登入
@@ -8,12 +8,20 @@ var config={
    loginVerify_url:host+"api/WXLogin/WXAVerifyLogin",
    //商品相关
    productType_url:host+"api/ProductTypeWX/GetList",
+   saveProductType_url:host+"api/ProductTypeWX/SaveProductType",
+   saveProduct_url:host+"api/ProductWX/SaveProduct",
+   deleteProduct_url:host+"api/ProductWX/DeleteProduct",
    productList_url:host+"api/ProductWX/GetProductList",
+   productListPage_url:host+"api/ProductWX/GetProductListOfPaged",
    //供应商客户相关
    supplierType_url:host+"api/CustomerTypeWX/GetTypeListOfPurchare",
    supplierList_url:host+"api/CustomerWX/GetCustomerListByType",
    customerType_url:host+"api/CustomerTypeWX/GetTypeListOfSale",
    customerList_url:host+"api/CustomerWX/GetCustomerListByType",
+   getCustomerTypeList_url:host+"api/CustomerTypeWX/GetTypeList",
+   saveCustomer_url:host+"api/CustomerWX/SaveCustomer",
+   deleteCustomer_url:host+"api/CustomerWX/DeleteCustomer",
+   saveCustomerType_url:host+"api/CustomerTypeWX/SaveCustomerType",
    //订单相关
    saveApply_url:host+"api/ApplyWX/SaveApply",
    getApplyInfo_url:host+"api/ApplyWX/GetApplyInfo",

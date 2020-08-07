@@ -14,7 +14,7 @@ VantComponent({
     },
     zIndex: {
       type: Number,
-      value: 100,
+      value: 999,
     },
     actions: {
       type: Array,
