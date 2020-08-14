@@ -62,6 +62,12 @@ Page({
       },
     ]
   },
+  PickerChange(e) {
+    console.log(e);
+    this.setData({
+      index: e.detail.value
+    })
+  },
   //查询
   onSearch(){
     this.getSaleList();

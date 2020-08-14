@@ -1,3 +1,4 @@
+//var host="http://www.3p6n.cn";
 var host="http://39.106.112.135:9000/";
 //var host="http://localhost:62115/";
 var config={

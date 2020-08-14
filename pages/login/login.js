@@ -65,7 +65,7 @@ Page({
   login: function () {
     var that = this;
     if (that.data.userName.length == 0 || that.data.password.length == 0) {
-      Toast.success('用户名和密码不能为空');
+      Toast.fail('用户名和密码不能为空');
       return;
     } 
     wx.request({
