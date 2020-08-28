@@ -1,8 +1,6 @@
 import Toast from '../../dist/toast/toast';
 import Notify from '../../dist/notify/notify';
 const app = getApp();
-const APP_ID = 'wx7feabb69bfb3d907';//输入小程序appid  
-const APP_SECRET = '40c3f8609b20c4ef5dc00192d130478e';//输入小程序app_secret 
 var OPEN_ID = ''//储存获取到openid  
 var SESSION_KEY = ''//储存获取到session_key
 
@@ -100,17 +98,14 @@ Page({
       success: function (res) {
         wx.request({
           //获取openid接口  
-          url: 'https://api.weixin.qq.com/sns/jscode2session',
+          url:  that.data.config.getWXOpenID_url,
           data: {
-            appid: APP_ID,
-            secret: APP_SECRET,
-            js_code: res.code,
-            grant_type: 'authorization_code'
+            code:res.code
           },
           method: 'GET',
           success: function (res) {
-            OPEN_ID = res.data.openid;//获取到的openid  
-            SESSION_KEY = res.data.session_key;//获取到session_key 
+            OPEN_ID = res.data.data.openid;//获取到的openid  
+            SESSION_KEY = res.data.data.session_key;//获取到session_key 
             wx.request({
               url:  that.data.config.loginAuto_url,
               data: {
