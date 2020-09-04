@@ -68,7 +68,8 @@
     "pages/accountList/accountList",
     "pages/accountAddOrEdit/accountAddOrEdit",
     "pages/productAddOrEdit/productAddOrEdit",
-    "pages/productTypeAddOrEdit/productTypeAddOrEdit"
+    "pages/productTypeAddOrEdit/productTypeAddOrEdit",
+    "pages/register/register"
   ],
   "window": {
     "backgroundTextStyle": "light",

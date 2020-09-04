@@ -119,7 +119,7 @@ Page({
             success:function(){ 
               setTimeout(function(){ 
                 wx.navigateBack({//返回上一页
-                delta: 1
+                  delta: 1
                 })
               },1500);
             },//接口调用成功

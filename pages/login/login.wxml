@@ -11,7 +11,7 @@
  <view class="inputView"> 
   <image class="nameImage" src="../../images/name.png"></image> 
   <label class="loginLab">用户名</label> 
-  <input class="inputText" placeholder="请输入用户名" bindinput="userNameInput" /> 
+  <input class="inputText" placeholder="请输入用户名" bindinput="userNameInput" value="{{userName}}" /> 
  </view> 
  <view class="line"></view> 
   
@@ -19,13 +19,16 @@
  <view class="inputView"> 
   <image class="keyImage" src="../../images/key.png"></image> 
   <label class="loginLab">密码</label> 
-  <input class="inputText" password="true" placeholder="请输入密码" bindinput="passwordInput" /> 
+  <input class="inputText" password="true" placeholder="请输入密码" bindinput="passwordInput" value="{{password}}" /> 
  </view> 
   
  <!--按钮-->
  <view class="loginBtnView"> 
-  <button class="loginBtn" type="primary" size="{{primarySize}}" loading="{{loading}}" plain="{{plain}}" disabled="{{disabled}}" bindtap="login">登录</button> 
+  <button class="loginBtn" type="primary" size="{{primarySize}}" loading="{{loading}}" plain="{{plain}}" disabled="{{disabled}}" bindtap="login">登录</button>
  </view> 
+ <view>
+  <button class="loginBtn" type="" size="{{primarySize}}" loading="{{loading}}" plain="{{plain}}" disabled="{{disabled}}" bindtap="register">注册</button>
+ </view>
  </view> 
 </view>
  <!--登入后-->

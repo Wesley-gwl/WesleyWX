@@ -1,0 +1,64 @@
+<van-notify id="van-notify" />
+<view class="page">
+  <van-row  >
+    <van-field
+    label="手机号"
+    data-key="user.phoneNumber"
+    value="{{ user.phoneNumber }}"
+    input-align="right"
+    bind:change="onFieldChange"
+    required
+    />
+  </van-row>
+  <van-row  >
+    <van-field
+    label="密码"
+    type="password"
+    data-key="user.password"
+    value="{{ user.password }}"
+    input-align="right"
+    bind:change="onFieldChange"
+    required
+    />
+  </van-row>
+  <van-row  >
+    <van-field
+    label="确认密码"
+    type="password"
+    data-key="user.password2"
+    value="{{ user.password2 }}"
+    input-align="right"
+    bind:change="onFieldChange"
+    required
+    />
+  </van-row>
+  <van-row  >
+    <van-field
+    label="用户名"
+    data-key="user.userName"
+    value="{{ user.userName }}"
+    input-align="right"
+    bind:change="onFieldChange"
+    required
+    />
+  </van-row>
+  <van-row  >
+    <van-field
+    label="公司名"
+    data-key="user.company"
+    value="{{ user.company }}"
+    input-align="right"
+    bind:change="onFieldChange"
+    required
+    />
+  </van-row>
+  <i-divider ></i-divider>
+  <van-submit-bar
+  button-text="注册"
+  bind:submit="onSubmit"
+  />
+  <view class='cu-load load-modal' wx:if="{{loadModal}}">
+    <image src='/images/logo.png' class='png' mode='aspectFit'></image>
+    <view class='gray-text'>加载中...</view>
+  </view>
+</view>

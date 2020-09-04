@@ -77,7 +77,7 @@ Page({
       method: 'POST',
       success: function (res) {
         if (res.data.success == true) {
-          Notify({ type: 'success', message: '通知内容' });
+          Notify({ type: 'success', message: '登入成功' });
           //设置sessionkey
           wx.setStorageSync('key', SESSION_KEY);
            that.setData({
@@ -89,6 +89,12 @@ Page({
           Toast.fail(res.data.message);
         }
       }
+    })
+  },
+  //注册
+  register:function(){
+    wx.navigateTo({
+      url: '/pages/register/register',
     })
   },
   //获取openId默认登入
@@ -153,7 +159,9 @@ Page({
     });
     this.setData({
       loginHidden:false,
-      indexHidden:true
+      indexHidden:true,
+      userName:"",
+      password:""
     })
     wx.removeStorageSync('key')
   }

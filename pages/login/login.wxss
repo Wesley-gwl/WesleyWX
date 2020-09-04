@@ -112,8 +112,7 @@ page{
 .list-wrapper {
   width: 100%;
 }
-/* 横着的分割View样式 */
-/*分割线样式*/
+
 .div-line{
   background: #E0E3DA;
   width: 100%;

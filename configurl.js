@@ -2,6 +2,8 @@ var host="https://www.3p6n.cn/";
 //var host="http://localhost:62115/";
 var config={
    host,
+   //注册
+   register_url:host+"api/WXRegister/Register",
    //登入
    getWXOpenID_url:host+"api/WXLogin/GetWXOpenID",
    loginAuto_url:host+"api/WXLogin/WXAutoLogin",
